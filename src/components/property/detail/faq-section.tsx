@@ -5,18 +5,18 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import type { Project } from "@/types/catalog";
 
-export function FaqSection({ project }: { project: Project }) {
+export function FaqSection({ project, index }: { project: Project; index: string }) {
   return (
     <Section
       id="faqs"
-      tone="dark"
+      tone="paper"
       aria-label={`${project.name} questions`}
       className="scroll-mt-[9.5rem]"
     >
       <Container width="wide">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] lg:gap-20">
           <div>
-            <SectionHeading eyebrow="FAQs" title="Questions buyers ask" />
+            <SectionHeading index={index} eyebrow="FAQs" title="Questions buyers ask" />
             <div className="mt-8">
               <RequestButton subject="an answer to a question about this property">
                 Ask something else
@@ -26,8 +26,8 @@ export function FaqSection({ project }: { project: Project }) {
 
           {project.faqs.length > 0 ? (
             <Accordion
-              items={project.faqs.map((faq, index) => ({
-                id: `faq-${index}`,
+              items={project.faqs.map((faq, position) => ({
+                id: `faq-${position}`,
                 title: faq.question,
                 content: <p>{faq.answer}</p>,
               }))}

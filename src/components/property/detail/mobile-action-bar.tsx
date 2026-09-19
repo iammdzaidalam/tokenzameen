@@ -54,10 +54,10 @@ export function MobileActionBar({ project }: { project: Project }) {
 
   return (
     <div
-      data-surface="dark"
+      data-surface="light"
       inert={!visible}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-[80] border-t border-white/10 bg-carbon-950/95 backdrop-blur-xl transition-transform duration-500 ease-[var(--ease-luxe)] lg:hidden",
+        "fixed inset-x-0 bottom-0 z-[80] border-t border-[color:var(--hairline)] bg-bone-100/95 backdrop-blur-xl transition-transform duration-500 ease-[var(--ease-luxe)] lg:hidden",
         visible ? "translate-y-0" : "translate-y-full",
       )}
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
@@ -66,7 +66,7 @@ export function MobileActionBar({ project }: { project: Project }) {
         <button
           type="button"
           onClick={() => request(`details on ${project.name}`, "property-enquiry")}
-          className={cn(ITEM, "bg-gold-400 text-carbon-950")}
+          className={cn(ITEM, "bg-[color:var(--text-primary)] text-[color:var(--surface)]")}
         >
           <Send aria-hidden className="size-4" />
           Enquire
@@ -77,7 +77,7 @@ export function MobileActionBar({ project }: { project: Project }) {
             href={whatsAppHref}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(ITEM, "border-l border-white/10 text-bone-100 hover:text-gold-200")}
+            className={cn(ITEM, "border-l border-[color:var(--hairline)] text-[color:var(--text-primary)] hover:text-[color:var(--accent)]")}
           >
             <MessageCircle aria-hidden className="size-4" />
             WhatsApp
@@ -86,7 +86,7 @@ export function MobileActionBar({ project }: { project: Project }) {
           <button
             type="button"
             onClick={() => request("a WhatsApp conversation with an advisor", "whatsapp")}
-            className={cn(ITEM, "border-l border-white/10 text-bone-100 hover:text-gold-200")}
+            className={cn(ITEM, "border-l border-[color:var(--hairline)] text-[color:var(--text-primary)] hover:text-[color:var(--accent)]")}
           >
             <MessageCircle aria-hidden className="size-4" />
             WhatsApp
@@ -96,7 +96,7 @@ export function MobileActionBar({ project }: { project: Project }) {
         {callHref ? (
           <a
             href={callHref}
-            className={cn(ITEM, "border-l border-white/10 text-bone-100 hover:text-gold-200")}
+            className={cn(ITEM, "border-l border-[color:var(--hairline)] text-[color:var(--text-primary)] hover:text-[color:var(--accent)]")}
           >
             <Phone aria-hidden className="size-4" />
             Call
@@ -105,7 +105,7 @@ export function MobileActionBar({ project }: { project: Project }) {
           <button
             type="button"
             onClick={() => request("a call back from an advisor", "callback")}
-            className={cn(ITEM, "border-l border-white/10 text-bone-100 hover:text-gold-200")}
+            className={cn(ITEM, "border-l border-[color:var(--hairline)] text-[color:var(--text-primary)] hover:text-[color:var(--accent)]")}
           >
             <Phone aria-hidden className="size-4" />
             Call

@@ -41,7 +41,7 @@ export function ScoreBar({
             key={i}
             className={cn(
               "h-1.5 flex-1 rounded-full",
-              i < filled ? accentClass : "bg-white/10",
+              i < filled ? accentClass : "bg-[color:var(--hairline-strong)]",
             )}
             initial={reduced ? false : { opacity: 0, scaleX: 0.2 }}
             whileInView={{ opacity: 1, scaleX: 1 }}

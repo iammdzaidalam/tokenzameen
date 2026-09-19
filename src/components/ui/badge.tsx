@@ -6,10 +6,10 @@ const badge = cva(
   {
     variants: {
       tone: {
-        neutral: "border-[color:var(--hairline)] bg-white/5 text-[color:var(--text-secondary)]",
-        gold: "border-gold-400/35 bg-gold-400/12 text-gold-200",
-        sage: "border-sage-400/35 bg-sage-400/12 text-sage-300",
-        lotus: "border-lotus-400/35 bg-lotus-400/12 text-lotus-300",
+        neutral: "border-[color:var(--hairline)] bg-[color:var(--surface-sunken)] text-[color:var(--text-secondary)]",
+        gold: "border-gold-400/40 bg-gold-400/12 text-gold-600 [[data-surface=dark]_&]:text-gold-200",
+        sage: "border-sage-400/40 bg-sage-400/12 text-sage-500 [[data-surface=dark]_&]:text-sage-300",
+        lotus: "border-lotus-400/40 bg-lotus-400/12 text-lotus-500 [[data-surface=dark]_&]:text-lotus-300",
         success: "border-signal-success/40 bg-signal-success/12 text-signal-success",
         warning: "border-signal-warning/40 bg-signal-warning/12 text-signal-warning",
         danger: "border-signal-danger/40 bg-signal-danger/12 text-signal-danger",

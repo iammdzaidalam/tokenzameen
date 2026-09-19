@@ -1,7 +1,7 @@
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 
 const STEPS = [
@@ -54,8 +54,10 @@ export function AdvisoryJourney() {
         <Reveal>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <Eyebrow withRule>TokenZameen Advisory</Eyebrow>
-              <h2 className="mt-6 text-display-lg">From discovery to acquisition.</h2>
+              <IndexLabel index="09">TokenZameen Advisory</IndexLabel>
+              <h2 className="mt-6 max-w-[14ch] text-display-xl text-[color:var(--text-primary)]">
+                From discovery to acquisition.
+              </h2>
             </div>
             <p className="max-w-sm text-sm leading-relaxed text-[color:var(--text-secondary)] lg:pb-3 lg:text-right">
               A purchase here does not begin with a payment. It begins with a conversation, and an
@@ -73,9 +75,9 @@ export function AdvisoryJourney() {
             >
               <span
                 aria-hidden
-                className="absolute left-0 top-1.5 size-2 -translate-x-1/2 rounded-full bg-gold-400 lg:top-0 lg:-translate-y-1/2 lg:translate-x-0"
+                className="absolute left-0 top-1.5 size-2 -translate-x-1/2 rounded-full bg-[color:var(--accent)] lg:top-0 lg:-translate-y-1/2 lg:translate-x-0"
               />
-              <span className="eyebrow tabular text-[color:var(--text-muted)]">{step.index}</span>
+              <span className="eyebrow tabular text-[color:var(--accent)]">/{step.index}</span>
               <h3 className="mt-3 font-display text-base text-[color:var(--text-primary)] lg:text-[0.9375rem]">
                 {step.title}
               </h3>
@@ -87,13 +89,15 @@ export function AdvisoryJourney() {
         </RevealGroup>
 
         <Reveal className="mt-16 border-t border-[color:var(--hairline)] pt-14 text-center lg:mt-24 lg:pt-20">
-          <h3 className="mx-auto max-w-[18ch] text-display-md">Not sure where to start?</h3>
+          <h3 className="mx-auto max-w-[18ch] text-display-md text-[color:var(--text-primary)]">
+            Not sure where to start?
+          </h3>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[color:var(--text-secondary)]">
             Tell us your requirements — budget, location, property type, purpose and timeline — and
             a TokenZameen advisor will help you navigate the collection.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <Button href="/purchase/properties" size="lg" className="w-full sm:w-auto">
+            <Button href="/purchase/properties" variant="solid" size="lg" className="w-full sm:w-auto">
               Find Your Property
             </Button>
             <Button href="/advisory" variant="secondary" size="lg" className="w-full sm:w-auto">

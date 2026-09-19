@@ -42,5 +42,6 @@ next-env.d.ts
 
 # local env
 .env*.local
+!.env.example
 .vercel
 .next-profiles

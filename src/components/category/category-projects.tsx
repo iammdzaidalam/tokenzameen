@@ -4,10 +4,9 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { PropertyCard } from "@/components/property/property-card";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { AccentScope } from "@/components/category/accent-scope";
 import { CategoryInterest } from "@/components/category/category-interest";
 import { SectionHead } from "@/components/category/section-head";
-import { accentText } from "@/components/category/accent";
-import { cn } from "@/lib/cn";
 import type { Category, Project } from "@/types/catalog";
 
 const WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
@@ -18,17 +17,19 @@ function countWord(count: number): string {
 
 export function CategoryProjects({
   category,
+  index,
   projects,
   featured = null,
 }: {
   category: Category;
+  index: string;
   projects: Project[];
   featured?: Project | null;
 }) {
   const total = projects.length + (featured ? 1 : 0);
 
   if (total === 0) {
-    return <CategoryInterest category={category} />;
+    return <CategoryInterest category={category} index={index} />;
   }
 
   const filterHref = `/purchase/properties?category=${category.slug}`;
@@ -49,67 +50,66 @@ export function CategoryProjects({
       };
 
   return (
-    <Section id="collection" tone="darker" space="lg" aria-labelledby="collection-heading">
+    <Section id="collection" tone="bone" space="lg" aria-labelledby="collection-heading">
       <Container width="wide">
-        <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
-          <SectionHead
-            id="collection-heading"
-            eyebrow="The collection"
-            title={heading.title}
-            lede={heading.lede}
-            accent={category.accent}
-            size="md"
-          />
+        <AccentScope accent={category.accent} tone="light">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <SectionHead
+              index={index}
+              id="collection-heading"
+              eyebrow="The collection"
+              title={heading.title}
+              lede={heading.lede}
+              size="md"
+            />
 
-          <Reveal mode="fade" delay={0.15}>
-            <Link
-              href={filterHref}
-              className={cn(
-                "group inline-flex items-center gap-2 text-sm underline-offset-[6px] transition-opacity hover:underline hover:opacity-80",
-                accentText(category.accent),
-              )}
-            >
-              Open {category.shortName} in the discovery engine
-              <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
-          </Reveal>
-        </div>
+            <Reveal mode="fade" delay={0.15} className="lg:pb-2">
+              <Link
+                href={filterHref}
+                className="group inline-flex min-h-11 items-center gap-2 text-sm text-[color:var(--text-primary)] underline decoration-[color:var(--accent)] decoration-1 underline-offset-[6px] transition-opacity duration-300 hover:opacity-70"
+              >
+                Open {category.shortName} in the discovery engine
+                <ArrowUpRight className="size-4 text-[color:var(--accent)] transition-transform duration-300 ease-[var(--ease-luxe)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </Reveal>
+          </div>
 
-        {projects.length === 0 ? (
-          <Reveal className="mt-12 rounded-panel border border-[color:var(--hairline)] bg-[color:var(--surface-raised)] p-8 sm:p-10">
-            <p className="max-w-2xl text-pretty leading-relaxed text-[color:var(--text-secondary)]">
-              More are in review. We would rather publish one project we can stand behind than pad a
-              page — when the next one clears, it appears here and in the discovery engine on the same
-              day.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/purchase/properties"
-                className="text-sm text-[color:var(--text-primary)] underline underline-offset-4 hover:opacity-80"
-              >
-                Browse every collection
-              </Link>
-              <Link
-                href="/advisory"
-                className="text-sm text-[color:var(--text-secondary)] underline underline-offset-4 hover:text-[color:var(--text-primary)]"
-              >
-                Tell an advisor what you are looking for
-              </Link>
-            </div>
-          </Reveal>
-        ) : projects.length === 1 ? (
-          <Reveal className="mt-12">
-            <PropertyCard project={projects[0]} variant="feature" />
-          </Reveal>
-        ) : (
-          <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project) => (
-              <RevealItem key={project.slug} as="div" className="h-full">
-                <PropertyCard project={project} className="h-full" />
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        )}
+          {projects.length === 0 ? (
+            <Reveal className="mt-12 rounded-card bg-[color:var(--surface)] p-8 sm:p-10">
+              <p className="max-w-2xl text-pretty leading-relaxed text-[color:var(--text-secondary)]">
+                More are in review. We would rather publish one project we can stand behind than pad a
+                page — when the next one clears, it appears here and in the discovery engine on the
+                same day.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+                <Link
+                  href="/purchase/properties"
+                  className="text-sm text-[color:var(--text-primary)] underline decoration-[color:var(--accent)] underline-offset-4 hover:opacity-70"
+                >
+                  Browse every collection
+                </Link>
+                <Link
+                  href="/advisory"
+                  className="text-sm text-[color:var(--text-secondary)] underline underline-offset-4 hover:text-[color:var(--text-primary)]"
+                >
+                  Tell an advisor what you are looking for
+                </Link>
+              </div>
+            </Reveal>
+          ) : projects.length === 1 ? (
+            <Reveal className="mt-12">
+              <PropertyCard project={projects[0]} variant="feature" />
+            </Reveal>
+          ) : (
+            <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {projects.map((project) => (
+                <RevealItem key={project.slug} className="h-full">
+                  <PropertyCard project={project} className="h-full" />
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          )}
+        </AccentScope>
       </Container>
     </Section>
   );

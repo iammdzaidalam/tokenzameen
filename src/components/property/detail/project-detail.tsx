@@ -7,7 +7,6 @@ import { DocumentsSection } from "@/components/property/detail/documents-section
 import { FaqSection } from "@/components/property/detail/faq-section";
 import { GallerySection } from "@/components/property/detail/gallery-section";
 import { HighlightsSection } from "@/components/property/detail/highlights-section";
-import { IntelligenceSection } from "@/components/property/detail/intelligence-section";
 import { InventorySection } from "@/components/property/detail/inventory-section";
 import { InvestmentSection } from "@/components/property/detail/investment-section";
 import { LocationSection } from "@/components/property/detail/location-section";
@@ -16,6 +15,7 @@ import { OverviewSection } from "@/components/property/detail/overview-section";
 import { PendingInformationSection } from "@/components/property/detail/pending-information";
 import { RelatedSection } from "@/components/property/detail/related-section";
 import { DetailRequestProvider } from "@/components/property/detail/request-context";
+import { sectionIndexer, showsEmiCalculator, showsRoiCalculator } from "@/components/property/detail/sections";
 import { SiteVisitSection } from "@/components/property/detail/site-visit-section";
 import { StructuredData } from "@/components/property/detail/structured-data";
 import { ViewRecorder } from "@/components/property/detail/view-recorder";
@@ -27,10 +27,13 @@ export function ProjectDetail({
   siteVisitForm,
 }: {
   project: Project;
-  /** Mount the lead form here once @/components/forms exists. */
+  /** Replaces the default `EnquiryForm` / `SiteVisitForm` in the closing band. */
   enquiryForm?: React.ReactNode;
   siteVisitForm?: React.ReactNode;
 }) {
+  const next = sectionIndexer();
+  const hasCalculator = showsEmiCalculator(project) || showsRoiCalculator(project);
+
   return (
     <DetailRequestProvider projectSlug={project.slug} projectName={project.name}>
       <StructuredData project={project} />
@@ -39,25 +42,25 @@ export function ProjectDetail({
       <DetailHero project={project} />
       <DetailRail project={project} />
 
-      <OverviewSection project={project} />
-      <HighlightsSection project={project} />
-      <GallerySection name={project.name} gallery={project.gallery} />
-      <LocationSection project={project} />
-      <AmenitiesSection project={project} />
-      <InventorySection project={project} />
-      <IntelligenceSection project={project} />
-      <CalculatorSection project={project} />
-      <InvestmentSection project={project} />
-      <DocumentsSection project={project} />
-      <PendingInformationSection project={project} />
-      <DeveloperSection project={project} />
-      <FaqSection project={project} />
+      <OverviewSection project={project} index={next()} />
+      <HighlightsSection project={project} index={next()} />
+      <GallerySection name={project.name} gallery={project.gallery} index={next()} />
+      <LocationSection project={project} index={next()} />
+      <AmenitiesSection project={project} index={next()} />
+      <InventorySection project={project} index={next()} />
+      <InvestmentSection project={project} index={next()} />
+      {hasCalculator ? <CalculatorSection project={project} index={next()} /> : null}
+      <DocumentsSection project={project} index={next()} />
+      <PendingInformationSection project={project} index={next()} />
+      <DeveloperSection project={project} index={next()} />
+      <FaqSection project={project} index={next()} />
       <SiteVisitSection
         project={project}
+        index={next()}
         siteVisitForm={siteVisitForm}
         enquiryForm={enquiryForm}
       />
-      <RelatedSection project={project} />
+      <RelatedSection project={project} index={next()} />
 
       <MobileActionBar project={project} />
     </DetailRequestProvider>

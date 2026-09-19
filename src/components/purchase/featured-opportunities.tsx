@@ -1,10 +1,9 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
 import { PropertyCard } from "@/components/property/property-card";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 import type { Project } from "@/types/catalog";
 
@@ -18,13 +17,15 @@ export function FeaturedOpportunities({
   if (projects.length === 0) return null;
 
   return (
-    <Section id="opportunities" aria-label="Featured opportunities" space="xl">
+    <Section id="opportunities" tone="bone" aria-label="Featured opportunities" space="xl">
       <Container width="wide">
         <Reveal>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <Eyebrow withRule>Featured Opportunities</Eyebrow>
-              <h2 className="mt-6 text-display-lg">Projects currently available.</h2>
+              <IndexLabel index="05">Featured opportunities</IndexLabel>
+              <h2 className="mt-6 text-display-lg text-[color:var(--text-primary)]">
+                Projects currently available.
+              </h2>
             </div>
             <p className="text-sm text-[color:var(--text-secondary)] sm:pb-3 sm:text-right">
               <CountUp to={total} className="tabular text-[color:var(--text-primary)]" /> projects
@@ -47,13 +48,9 @@ export function FeaturedOpportunities({
         </Reveal>
 
         <Reveal>
-          <Link
-            href="/purchase/properties"
-            className="mt-10 inline-flex min-h-11 items-center gap-2 text-sm text-[color:var(--accent)] transition-opacity duration-300 hover:opacity-80"
-          >
+          <Button href="/purchase/properties" variant="secondary" size="lg" className="mt-10">
             View all properties
-            <ArrowUpRight className="size-4" />
-          </Link>
+          </Button>
         </Reveal>
       </Container>
     </Section>

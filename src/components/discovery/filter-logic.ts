@@ -1,7 +1,7 @@
-import { BUDGET_CEILING, BUDGET_FLOOR, categories } from "@/lib/catalog";
+import { BUDGET_CEILING, BUDGET_FLOOR } from "@/lib/catalog";
 import {
   EMPTY_FILTERS,
-  filterProjects,
+  countMatching,
   parseSearchQuery,
   type FilterState,
   type ParsedQuery,
@@ -15,53 +15,11 @@ import {
   SPECIAL_TAG_LABEL,
 } from "@/lib/labels";
 import type {
-  Availability,
   BedroomConfig,
   CategorySlug,
   Project,
   PropertyType,
-  Purpose,
-  SpecialTag,
 } from "@/types/catalog";
-
-export const CATEGORY_OPTIONS: readonly CategorySlug[] = categories.map((category) => category.slug);
-
-export const TYPE_OPTIONS: readonly PropertyType[] = [
-  "apartment",
-  "villa",
-  "commercial",
-  "sustainable-villa",
-  "spiritual-residence",
-  "plot",
-];
-
-export const PURPOSE_OPTIONS: readonly Purpose[] = [
-  "self-use",
-  "investment",
-  "second-home",
-  "rental-income",
-  "capital-appreciation",
-  "commercial-income",
-  "land-banking",
-];
-
-export const AVAILABILITY_OPTIONS: readonly Availability[] = [
-  "available",
-  "limited",
-  "coming-soon",
-  "sold-out",
-];
-
-export const TAG_OPTIONS: readonly SpecialTag[] = [
-  "pre-leased",
-  "high-rental-potential",
-  "early-access",
-  "premium-location",
-  "sustainable",
-  "investment-opportunity",
-];
-
-export const BEDROOM_OPTIONS: readonly BedroomConfig[] = ["1bhk", "2bhk", "3bhk", "4bhk", "5plus"];
 
 export const BUDGET_STEP = 250_000;
 
@@ -90,14 +48,6 @@ export interface EmptySuggestion {
 
 function unique<T>(values: T[]): T[] {
   return [...new Set(values)];
-}
-
-export function countMatching(
-  projects: Project[],
-  filters: FilterState,
-  patch: Partial<FilterState>,
-): number {
-  return filterProjects(projects, { ...filters, ...patch }).length;
 }
 
 export function budgetLabel(min: number, max: number): string {

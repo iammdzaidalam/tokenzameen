@@ -8,7 +8,7 @@ import { Section } from "@/components/ui/section";
 import { DISCLAIMERS } from "@/content/config";
 import type { Project } from "@/types/catalog";
 
-export function InventorySection({ project }: { project: Project }) {
+export function InventorySection({ project, index }: { project: Project; index: string }) {
   const units = visibleInventory(project);
   const groups = toInventoryGroups(units);
   const plots = plottedUnits(units);
@@ -20,12 +20,13 @@ export function InventorySection({ project }: { project: Project }) {
   return (
     <Section
       id="inventory"
-      tone="dark"
+      tone="paper"
       aria-label={`${project.name} inventory`}
       className="scroll-mt-[9.5rem]"
     >
       <Container width="wide">
         <SectionHeading
+          index={index}
           eyebrow="Inventory"
           title={title}
           lead={
@@ -48,7 +49,7 @@ export function InventorySection({ project }: { project: Project }) {
             title="Availability released on request"
             body="The developer has not released a live availability sheet for this project. An advisor can send you the current position, unit by unit, along with what is genuinely open today."
             action={
-              <RequestButton subject="the current availability sheet" source="request-price" variant="primary">
+              <RequestButton subject="the current availability sheet" source="request-price" variant="solid">
                 Request availability
               </RequestButton>
             }

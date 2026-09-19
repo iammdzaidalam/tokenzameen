@@ -9,11 +9,7 @@ export interface ControlProps {
   "aria-describedby": string | undefined;
 }
 
-/**
- * Wires the shared `Field` to an accessible error: the message gets an id and
- * the control points at it. `Field`'s own `error` prop is left unused because it
- * renders the message without an id to reference.
- */
+/** Wires the shared `Field` to its control: matching ids for the label and the error. */
 export function FormField({
   label,
   hint,
@@ -38,7 +34,9 @@ export function FormField({
       label={label}
       htmlFor={id}
       required={required}
-      hint={error ? undefined : hint}
+      hint={hint}
+      error={error}
+      errorId={errorId}
       className={className}
     >
       {children({
@@ -46,11 +44,7 @@ export function FormField({
         "aria-invalid": error ? true : undefined,
         "aria-describedby": error ? errorId : hint ? hintId : undefined,
       })}
-      {error ? (
-        <p id={errorId} role="alert" className="text-xs text-signal-danger">
-          {error}
-        </p>
-      ) : hint ? (
+      {!error && hint ? (
         <span id={hintId} className="sr-only">
           {hint}
         </span>
@@ -84,9 +78,9 @@ export function FieldSet({
       aria-invalid={error ? true : undefined}
       aria-describedby={error ? errorId : undefined}
     >
-      <legend className="text-xs font-medium tracking-wide text-steel-300">
+      <legend className="text-xs font-medium tracking-wide text-[color:var(--text-secondary)]">
         {legend}
-        {required ? <span className="ml-1 text-gold-400">*</span> : null}
+        {required ? <span className="ml-1 text-[color:var(--accent)]">*</span> : null}
       </legend>
       <div className="mt-2 flex flex-wrap gap-2">{children}</div>
       {error ? (

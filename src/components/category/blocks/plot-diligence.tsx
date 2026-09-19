@@ -1,9 +1,9 @@
 import { Container } from "@/components/ui/container";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { AccentScope } from "@/components/category/accent-scope";
 import { SectionHead } from "@/components/category/section-head";
-import { accentText } from "@/components/category/accent";
-import { cn } from "@/lib/cn";
 import type { Accent } from "@/components/category/accent";
 
 const CHECKS = [
@@ -25,56 +25,41 @@ const CHECKS = [
   },
   {
     title: "Horizon",
-    body: "Land pays for patience, so the question is what has to happen around the plot for it to be worth holding: who has committed to it, what is funded, and on whose timeline. A plot bought for a horizon nobody is working towards is simply a long wait.",
-    wide: true,
+    body: "Land pays for patience, so the question is what has to happen around the plot for it to be worth holding: who has committed to it, what is funded, and on whose timeline.",
   },
 ];
 
-export function PlotDiligence({ accent }: { accent: Accent }) {
+export function PlotDiligence({ accent, index }: { accent: Accent; index: string }) {
   return (
-    <Section tone="light" space="lg" aria-labelledby="land-heading">
+    <Section tone="darker" space="xl" aria-labelledby="land-heading">
       <Container width="wide">
-        <SectionHead
-          id="land-heading"
-          eyebrow="What land turns on"
-          title="A plot is a legal question before it is a location."
-          lede="Buying land is the simplest transaction in real estate and the easiest to get wrong. Five things decide whether a plot is worth owning, and none of them are visible from the site."
-          accent={accent}
-          tone="light"
-        />
+        <AccentScope accent={accent} tone="dark">
+          <SectionHead
+            index={index}
+            id="land-heading"
+            eyebrow="What land turns on"
+            title="A plot is a legal question before it is a location."
+            lede="Buying land is the simplest transaction in real estate and the easiest to get wrong. Five things decide whether a plot is worth owning, and none of them are visible from the site."
+          />
 
-        <RevealGroup className="mt-14 grid gap-x-12 gap-y-10 sm:mt-16 md:grid-cols-2 lg:gap-x-20">
-          {CHECKS.map((check, index) => (
-            <RevealItem
-              key={check.title}
-              className={cn(
-                "border-t border-[color:var(--hairline)] pt-6",
-                check.wide && "md:col-span-2",
-              )}
-            >
-              <div className="flex items-baseline gap-4">
-                <span className={cn("eyebrow tabular", accentText(accent, "light"))}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-display-sm text-[color:var(--text-primary)]">{check.title}</h3>
-              </div>
-              <p
-                className={cn(
-                  "mt-4 text-pretty text-[0.9375rem] leading-relaxed text-[color:var(--text-secondary)]",
-                  check.wide && "max-w-3xl",
-                )}
-              >
-                {check.body}
-              </p>
-            </RevealItem>
-          ))}
-        </RevealGroup>
+          <RevealGroup className="mt-14 grid gap-x-8 gap-y-12 border-t border-[color:var(--hairline)] pt-10 sm:mt-20 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {CHECKS.map((check, position) => (
+              <RevealItem key={check.title}>
+                <IndexLabel index={String(position + 1).padStart(2, "0")}>Check</IndexLabel>
+                <h3 className="mt-4 text-display-sm text-[color:var(--text-primary)]">{check.title}</h3>
+                <p className="mt-4 text-pretty text-[0.9375rem] leading-relaxed text-[color:var(--text-secondary)]">
+                  {check.body}
+                </p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
 
-        <p className="mt-14 max-w-3xl text-sm leading-relaxed text-[color:var(--text-secondary)]">
-          Each plotted development below lists what its owner has supplied and what is still being
-          compiled. Where a document has not reached us, the page says so rather than implying it
-          exists.
-        </p>
+          <p className="mt-16 max-w-3xl border-t border-[color:var(--hairline)] pt-6 text-sm leading-relaxed text-[color:var(--text-secondary)]">
+            Each plotted development below lists what its owner has supplied and what is still being
+            compiled. Where a document has not reached us, the page says so rather than implying it
+            exists.
+          </p>
+        </AccentScope>
       </Container>
     </Section>
   );

@@ -1,9 +1,9 @@
 import { Container } from "@/components/ui/container";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { AccentScope } from "@/components/category/accent-scope";
 import { SectionHead } from "@/components/category/section-head";
-import { accentText } from "@/components/category/accent";
-import { cn } from "@/lib/cn";
 import type { Accent } from "@/components/category/accent";
 
 interface Standard {
@@ -84,61 +84,51 @@ const VILLAS: Standard[] = [
 export function FormatStandards({
   variant,
   accent,
+  index,
 }: {
   variant: "apartments" | "villas";
   accent: Accent;
+  index: string;
 }) {
   const standards = variant === "apartments" ? APARTMENTS : VILLAS;
-  const title =
-    variant === "apartments"
-      ? "What we ask of an apartment."
-      : "What we ask of a villa.";
+  const title = variant === "apartments" ? "What we ask of an apartment." : "What we ask of a villa.";
   const lede =
     variant === "apartments"
       ? "Curation is mostly a question set. Before an apartment project joins the collection, these are the questions the team works through with the developer — and the ones an advisor will answer for you, in writing."
       : "A villa is a longer commitment than a flat, and the things that go wrong are slower to surface. These are the questions the team works through before a project joins the collection.";
 
   return (
-    <Section tone="light" space="lg" aria-labelledby="standards-heading">
+    <Section tone="darker" space="xl" aria-labelledby="standards-heading">
       <Container width="wide">
-        <SectionHead
-          id="standards-heading"
-          eyebrow="The standard"
-          title={title}
-          lede={lede}
-          accent={accent}
-          tone="light"
-        />
+        <AccentScope accent={accent} tone="dark">
+          <SectionHead index={index} id="standards-heading" eyebrow="The standard" title={title} lede={lede} />
 
-        <RevealGroup className="mt-14 grid gap-x-12 gap-y-12 sm:mt-16 md:grid-cols-2 lg:gap-x-20">
-          {standards.map((standard, index) => (
-            <RevealItem key={standard.title}>
-              <div className="flex items-baseline gap-4">
-                <span className={cn("eyebrow tabular", accentText(accent, "light"))}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-display-sm text-[color:var(--text-primary)]">{standard.title}</h3>
-              </div>
-              <ul className="mt-6 space-y-4 border-t border-[color:var(--hairline)] pt-6">
-                {standard.questions.map((question) => (
-                  <li
-                    key={question}
-                    className="flex gap-3 text-pretty text-[0.9375rem] leading-relaxed text-[color:var(--text-secondary)]"
-                  >
-                    <span aria-hidden className={cn("mt-2.5 h-px w-4 shrink-0", accentText(accent, "light"), "bg-current")} />
-                    {question}
-                  </li>
-                ))}
-              </ul>
-            </RevealItem>
-          ))}
-        </RevealGroup>
+          <RevealGroup className="mt-14 grid gap-x-10 gap-y-12 border-t border-[color:var(--hairline)] pt-10 sm:mt-20 md:grid-cols-2 xl:grid-cols-4">
+            {standards.map((standard, position) => (
+              <RevealItem key={standard.title}>
+                <IndexLabel index={String(position + 1).padStart(2, "0")}>Question set</IndexLabel>
+                <h3 className="mt-4 text-display-sm text-[color:var(--text-primary)]">{standard.title}</h3>
+                <ul className="mt-6 space-y-4">
+                  {standard.questions.map((question) => (
+                    <li
+                      key={question}
+                      className="flex gap-3 text-pretty text-[0.9375rem] leading-relaxed text-[color:var(--text-secondary)]"
+                    >
+                      <span aria-hidden className="mt-2.5 h-px w-4 shrink-0 bg-[color:var(--accent)]" />
+                      {question}
+                    </li>
+                  ))}
+                </ul>
+              </RevealItem>
+            ))}
+          </RevealGroup>
 
-        <p className="mt-14 max-w-3xl border-t border-[color:var(--hairline)] pt-6 text-sm leading-relaxed text-[color:var(--text-secondary)]">
-          We publish an answer only where documentation supports it. Where a project owner has not
-          supplied something yet, the project page lists it as information being compiled rather than
-          filling the gap.
-        </p>
+          <p className="mt-16 max-w-3xl border-t border-[color:var(--hairline)] pt-6 text-sm leading-relaxed text-[color:var(--text-secondary)]">
+            We publish an answer only where documentation supports it. Where a project owner has not
+            supplied something yet, the project page lists it as information being compiled rather than
+            filling the gap.
+          </p>
+        </AccentScope>
       </Container>
     </Section>
   );

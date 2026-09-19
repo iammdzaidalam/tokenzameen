@@ -7,6 +7,7 @@ import {
   leadEvents,
   leads,
   siteVisits,
+  subscribers,
   type Advisor,
   type AnalyticsEvent,
   type AnalyticsEventType,
@@ -21,6 +22,7 @@ import {
   type LeadStatus,
   type SiteVisit,
   type SiteVisitStatus,
+  type Subscriber,
 } from "./schema";
 import { generateReference, scoreLead } from "@/lib/leads";
 
@@ -671,6 +673,53 @@ export async function getAnalyticsSummary(
         .filter((row): row is { projectSlug: string; value: number } => row.projectSlug !== null)
         .map((row) => ({ projectSlug: row.projectSlug, views: row.value })),
     });
+  });
+}
+
+export interface SubscribeMeta {
+  source?: string;
+  consent: boolean;
+  ipHash?: string | null;
+  userAgent?: string | null;
+}
+
+/**
+ * Keyed on the lowercased email. Subscribing twice is a success, and
+ * re-subscribing after an unsubscribe clears `unsubscribedAt`.
+ */
+export async function subscribe(email: string, meta: SubscribeMeta): Promise<Result<Subscriber>> {
+  return withDb("subscribe", async (db) => {
+    const normalised = email.trim().toLowerCase();
+    const rows = await db
+      .insert(subscribers)
+      .values({
+        email: normalised,
+        source: meta.source ?? "footer",
+        consent: meta.consent,
+        ipHash: meta.ipHash ?? null,
+        userAgent: meta.userAgent ?? null,
+      })
+      .onConflictDoUpdate({
+        target: subscribers.email,
+        set: { consent: meta.consent, unsubscribedAt: null },
+      })
+      .returning();
+    const row = rows[0];
+    if (!row) return fail({ code: "query-failed", message: "The subscriber was not written." });
+    return ok(row);
+  });
+}
+
+export async function unsubscribe(email: string): Promise<Result<Subscriber>> {
+  return withDb("unsubscribe", async (db) => {
+    const rows = await db
+      .update(subscribers)
+      .set({ unsubscribedAt: new Date() })
+      .where(eq(subscribers.email, email.trim().toLowerCase()))
+      .returning();
+    const row = rows[0];
+    if (!row) return fail({ code: "not-found", message: "No subscriber with that email." });
+    return ok(row);
   });
 }
 

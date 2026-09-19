@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { DocumentRequestForm } from "@/components/forms/document-request-form";
 import { Button } from "@/components/ui/button";
 import { Overlay } from "@/components/ui/overlay";
@@ -20,8 +21,9 @@ export function DocumentRequestButton({
 
   return (
     <>
-      <Button variant="secondary" size="sm" full onClick={() => setOpen(true)}>
+      <Button variant="ghost" size="sm" onClick={() => setOpen(true)}>
         {label}
+        <ArrowUpRight aria-hidden className="size-3.5" />
       </Button>
       <Overlay
         open={open}

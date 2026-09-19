@@ -1,9 +1,9 @@
 import { Container } from "@/components/ui/container";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
-import { RevealGroup, RevealItem } from "@/components/motion/reveal";
-import { SectionHead } from "@/components/category/section-head";
-import { accentRule, accentText } from "@/components/category/accent";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { AccentScope } from "@/components/category/accent-scope";
 import { cn } from "@/lib/cn";
 import type { Category, CategorySlug } from "@/types/catalog";
 
@@ -24,61 +24,75 @@ const LEDE: Record<CategorySlug, string> = {
 
 export function CategoryAudience({
   category,
+  index,
   quiet = false,
 }: {
   category: Category;
+  index: string;
   quiet?: boolean;
 }) {
   return (
-    <Section tone="darker" space={quiet ? "xl" : "lg"} aria-labelledby="audience-heading">
+    <Section tone="paper" space={quiet ? "xl" : "lg"} aria-labelledby="audience-heading">
       <Container width="wide">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:gap-20">
-          <SectionHead
-            id="audience-heading"
-            eyebrow="Who this is for"
-            title={quiet ? "Who this is for" : "Who this is for."}
-            lede={LEDE[category.slug]}
-            accent={category.accent}
-            size="md"
-            quiet={quiet}
-            className="lg:sticky lg:top-28 lg:self-start"
-          />
+        <AccentScope accent={category.accent} tone="light">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] lg:gap-20">
+            <Reveal duration={quiet ? 1 : 0.7}>
+              <IndexLabel index={index}>Who this is for</IndexLabel>
+              <h2 id="audience-heading" className="sr-only">
+                Who this is for
+              </h2>
+            </Reveal>
 
-          <div>
-            <RevealGroup as="ul" stagger={quiet ? 0.14 : 0.07} className="border-t border-[color:var(--hairline)]">
-              {category.audience.map((item, index) => (
-                <RevealItem
-                  as="li"
-                  key={item}
-                  className="flex items-baseline gap-5 border-b border-[color:var(--hairline)] py-5 sm:gap-8 sm:py-7"
+            <div>
+              <Reveal duration={quiet ? 1 : 0.7}>
+                <p
+                  className={cn(
+                    "max-w-3xl text-pretty font-display text-2xl leading-snug tracking-tight text-[color:var(--text-primary)] sm:text-3xl lg:text-[2.5rem] lg:leading-[1.15]",
+                    quiet && "font-normal leading-normal lg:leading-[1.3]",
+                  )}
                 >
-                  <span className={cn("eyebrow shrink-0 tabular", accentText(category.accent))}>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className={cn(
-                      "text-pretty font-display text-xl text-[color:var(--text-primary)] sm:text-2xl",
-                      quiet && "font-normal",
-                    )}
-                  >
-                    {item}
-                  </span>
-                </RevealItem>
-              ))}
-            </RevealGroup>
+                  {LEDE[category.slug]}
+                </p>
+              </Reveal>
 
-            <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-4">
-              <span aria-hidden className={cn("h-px w-10", accentRule(category.accent, "dark"))} />
-              <p className="max-w-md text-sm text-[color:var(--text-secondary)]">
-                Brief not on this list? An advisor will tell you plainly whether this collection holds
-                anything for you.
-              </p>
-              <Button href="/advisory" variant="link" size="sm">
-                Talk to an advisor
-              </Button>
+              <RevealGroup
+                as="ul"
+                stagger={quiet ? 0.14 : 0.07}
+                className="mt-12 border-t border-[color:var(--hairline)] sm:mt-16"
+              >
+                {category.audience.map((item, position) => (
+                  <RevealItem
+                    as="li"
+                    key={item}
+                    className="grid grid-cols-[5.5rem_minmax(0,1fr)] items-baseline gap-4 border-b border-[color:var(--hairline)] py-5 sm:grid-cols-[7rem_minmax(0,1fr)] sm:py-6"
+                  >
+                    <IndexLabel index={String(position + 1).padStart(2, "0")} dot={false}>
+                      Brief
+                    </IndexLabel>
+                    <span
+                      className={cn(
+                        "text-pretty font-display text-lg text-[color:var(--text-primary)] sm:text-xl",
+                        quiet && "font-normal",
+                      )}
+                    >
+                      {item}
+                    </span>
+                  </RevealItem>
+                ))}
+              </RevealGroup>
+
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <p className="max-w-md text-sm text-[color:var(--text-secondary)]">
+                  Brief not on this list? An advisor will tell you plainly whether this collection holds
+                  anything for you.
+                </p>
+                <Button href="/advisory" variant="link" size="sm">
+                  Talk to an advisor
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        </AccentScope>
       </Container>
     </Section>
   );

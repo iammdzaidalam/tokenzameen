@@ -1,8 +1,7 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 
 const FACETS = [
@@ -40,11 +39,11 @@ const FACETS = [
 
 export function VerifiedSection() {
   return (
-    <Section id="verified" tone="light" aria-label="TokenZameen Verified" space="xl">
+    <Section id="verified" tone="dark" aria-label="TokenZameen Verified" space="xl">
       <Container width="wide">
         <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
           <Reveal>
-            <Eyebrow withRule>TokenZameen Verified</Eyebrow>
+            <IndexLabel index="04">TokenZameen Verified</IndexLabel>
             <h2 className="mt-6 max-w-[13ch] text-display-lg uppercase text-[color:var(--text-primary)]">
               Not every property belongs on TokenZameen.
             </h2>
@@ -60,13 +59,9 @@ export function VerifiedSection() {
               Where a fact has not been independently checked, we say so rather than mark it
               verified.
             </p>
-            <Link
-              href="/verified"
-              className="group mt-7 inline-flex min-h-11 items-center gap-2 text-sm text-[color:var(--text-primary)] underline decoration-[color:var(--accent)] decoration-1 underline-offset-[6px] transition-opacity duration-300 hover:opacity-70"
-            >
+            <Button href="/verified" variant="secondary" size="md" className="mt-8">
               How TokenZameen Verified works
-              <ArrowUpRight className="size-4 text-[color:var(--accent)] transition-transform duration-300 ease-[var(--ease-luxe)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
+            </Button>
           </Reveal>
         </div>
 
@@ -81,11 +76,13 @@ export function VerifiedSection() {
               key={facet.index}
               className="border-b border-[color:var(--hairline)] py-8"
             >
-              <span className="eyebrow tabular text-[color:var(--accent)]">{facet.index}</span>
-              <h3 className="mt-4 text-display-sm text-[color:var(--text-primary)]">
-                {facet.title}
+              <h3 className="flex flex-col gap-3">
+                <span className="eyebrow tabular text-[color:var(--accent)]">/{facet.index}</span>
+                <span className="text-display-sm text-[color:var(--text-primary)]">
+                  {facet.title}
+                </span>
               </h3>
-              <p className="mt-3 max-w-[38ch] text-sm leading-relaxed text-[color:var(--text-secondary)]">
+              <p className="mt-4 max-w-[38ch] text-sm leading-relaxed text-[color:var(--text-secondary)]">
                 {facet.body}
               </p>
             </RevealItem>

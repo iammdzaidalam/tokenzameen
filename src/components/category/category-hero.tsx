@@ -3,10 +3,10 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 import { Reveal, RevealLines } from "@/components/motion/reveal";
-import { accentRule, accentText, accentWash } from "@/components/category/accent";
+import { AccentScope } from "@/components/category/accent-scope";
 import { cn } from "@/lib/cn";
 import type { Category } from "@/types/catalog";
 
@@ -37,101 +37,101 @@ export function CategoryHero({
   const headlineLines = toLines(category.heroHeadline);
 
   return (
-    <Section
-      tone="dark"
-      space="none"
-      aria-label={`${category.name} introduction`}
-      className={cn(
-        "grain isolate flex items-end overflow-hidden",
-        quiet
-          ? "min-h-[40rem] sm:min-h-[46rem] lg:min-h-[92svh]"
-          : "min-h-[36rem] sm:min-h-[42rem] lg:min-h-[86svh]",
-      )}
-    >
-      <Image
-        src={category.hero.src}
-        alt={category.hero.alt}
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover"
-      />
-      <div
-        aria-hidden
-        className={cn(
-          "absolute inset-0 -z-10 bg-gradient-to-t",
-          quiet
-            ? "from-carbon-950 via-carbon-950/70 to-carbon-950/35"
-            : "from-carbon-950 via-carbon-950/80 to-carbon-950/45",
-        )}
-      />
-      <div
-        aria-hidden
-        className={cn("absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t to-transparent", accentWash(category.accent))}
-      />
+    <Section tone="bone" space="none" aria-label={`${category.name} introduction`} className="pb-4 pt-6 sm:pt-8">
+      <Container width="wide">
+        <AccentScope accent={category.accent} tone="light">
+          <Reveal mode="fade" duration={quiet ? 1 : 0.6}>
+            <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
+              <nav aria-label="Breadcrumb">
+                <ol className="flex flex-wrap items-center gap-1.5 text-xs text-[color:var(--text-secondary)]">
+                  <li>
+                    <Link href="/purchase" className="transition-colors hover:text-[color:var(--text-primary)]">
+                      Purchase
+                    </Link>
+                  </li>
+                  <li aria-hidden className="flex items-center">
+                    <ChevronRight className="size-3.5 opacity-50" />
+                  </li>
+                  <li className="text-[color:var(--text-primary)]" aria-current="page">
+                    {category.name}
+                  </li>
+                </ol>
+              </nav>
+              <p className="eyebrow text-[color:var(--text-muted)]">{countLabel(projectCount)}</p>
+            </div>
 
-      <Container width="wide" className="relative pb-16 pt-[calc(72px+3.5rem)] sm:pb-24 lg:pb-28">
-        <Reveal mode="fade" duration={quiet ? 1.1 : 0.6}>
-          <nav aria-label="Breadcrumb">
-            <ol className="flex flex-wrap items-center gap-1.5 text-xs text-steel-300">
-              <li>
-                <Link href="/purchase" className="transition-colors hover:text-bone-100">
-                  Purchase
-                </Link>
-              </li>
-              <li aria-hidden className="flex items-center">
-                <ChevronRight className="size-3.5 opacity-50" />
-              </li>
-              <li className="text-bone-100" aria-current="page">
-                {category.name}
-              </li>
-            </ol>
-          </nav>
-        </Reveal>
+            <div className="mt-6 sm:mt-8">
+              <IndexLabel index={category.index}>{category.name}</IndexLabel>
+            </div>
+          </Reveal>
+        </AccentScope>
 
-        <div className={cn("mt-8", quiet && "mt-12")}>
-          <Eyebrow className={accentText(category.accent)}>
-            {category.index} — {category.name}
-          </Eyebrow>
-        </div>
-
-        <h1
+        <div
+          data-surface="dark"
           className={cn(
-            "mt-6 max-w-5xl text-balance",
-            quiet ? "text-display-xl font-normal" : "text-display-2xl",
+            "grain relative mt-5 flex overflow-hidden rounded-frame bg-carbon-950 text-bone-100",
+            quiet
+              ? "min-h-[30rem] sm:min-h-[62svh] lg:min-h-[70svh]"
+              : "min-h-[28rem] sm:min-h-[60svh] lg:min-h-[68svh]",
           )}
         >
-          <RevealLines lines={headlineLines} delay={quiet ? 0.2 : 0.05} />
-        </h1>
-
-        <Reveal mode="fade" delay={quiet ? 0.7 : 0.35} duration={quiet ? 1.2 : 0.8}>
-          <p
+          <Image
+            src={category.hero.src}
+            alt={category.hero.alt}
+            fill
+            priority
+            sizes="(max-width: 1664px) 100vw, 1664px"
+            className="object-cover"
+          />
+          <div
+            aria-hidden
             className={cn(
-              "mt-8 max-w-2xl text-balance text-base text-steel-200 sm:text-lg",
-              quiet && "mt-10 leading-loose",
+              "absolute inset-0 bg-gradient-to-t",
+              quiet
+                ? "from-carbon-950/85 via-carbon-950/40 to-carbon-950/15"
+                : "from-carbon-950/90 via-carbon-950/45 to-carbon-950/20",
             )}
-          >
-            {category.heroSubline}
-          </p>
+          />
 
-          <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3">
-            <span aria-hidden className={cn("h-px w-10", accentRule(category.accent))} />
-            <p className="eyebrow text-steel-300">{countLabel(projectCount)}</p>
-          </div>
-
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <Button
-              href="#collection"
-              variant={quiet ? "glass" : "primary"}
-              size="lg"
+          <div className="relative flex w-full flex-col justify-end p-6 sm:p-10 lg:p-14">
+            <h1
+              className={cn(
+                "max-w-[13ch] text-balance text-[color:var(--text-primary)]",
+                quiet ? "text-display-xl font-normal" : "text-display-2xl",
+              )}
             >
-              {projectCount === 0 ? "Register your interest" : category.cta}
-            </Button>
-            <Button href={`/purchase/properties?category=${category.slug}`} variant="secondary" size="lg">
-              Open the discovery engine
-            </Button>
+              <RevealLines lines={headlineLines} delay={quiet ? 0.2 : 0.05} />
+            </h1>
+
+            <Reveal mode="fade" delay={quiet ? 0.7 : 0.35} duration={quiet ? 1.2 : 0.8}>
+              <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+                <p
+                  className={cn(
+                    "max-w-xl text-pretty text-base text-[color:var(--text-secondary)] sm:text-lg",
+                    quiet && "leading-loose",
+                  )}
+                >
+                  {category.heroSubline}
+                </p>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <Button href="#collection" variant="solid" size="lg" className="w-full sm:w-auto">
+                    {projectCount === 0 ? "Register your interest" : category.cta}
+                  </Button>
+                  <Button
+                    href={`/purchase/properties?category=${category.slug}`}
+                    variant="glass"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
+                    Open the discovery engine
+                  </Button>
+                </div>
+              </div>
+
+            </Reveal>
           </div>
-        </Reveal>
+        </div>
       </Container>
     </Section>
   );

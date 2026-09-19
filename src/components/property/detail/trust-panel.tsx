@@ -47,7 +47,7 @@ export function TrustPanel({ project }: { project: Project }) {
               <span
                 className={
                   verified
-                    ? "text-xs text-signal-success"
+                    ? "text-xs text-[color:var(--accent)]"
                     : "text-xs text-[color:var(--text-muted)]"
                 }
               >

@@ -245,6 +245,22 @@ export const inventoryUnits = pgTable(
   ],
 );
 
+/** Newsletter signups. Not leads: no phone, no score, never joined to `leads`. */
+export const subscribers = pgTable(
+  "subscribers",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    email: text("email").notNull(),
+    source: text("source").notNull().default("footer"),
+    consent: boolean("consent").notNull().default(false),
+    ipHash: varchar("ip_hash", { length: 64 }),
+    userAgent: text("user_agent"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    unsubscribedAt: timestamp("unsubscribed_at", { withTimezone: true }),
+  },
+  (table) => [uniqueIndex("subscribers_email_key").on(table.email)],
+);
+
 export const analyticsEvents = pgTable(
   "analytics_events",
   {
@@ -272,6 +288,8 @@ export type LeadEvent = typeof leadEvents.$inferSelect;
 export type NewLeadEvent = typeof leadEvents.$inferInsert;
 export type InventoryUnitRow = typeof inventoryUnits.$inferSelect;
 export type NewInventoryUnitRow = typeof inventoryUnits.$inferInsert;
+export type Subscriber = typeof subscribers.$inferSelect;
+export type NewSubscriber = typeof subscribers.$inferInsert;
 export type AnalyticsEvent = typeof analyticsEvents.$inferSelect;
 export type NewAnalyticsEvent = typeof analyticsEvents.$inferInsert;
 

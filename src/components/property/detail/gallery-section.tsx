@@ -12,12 +12,16 @@ import { Section } from "@/components/ui/section";
 import { cn } from "@/lib/cn";
 import type { MediaAsset } from "@/types/catalog";
 
+const LIGHTBOX_TITLE_ID = "project-gallery-lightbox-title";
+
 export function GallerySection({
   name,
   gallery,
+  index,
 }: {
   name: string;
   gallery: MediaAsset[];
+  index: string;
 }) {
   const [openAt, setOpenAt] = useState<number | null>(null);
 
@@ -27,13 +31,13 @@ export function GallerySection({
   return (
     <Section
       id="gallery"
-      tone="darker"
+      tone="paper"
       aria-label={`${name} gallery`}
       className="scroll-mt-[9.5rem]"
     >
       <Container width="wide">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading eyebrow="Gallery" title="See the project" size="md" />
+          <SectionHeading index={index} eyebrow="Gallery" title="See the project" size="md" />
           <p className="tabular text-sm text-[color:var(--text-muted)]">
             {gallery.length} {gallery.length === 1 ? "image" : "images"}
           </p>
@@ -45,11 +49,9 @@ export function GallerySection({
               asset={lead}
               index={0}
               total={gallery.length}
-              name={name}
               onOpen={setOpenAt}
-              className="aspect-[16/10] sm:aspect-[21/9]"
+              className="aspect-[4/3] sm:aspect-[16/9]"
               sizes="(max-width: 1024px) 100vw, 90vw"
-              priority
               showHint
             />
 
@@ -61,7 +63,6 @@ export function GallerySection({
                       asset={asset}
                       index={index + 1}
                       total={gallery.length}
-                      name={name}
                       onOpen={setOpenAt}
                       className="aspect-[4/3]"
                       sizes="(max-width: 640px) 45vw, 30vw"
@@ -82,12 +83,12 @@ export function GallerySection({
         open={openAt !== null}
         onClose={() => setOpenAt(null)}
         placement="full"
-        title={`${name} — gallery`}
-        panelClassName="bg-carbon-950"
+        tone="dark"
+        title={name}
+        description="Gallery"
+        labelledBy={LIGHTBOX_TITLE_ID}
       >
-        {openAt !== null ? (
-          <Lightbox gallery={gallery} startIndex={openAt} name={name} />
-        ) : null}
+        {openAt !== null ? <Lightbox gallery={gallery} startIndex={openAt} name={name} /> : null}
       </Overlay>
     </Section>
   );
@@ -97,21 +98,17 @@ function GalleryTile({
   asset,
   index,
   total,
-  name,
   onOpen,
   className,
   sizes,
-  priority = false,
   showHint = false,
 }: {
   asset: MediaAsset;
   index: number;
   total: number;
-  name: string;
   onOpen: (index: number) => void;
   className?: string;
   sizes: string;
-  priority?: boolean;
   showHint?: boolean;
 }) {
   return (
@@ -120,7 +117,7 @@ function GalleryTile({
       onClick={() => onOpen(index)}
       aria-label={`Open image ${index + 1} of ${total}: ${asset.alt}`}
       className={cn(
-        "group relative w-full overflow-hidden rounded-card border border-[color:var(--hairline)] bg-carbon-800",
+        "group relative w-full overflow-hidden rounded-card border border-[color:var(--hairline)] bg-[color:var(--surface-sunken)]",
         className,
       )}
     >
@@ -128,7 +125,6 @@ function GalleryTile({
         src={asset.src}
         alt={asset.alt}
         fill
-        priority={priority}
         sizes={sizes}
         className="object-cover transition-transform duration-[900ms] ease-[var(--ease-luxe)] group-hover:scale-[1.04]"
       />
@@ -138,17 +134,16 @@ function GalleryTile({
       />
       <span
         aria-hidden
-        className="glass absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[0.6875rem] text-bone-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+        className="glass absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[0.6875rem] text-carbon-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
       >
         <Expand className="size-3" />
         {showHint ? `View all ${total}` : "Expand"}
       </span>
       {asset.caption ? (
-        <span className="absolute inset-x-3 top-3 text-left text-xs text-bone-100 drop-shadow">
+        <span className="glass absolute left-3 top-3 max-w-[calc(100%-1.5rem)] truncate rounded-full px-2.5 py-1 text-left text-[0.6875rem] text-carbon-900">
           {asset.caption}
         </span>
       ) : null}
-      <span className="sr-only">{name}</span>
     </button>
   );
 }
@@ -202,7 +197,7 @@ function Lightbox({
   const current = gallery[selected];
 
   return (
-    <div data-surface="dark" className="flex h-full flex-col text-bone-100">
+    <div className="flex h-full flex-col">
       <div ref={emblaRef} className="min-h-0 flex-1 overflow-hidden">
         <div className="flex h-full">
           {gallery.map((asset) => (
@@ -221,10 +216,10 @@ function Lightbox({
 
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-4 border-t border-[color:var(--hairline)] px-5 py-4 sm:px-8">
         <div className="min-w-0">
-          <p aria-live="polite" className="tabular text-sm text-bone-100">
+          <p aria-live="polite" className="tabular text-sm text-[color:var(--text-primary)]">
             {selected + 1} / {gallery.length}
           </p>
-          <p className="mt-1 truncate text-xs text-steel-300">
+          <p className="mt-1 truncate text-xs text-[color:var(--text-secondary)]">
             {current?.caption ?? current?.alt ?? name}
           </p>
         </div>
@@ -235,7 +230,7 @@ function Lightbox({
             onClick={scrollPrev}
             disabled={selected === 0}
             aria-label="Previous image"
-            className="grid size-11 place-items-center rounded-full border border-[color:var(--hairline-strong)] text-bone-100 transition-colors hover:border-gold-400/60 hover:text-gold-200 disabled:opacity-35"
+            className="grid size-11 place-items-center rounded-full border border-[color:var(--hairline-strong)] text-[color:var(--text-primary)] transition-colors hover:border-[color:var(--accent)] hover:text-[color:var(--accent)] disabled:opacity-35"
           >
             <ChevronLeft className="size-5" />
           </button>
@@ -244,7 +239,7 @@ function Lightbox({
             onClick={scrollNext}
             disabled={selected === gallery.length - 1}
             aria-label="Next image"
-            className="grid size-11 place-items-center rounded-full border border-[color:var(--hairline-strong)] text-bone-100 transition-colors hover:border-gold-400/60 hover:text-gold-200 disabled:opacity-35"
+            className="grid size-11 place-items-center rounded-full border border-[color:var(--hairline-strong)] text-[color:var(--text-primary)] transition-colors hover:border-[color:var(--accent)] hover:text-[color:var(--accent)] disabled:opacity-35"
           >
             <ChevronRight className="size-5" />
           </button>

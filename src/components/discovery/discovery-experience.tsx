@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { SlidersHorizontal } from "lucide-react";
 import { ActiveFilters } from "@/components/discovery/active-filters";
 import { CategoryChips } from "@/components/discovery/category-chips";
 import { CompareTray } from "@/components/discovery/compare-tray";
@@ -19,6 +18,7 @@ import { FilterRail } from "@/components/discovery/filter-rail";
 import { MobileCtaBar } from "@/components/discovery/mobile-cta-bar";
 import { ResultsGrid } from "@/components/discovery/results-grid";
 import { SearchBar } from "@/components/discovery/search-bar";
+import { Toolbar, type ResultView } from "@/components/discovery/toolbar";
 import {
   sameRange,
   sameString,
@@ -26,20 +26,17 @@ import {
 } from "@/components/discovery/use-debounced-mirror";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
-import { Select } from "@/components/ui/field";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Overlay } from "@/components/ui/overlay";
 import { Section } from "@/components/ui/section";
-import { cn } from "@/lib/cn";
+import { StatGrid, type Stat } from "@/components/ui/stat-grid";
+import { categories } from "@/lib/catalog";
 import {
-  SORT_KEYS,
-  SORT_LABEL,
   countActiveFilters,
   filterProjects,
   serializeFilters,
   sortProjects,
   type FilterState,
-  type SortKey,
 } from "@/lib/filters";
 import { useMediaQuery } from "@/lib/hooks";
 import type { Project } from "@/types/catalog";
@@ -47,34 +44,6 @@ import type { Project } from "@/types/catalog";
 const ROUTE = "/purchase/properties";
 const QUERY_DEBOUNCE = 300;
 const BUDGET_DEBOUNCE = 260;
-
-function SortSelect({
-  value,
-  onChange,
-  className,
-}: {
-  value: SortKey;
-  onChange: (next: SortKey) => void;
-  className?: string;
-}) {
-  return (
-    <Select
-      value={value}
-      aria-label="Sort results"
-      onChange={(event) => onChange(event.target.value as SortKey)}
-      className={cn(
-        "h-10 w-auto min-w-0 max-w-[11.5rem] py-0 text-[0.8125rem] sm:min-w-44 sm:max-w-none",
-        className,
-      )}
-    >
-      {SORT_KEYS.map((key) => (
-        <option key={key} value={key}>
-          {SORT_LABEL[key]}
-        </option>
-      ))}
-    </Select>
-  );
-}
 
 export function DiscoveryExperience({
   projects,
@@ -89,6 +58,7 @@ export function DiscoveryExperience({
   const [, startTransition] = useTransition();
   const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [view, setView] = useState<ResultView>("grid");
   const isTablet = useMediaQuery("(min-width: 768px)");
 
   const urlKey = useMemo(() => serializeFilters(initialFilters).toString(), [initialFilters]);
@@ -165,6 +135,24 @@ export function DiscoveryExperience({
     return [...fromSearch, ...fromFilters];
   }, [results.length, readingChips, projects, filters]);
 
+  const stats = useMemo<Stat[]>(
+    () => [
+      { value: projects.length, label: "Projects in the collection" },
+      {
+        value: categories.length,
+        label: "Collections",
+        note: "Apartments through Spiritual Residences",
+      },
+      { value: cities.length, label: "Cities and regions" },
+      {
+        value: projects.filter((project) => project.priceFrom !== null).length,
+        label: "With a published price",
+        note: "The rest are shown as price on request.",
+      },
+    ],
+    [projects, cities],
+  );
+
   const activeCount = countActiveFilters(filters);
   const clearAll = useCallback(() => commit(clearedFilters(filters)), [commit, filters]);
 
@@ -181,16 +169,20 @@ export function DiscoveryExperience({
   );
 
   return (
-    <Section tone="darker" space="none" className="pb-0 pt-28">
+    <Section tone="bone" space="none" className="pb-0 pt-14 sm:pt-20">
       <Container width="wide">
-        <Eyebrow withRule>The Collection</Eyebrow>
-        <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
-          <h1 className="text-display-lg">Explore Properties</h1>
-          <p className="text-sm text-[color:var(--text-secondary)]">
-            <span className="tabular text-[color:var(--text-primary)]">{results.length}</span> of{" "}
-            <span className="tabular">{projects.length}</span> projects shown
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-end lg:gap-16">
+          <div>
+            <IndexLabel index="01">The Collection</IndexLabel>
+            <h1 className="mt-5 text-balance text-display-xl">Explore Properties</h1>
+          </div>
+          <p className="text-pretty leading-relaxed text-[color:var(--text-secondary)] sm:text-lg">
+            Every project TokenZameen has taken on, filtered the way people actually buy — by
+            budget, by location, and by what the property is for.
           </p>
         </div>
+
+        <StatGrid stats={stats} invertIndex={1} columns={4} className="mt-12" />
 
         <SearchBar
           value={draftQuery}
@@ -198,40 +190,35 @@ export function DiscoveryExperience({
           onValueChange={setDraftQuery}
           interpretation={readingChips}
           onApply={commit}
-          className="mt-8 max-w-3xl"
+          className="mt-12"
         />
 
         <CategoryChips
           filters={filters}
           projects={projects}
           onChange={commit}
-          className="mt-6"
+          className="mt-5"
         />
       </Container>
 
-      <div className="sticky top-[72px] z-40 mt-6 border-y border-[color:var(--hairline)] bg-[color:var(--surface-raised)] lg:hidden">
-        <Container width="wide" className="flex items-center justify-between gap-3 py-3">
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => setSheetOpen(true)}
-            aria-expanded={sheetOpen}
-          >
-            <SlidersHorizontal className="size-4" />
-            Filters
-            {activeCount > 0 ? (
-              <span className="tabular ml-1 grid size-5 place-items-center rounded-full bg-[color:var(--accent)] text-[0.625rem] font-semibold text-[color:var(--accent-contrast)]">
-                {activeCount}
-              </span>
-            ) : null}
-          </Button>
-          <SortSelect value={filters.sort} onChange={(sort) => commit({ ...filters, sort })} />
+      <div className="sticky top-[72px] z-40 mt-8 border-y border-[color:var(--hairline)] bg-[color:var(--page)]">
+        <Container width="wide" className="py-3">
+          <Toolbar
+            resultCount={results.length}
+            activeCount={activeCount}
+            sort={filters.sort}
+            onSortChange={(sort) => commit({ ...filters, sort })}
+            view={view}
+            onViewChange={setView}
+            onOpenFilters={() => setSheetOpen(true)}
+            filtersOpen={sheetOpen}
+          />
         </Container>
       </div>
 
       <Container width="wide" className="mt-8 flex gap-10">
-        <aside className="hidden w-[300px] shrink-0 lg:block" aria-label="Filters">
-          <div className="sticky top-[96px] max-h-[calc(100vh-8rem)] overflow-y-auto pb-6 pr-3">
+        <aside className="hidden w-[310px] shrink-0 lg:block" aria-label="Filters">
+          <div className="sticky top-[150px] max-h-[calc(100vh-11rem)] overflow-y-auto rounded-card border border-[color:var(--hairline)] bg-[color:var(--surface)] p-5">
             {rail}
           </div>
         </aside>
@@ -243,41 +230,31 @@ export function DiscoveryExperience({
           </p>
 
           {sheetOpen && isTablet ? (
-            <div className="mb-8 rounded-panel border border-[color:var(--hairline)] bg-[color:var(--surface-raised)] p-6 lg:hidden">
+            <div className="mb-8 rounded-card border border-[color:var(--hairline)] bg-[color:var(--surface)] p-6 lg:hidden">
               {rail}
-              <Button full size="sm" className="mt-6" onClick={() => setSheetOpen(false)}>
+              <Button variant="solid" full size="sm" className="mt-6" onClick={() => setSheetOpen(false)}>
                 Show {results.length === 1 ? "1 property" : `${results.length} properties`}
               </Button>
             </div>
           ) : null}
 
-          <div className="hidden items-center justify-between gap-6 lg:flex">
-            <ActiveFilters chips={activeChips} onApply={commit} onClearAll={clearAll} />
-            <div className="ml-auto flex shrink-0 items-center gap-3">
-              <span className="text-xs text-[color:var(--text-muted)]">Sort</span>
-              <SortSelect value={filters.sort} onChange={(sort) => commit({ ...filters, sort })} />
-            </div>
-          </div>
-
           <ActiveFilters
             chips={activeChips}
             onApply={commit}
             onClearAll={clearAll}
-            className="lg:hidden"
+            className="mb-6"
           />
 
-          <div className={cn(activeChips.length > 0 ? "mt-6" : "mt-0", "lg:mt-6")}>
-            {results.length === 0 ? (
-              <EmptyState
-                suggestions={suggestions}
-                activeCount={activeCount}
-                onApply={commit}
-                onClearAll={clearAll}
-              />
-            ) : (
-              <ResultsGrid projects={results} />
-            )}
-          </div>
+          {results.length === 0 ? (
+            <EmptyState
+              suggestions={suggestions}
+              activeCount={activeCount}
+              onApply={commit}
+              onClearAll={clearAll}
+            />
+          ) : (
+            <ResultsGrid projects={results} view={view} />
+          )}
         </div>
       </Container>
 
@@ -286,20 +263,14 @@ export function DiscoveryExperience({
         onClose={() => setSheetOpen(false)}
         title="Filters"
         placement="bottom"
+        tone="light"
       >
-        {/* Overlay portals to document.body, outside any Section, so the sheet has to
-            declare the panel's own surface for the semantic variables to resolve. */}
-        <div data-surface="dark" className="px-6 py-6">
-          {rail}
-        </div>
-        <div
-          data-surface="dark"
-          className="sticky bottom-0 flex gap-3 border-t border-[color:var(--hairline)] bg-carbon-850 px-6 py-4"
-        >
+        <div className="px-6 py-6">{rail}</div>
+        <div className="sticky bottom-0 flex gap-3 border-t border-[color:var(--hairline)] bg-[color:var(--surface)] px-6 py-4">
           <Button variant="secondary" size="sm" onClick={clearAll} disabled={activeCount === 0}>
             Clear all
           </Button>
-          <Button size="sm" full onClick={() => setSheetOpen(false)}>
+          <Button variant="solid" size="sm" full onClick={() => setSheetOpen(false)}>
             Show {results.length === 1 ? "1 property" : `${results.length} properties`}
           </Button>
         </div>

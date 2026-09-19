@@ -1,9 +1,8 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { PropertyCard } from "@/components/property/property-card";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 import { cn } from "@/lib/cn";
 import type { Project } from "@/types/catalog";
@@ -14,12 +13,14 @@ export function TokenZameenCollection({ projects }: { projects: Project[] }) {
   const [lead, closer, ...rest] = projects;
 
   return (
-    <Section id="collection" tone="darker" aria-label="The TokenZameen Collection" space="xl">
+    <Section id="collection" tone="paper" aria-label="The TokenZameen Collection" space="xl">
       <Container width="wide">
         <Reveal>
           <div className="max-w-3xl">
-            <Eyebrow withRule>Featured collections</Eyebrow>
-            <h2 className="mt-6 text-display-lg uppercase">The TokenZameen Collection</h2>
+            <IndexLabel index="03">Featured collections</IndexLabel>
+            <h2 className="mt-6 text-display-lg uppercase text-[color:var(--text-primary)]">
+              The TokenZameen Collection
+            </h2>
             <p className="mt-6 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg">
               A selection of properties we&rsquo;re currently bringing to the attention of our
               community.
@@ -58,13 +59,9 @@ export function TokenZameenCollection({ projects }: { projects: Project[] }) {
         </div>
 
         <Reveal>
-          <Link
-            href="/purchase/properties"
-            className="mt-10 inline-flex min-h-11 items-center gap-2 text-sm text-[color:var(--accent)] transition-opacity duration-300 hover:opacity-80"
-          >
+          <Button href="/purchase/properties" variant="secondary" size="lg" className="mt-10">
             View the full collection
-            <ArrowUpRight className="size-4" />
-          </Link>
+          </Button>
         </Reveal>
       </Container>
     </Section>

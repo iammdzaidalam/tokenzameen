@@ -30,7 +30,7 @@ export function ActiveFilters({
           type="button"
           onClick={() => onApply(chip.next)}
           aria-label={`Remove filter ${chip.label}`}
-          className="group inline-flex items-center gap-2 rounded-full border border-[color:var(--hairline-strong)] px-3 py-1.5 text-xs text-[color:var(--text-secondary)] transition-colors hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
+          className="group inline-flex items-center gap-2 rounded-full border border-[color:var(--hairline-strong)] bg-[color:var(--surface)] px-3 py-1.5 text-xs text-[color:var(--text-secondary)] transition-colors hover:border-[color:var(--text-primary)] hover:text-[color:var(--text-primary)]"
         >
           {chip.label}
           <X className="size-3 opacity-60 transition-opacity group-hover:opacity-100" />

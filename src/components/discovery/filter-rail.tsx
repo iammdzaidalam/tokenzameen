@@ -2,22 +2,23 @@
 
 import { useId, useMemo, useState } from "react";
 import { Search } from "lucide-react";
+import { CheckPill } from "@/components/discovery/check-pill";
+import { BUDGET_STEP, clearedFilters, toggleValue } from "@/components/discovery/filter-logic";
 import { Checkbox, TextInput } from "@/components/ui/field";
+import { IndexLabel } from "@/components/ui/index-label";
 import { RangeSlider } from "@/components/ui/range-slider";
-import {
-  AVAILABILITY_OPTIONS,
-  BEDROOM_OPTIONS,
-  BUDGET_STEP,
-  PURPOSE_OPTIONS,
-  TAG_OPTIONS,
-  TYPE_OPTIONS,
-  clearedFilters,
-  countMatching,
-  toggleValue,
-} from "@/components/discovery/filter-logic";
 import { BUDGET_CEILING, BUDGET_FLOOR } from "@/lib/catalog";
 import { cn } from "@/lib/cn";
-import { countActiveFilters, type FilterState } from "@/lib/filters";
+import {
+  AVAILABILITY_VALUES,
+  BEDROOM_VALUES,
+  PURPOSE_VALUES,
+  TAG_VALUES,
+  TYPE_VALUES,
+  countActiveFilters,
+  countMatching,
+  type FilterState,
+} from "@/lib/filters";
 import { formatAmount, formatBedrooms } from "@/lib/format";
 import {
   AVAILABILITY_LABEL,
@@ -28,20 +29,26 @@ import {
 import type { BedroomConfig, Project } from "@/types/catalog";
 
 function FilterGroup({
+  index,
   title,
   note,
   children,
 }: {
+  index: string;
   title: string;
   note?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-t border-[color:var(--hairline)] py-6 first:border-t-0 first:pt-0">
-      <h3 className="eyebrow text-[color:var(--text-muted)]">{title}</h3>
-      {note ? <p className="mt-2 text-xs leading-relaxed text-[color:var(--text-muted)]">{note}</p> : null}
-      <div className="mt-4">{children}</div>
-    </section>
+    <div className="border-t border-[color:var(--hairline)] py-6 first:border-t-0 first:pt-0">
+      <IndexLabel index={index}>{title}</IndexLabel>
+      {note ? (
+        <p className="mt-2.5 text-xs leading-relaxed text-[color:var(--text-muted)]">{note}</p>
+      ) : null}
+      <div role="group" aria-label={title} className="mt-4">
+        {children}
+      </div>
+    </div>
   );
 }
 
@@ -78,12 +85,14 @@ function LocationPicker({
           onChange={(event) => setTerm(event.target.value)}
           placeholder="Find a location"
           aria-label="Filter the list of locations"
-          className="py-2.5 pl-10 text-[0.8125rem]"
+          className="rounded-full bg-[color:var(--surface-sunken)] py-2.5 pl-10 text-[0.8125rem]"
         />
       </div>
       <div className="max-h-52 overflow-y-auto pr-1">
         {visible.length === 0 ? (
-          <p className="py-2 text-xs text-[color:var(--text-muted)]">No location matches “{term.trim()}”.</p>
+          <p className="py-2 text-xs text-[color:var(--text-muted)]">
+            No location matches “{term.trim()}”.
+          </p>
         ) : (
           visible.map((city) => (
             <Checkbox
@@ -136,16 +145,11 @@ export function FilterRail({
         </button>
       </div>
 
-      <FilterGroup title="Location">
-        <LocationPicker
-          cities={cities}
-          filters={filters}
-          projects={projects}
-          onChange={onChange}
-        />
+      <FilterGroup index="01" title="Location">
+        <LocationPicker cities={cities} filters={filters} projects={projects} onChange={onChange} />
       </FilterGroup>
 
-      <FilterGroup title="Budget">
+      <FilterGroup index="02" title="Budget">
         <RangeSlider
           min={BUDGET_FLOOR}
           max={BUDGET_CEILING}
@@ -156,7 +160,7 @@ export function FilterRail({
           minLabel="Minimum budget"
           maxLabel="Maximum budget"
         />
-        <div className="mt-5 rounded-xl border border-[color:var(--hairline)] p-3.5">
+        <div className="mt-5 rounded-xl bg-[color:var(--surface-sunken)] p-3.5">
           <Checkbox
             label="Published price only"
             checked={filters.publishedPriceOnly}
@@ -171,10 +175,10 @@ export function FilterRail({
         </div>
       </FilterGroup>
 
-      <FilterGroup title="Property Type">
-        <div className="flex flex-col">
-          {TYPE_OPTIONS.map((type) => (
-            <Checkbox
+      <FilterGroup index="03" title="Property Type">
+        <div className="flex flex-wrap gap-2">
+          {TYPE_VALUES.map((type) => (
+            <CheckPill
               key={type}
               label={PROPERTY_TYPE_LABEL[type]}
               count={countMatching(projects, filters, { types: [type] })}
@@ -185,10 +189,10 @@ export function FilterRail({
         </div>
       </FilterGroup>
 
-      <FilterGroup title="Purpose">
-        <div className="flex flex-col">
-          {PURPOSE_OPTIONS.map((purpose) => (
-            <Checkbox
+      <FilterGroup index="04" title="Purpose">
+        <div className="flex flex-wrap gap-2">
+          {PURPOSE_VALUES.map((purpose) => (
+            <CheckPill
               key={purpose}
               label={PURPOSE_LABEL[purpose]}
               count={countMatching(projects, filters, { purposes: [purpose] })}
@@ -202,6 +206,7 @@ export function FilterRail({
       </FilterGroup>
 
       <FilterGroup
+        index="05"
         title="Bedrooms"
         note={
           bedroomsUnavailable
@@ -210,39 +215,32 @@ export function FilterRail({
         }
       >
         <div className="flex flex-wrap gap-2">
-          {BEDROOM_OPTIONS.map((bedroom) => {
+          {BEDROOM_VALUES.map((bedroom) => {
             const selected = filters.bedrooms.includes(bedroom);
-            const disabled = !availableBedrooms.has(bedroom) && !selected;
             return (
-              <button
+              <CheckPill
                 key={bedroom}
-                type="button"
-                aria-pressed={selected}
-                disabled={disabled}
-                title={disabled ? "Not published for any project in this view" : undefined}
-                onClick={() =>
+                label={formatBedrooms([bedroom])}
+                checked={selected}
+                disabled={!availableBedrooms.has(bedroom) && !selected}
+                title={
+                  availableBedrooms.has(bedroom)
+                    ? undefined
+                    : "Not published for any project in this view"
+                }
+                onChange={() =>
                   onChange({ ...filters, bedrooms: toggleValue(filters.bedrooms, bedroom) })
                 }
-                className={cn(
-                  "rounded-full border px-3.5 py-2 text-xs transition-colors duration-300",
-                  selected
-                    ? "border-[color:var(--accent)] bg-[color:var(--surface-raised)] text-[color:var(--accent)]"
-                    : "border-[color:var(--hairline-strong)] text-[color:var(--text-secondary)] hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]",
-                  disabled &&
-                    "cursor-not-allowed border-[color:var(--hairline)] text-[color:var(--text-muted)] line-through opacity-60 hover:border-[color:var(--hairline)] hover:text-[color:var(--text-muted)]",
-                )}
-              >
-                {formatBedrooms([bedroom])}
-              </button>
+              />
             );
           })}
         </div>
       </FilterGroup>
 
-      <FilterGroup title="Availability">
-        <div className="flex flex-col">
-          {AVAILABILITY_OPTIONS.map((availability) => (
-            <Checkbox
+      <FilterGroup index="06" title="Availability">
+        <div className="flex flex-wrap gap-2">
+          {AVAILABILITY_VALUES.map((availability) => (
+            <CheckPill
               key={availability}
               label={AVAILABILITY_LABEL[availability]}
               count={countMatching(projects, filters, { availability: [availability] })}
@@ -258,10 +256,10 @@ export function FilterRail({
         </div>
       </FilterGroup>
 
-      <FilterGroup title="Special Opportunities">
-        <div className="flex flex-col">
-          {TAG_OPTIONS.map((tag) => (
-            <Checkbox
+      <FilterGroup index="07" title="Special Opportunities">
+        <div className="flex flex-wrap gap-2">
+          {TAG_VALUES.map((tag) => (
+            <CheckPill
               key={tag}
               label={SPECIAL_TAG_LABEL[tag]}
               count={countMatching(projects, filters, { tags: [tag] })}

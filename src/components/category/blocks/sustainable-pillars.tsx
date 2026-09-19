@@ -1,11 +1,10 @@
 import { Container } from "@/components/ui/container";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { PropertyCard } from "@/components/property/property-card";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { AccentScope } from "@/components/category/accent-scope";
 import { SectionHead } from "@/components/category/section-head";
-import { accentText } from "@/components/category/accent";
-import { cn } from "@/lib/cn";
 import type { Accent } from "@/components/category/accent";
 import type { Project } from "@/types/catalog";
 
@@ -38,58 +37,54 @@ const PILLARS = [
 
 export function SustainablePillars({
   accent,
+  index,
   featured,
 }: {
   accent: Accent;
+  index: string;
   featured: Project | null;
 }) {
   return (
-    <Section tone="light" space="lg" aria-labelledby="pillars-heading">
+    <Section tone="darker" space="xl" aria-labelledby="pillars-heading">
       <Container width="wide">
-        <SectionHead
-          id="pillars-heading"
-          eyebrow="The six pillars"
-          title="Built around a better future."
-          lede="Sustainability is claimed far more often than it is designed. These are the six things we look for, and the vocabulary an advisor will use when they walk you through a project in this collection."
-          accent={accent}
-          tone="light"
-          className="[&_h2]:uppercase"
-        />
+        <AccentScope accent={accent} tone="dark">
+          <SectionHead
+            index={index}
+            id="pillars-heading"
+            eyebrow="The six pillars"
+            title="Built around a better future."
+            lede="Sustainability is claimed far more often than it is designed. These are the six things we look for, and the vocabulary an advisor will use when they walk you through a project in this collection."
+            className="[&_h2]:uppercase"
+          />
 
-        <RevealGroup className="mt-14 grid gap-px overflow-hidden rounded-panel border border-[color:var(--hairline)] bg-[color:var(--hairline)] sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
-          {PILLARS.map((pillar, index) => (
-            <RevealItem
-              key={pillar.title}
-              className="bg-[color:var(--surface-raised)] p-7 sm:p-8"
-            >
-              <span className={cn("eyebrow tabular", accentText(accent, "light"))}>
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-4 font-display text-xl uppercase tracking-tight text-[color:var(--text-primary)]">
-                {pillar.title}
-              </h3>
-              <p className="mt-3 text-pretty text-sm leading-relaxed text-[color:var(--text-secondary)]">
-                {pillar.body}
-              </p>
-            </RevealItem>
-          ))}
-        </RevealGroup>
+          <RevealGroup className="mt-14 grid gap-x-10 gap-y-12 border-t border-[color:var(--hairline)] pt-10 sm:mt-20 sm:grid-cols-2 lg:grid-cols-3">
+            {PILLARS.map((pillar, position) => (
+              <RevealItem key={pillar.title}>
+                <IndexLabel index={String(position + 1).padStart(2, "0")}>Pillar</IndexLabel>
+                <h3 className="mt-4 font-display text-xl uppercase tracking-tight text-[color:var(--text-primary)]">
+                  {pillar.title}
+                </h3>
+                <p className="mt-3 max-w-sm text-pretty text-sm leading-relaxed text-[color:var(--text-secondary)]">
+                  {pillar.body}
+                </p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
 
-        {featured ? (
-          <div className="mt-16 sm:mt-20">
-            <Reveal>
-              <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[color:var(--hairline)] pt-8">
-                <Eyebrow withRule className={accentText(accent, "light")}>
-                  Featured in this collection
-                </Eyebrow>
-                <p className="text-sm text-[color:var(--text-secondary)]">{featured.positioning}</p>
-              </div>
-            </Reveal>
-            <Reveal delay={0.12} className="mt-8">
-              <PropertyCard project={featured} variant="feature" />
-            </Reveal>
-          </div>
-        ) : null}
+          {featured ? (
+            <div className="mt-16 border-t border-[color:var(--hairline)] pt-10 sm:mt-20">
+              <Reveal>
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <IndexLabel>Featured in this collection</IndexLabel>
+                  <p className="text-sm text-[color:var(--text-secondary)]">{featured.positioning}</p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.12} className="mt-8">
+                <PropertyCard project={featured} variant="feature" />
+              </Reveal>
+            </div>
+          ) : null}
+        </AccentScope>
       </Container>
     </Section>
   );

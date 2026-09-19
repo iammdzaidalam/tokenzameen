@@ -7,7 +7,7 @@ import { PropertyCard } from "@/components/property/property-card";
 import { useShortlist } from "@/components/providers/shortlist-provider";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 import type { Project } from "@/types/catalog";
 
@@ -24,20 +24,26 @@ export function ShortlistExperience({ projects }: { projects: Project[] }) {
   const viewedProjects = ready ? resolve(projects, viewed) : [];
 
   return (
-    <Section tone="darker" space="none" className="pb-24 pt-28">
+    <Section tone="bone" space="none" className="pb-20 pt-14 sm:pt-20">
       <Container width="wide">
-        <Eyebrow withRule>Saved</Eyebrow>
-        <h1 className="mt-5 text-display-lg">My Shortlist</h1>
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[color:var(--text-secondary)]">
-          Your shortlist is stored in this browser only. It will not follow you to another device, a
-          private window, or survive clearing site data.
-        </p>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-end lg:gap-16">
+          <div>
+            <IndexLabel index="01">Saved</IndexLabel>
+            <h1 className="mt-5 text-balance text-display-lg">My Shortlist</h1>
+          </div>
+          <p className="text-pretty text-sm leading-relaxed text-[color:var(--text-secondary)]">
+            Your shortlist is stored in this browser only. It will not follow you to another
+            device, a private window, or survive clearing site data.
+          </p>
+        </div>
 
         {!ready ? (
-          <p className="mt-10 text-sm text-[color:var(--text-secondary)]">Loading your shortlist…</p>
+          <p className="mt-10 text-sm text-[color:var(--text-secondary)]">
+            Loading your shortlist…
+          </p>
         ) : savedProjects.length === 0 ? (
-          <div className="mt-10 rounded-panel border border-[color:var(--hairline)] bg-[color:var(--surface-raised)] p-8 sm:p-12">
-            <span className="grid size-11 place-items-center rounded-full border border-[color:var(--hairline-strong)] text-[color:var(--accent)]">
+          <div className="mt-10 rounded-card border border-[color:var(--hairline)] bg-[color:var(--surface)] p-8 sm:p-12">
+            <span className="grid size-11 place-items-center rounded-full bg-[color:var(--surface-sunken)] text-[color:var(--text-primary)]">
               <Heart className="size-5" />
             </span>
             <h2 className="mt-6 text-display-sm">Nothing saved yet.</h2>
@@ -45,19 +51,19 @@ export function ShortlistExperience({ projects }: { projects: Project[] }) {
               Tap the heart on any property and it will wait for you here, ready to compare or send
               to an advisor.
             </p>
-            <Button href="/purchase/properties" size="sm" className="mt-6">
+            <Button href="/purchase/properties" variant="solid" size="sm" className="mt-6">
               Browse the collection
             </Button>
           </div>
         ) : (
           <>
-            <p className="mt-8 text-sm text-[color:var(--text-secondary)]">
-              <span className="tabular text-[color:var(--text-primary)]">
+            <p className="mt-10 text-sm text-[color:var(--text-secondary)]">
+              <span className="tabular font-medium text-[color:var(--text-primary)]">
                 {savedProjects.length}
               </span>{" "}
               {savedProjects.length === 1 ? "property saved" : "properties saved"}
             </p>
-            <ul className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            <ul className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 2xl:grid-cols-3">
               {savedProjects.map((project, index) => (
                 <li key={project.slug} className="flex flex-col gap-3">
                   <PropertyCard project={project} priority={index < 2} />
@@ -84,8 +90,12 @@ export function ShortlistExperience({ projects }: { projects: Project[] }) {
         )}
 
         {viewedProjects.length > 0 ? (
-          <section className="mt-20 border-t border-[color:var(--hairline)] pt-10" aria-label="Recently viewed">
-            <h2 className="font-display text-display-sm">Recently viewed</h2>
+          <section
+            className="mt-20 border-t border-[color:var(--hairline)] pt-10"
+            aria-label="Recently viewed"
+          >
+            <IndexLabel index="02">Recently viewed</IndexLabel>
+            <h2 className="mt-4 text-display-sm">Where you have already been</h2>
             <ul className="no-scrollbar -mx-5 mt-6 flex gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0">
               {viewedProjects.map((project) => (
                 <li key={project.slug} className="w-[19rem] shrink-0">

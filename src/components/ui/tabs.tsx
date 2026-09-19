@@ -12,10 +12,12 @@ export interface TabItem {
 
 export function Tabs({
   items,
+  label = "Collection",
   className,
   panelClassName,
 }: {
   items: TabItem[];
+  label?: string;
   className?: string;
   panelClassName?: string;
 }) {
@@ -29,7 +31,7 @@ export function Tabs({
     <div className={className}>
       <div
         role="tablist"
-        aria-label="Collection"
+        aria-label={label}
         className="inline-flex gap-1 rounded-full border border-[color:var(--hairline)] p-1"
       >
         {items.map((item) => {
@@ -45,13 +47,13 @@ export function Tabs({
               onClick={() => setActiveId(item.id)}
               className={cn(
                 "relative rounded-full px-5 py-2 text-sm transition-colors",
-                selected ? "text-carbon-950" : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",
+                selected ? "text-[color:var(--surface)]" : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",
               )}
             >
               {selected ? (
                 <motion.span
                   layoutId={`${baseId}-tab-indicator`}
-                  className="absolute inset-0 rounded-full bg-gold-400"
+                  className="absolute inset-0 rounded-full bg-[color:var(--text-primary)]"
                   transition={{ type: "spring", stiffness: 380, damping: 32 }}
                 />
               ) : null}

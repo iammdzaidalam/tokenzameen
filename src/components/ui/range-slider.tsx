@@ -59,9 +59,9 @@ export function RangeSlider({
         className="relative h-9"
         onPointerMove={handlePointerMove}
       >
-        <div className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 rounded-full bg-white/10" />
+        <div className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 rounded-full bg-[color:var(--hairline-strong)]" />
         <div
-          className="absolute top-1/2 h-[3px] -translate-y-1/2 rounded-full bg-gold-400"
+          className="absolute top-1/2 h-[3px] -translate-y-1/2 rounded-full bg-[color:var(--text-primary)]"
           style={{ left: `${pct(lower)}%`, right: `${100 - pct(upper)}%` }}
         />
         <input
@@ -89,7 +89,7 @@ export function RangeSlider({
       </div>
       <div className="flex items-center justify-between text-sm">
         <span className="tabular text-[color:var(--text-primary)]">{formatValue(lower)}</span>
-        <span aria-hidden className="text-steel-500">
+        <span aria-hidden className="text-[color:var(--text-muted)]">
           —
         </span>
         <span className="tabular text-[color:var(--text-primary)]">

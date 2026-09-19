@@ -15,17 +15,10 @@ export function NewsletterForm() {
     if (status === "pending") return;
     setStatus("pending");
     try {
-      const response = await fetch("/api/leads", {
+      const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: "Newsletter subscriber",
-          email,
-          phone: "",
-          source: "callback",
-          message: "Requested collection updates from the footer.",
-          consent: true,
-        }),
+        body: JSON.stringify({ email, consent: true }),
       });
       setStatus(response.ok ? "done" : "error");
     } catch {

@@ -25,7 +25,7 @@ function CopyMessage({ message }: { message: string }) {
           })
           .catch(() => undefined);
       }}
-      className="inline-flex items-center gap-2 text-xs text-steel-300 underline-offset-4 transition-colors hover:text-gold-200 hover:underline"
+      className="inline-flex items-center gap-2 text-xs text-[color:var(--text-secondary)] underline-offset-4 transition-colors hover:text-[color:var(--accent)] hover:underline"
     >
       {copied ? <Check className="size-3.5" aria-hidden /> : <Copy className="size-3.5" aria-hidden />}
       {copied ? "Message copied" : "Copy this message"}
@@ -49,10 +49,10 @@ export function AdvisorFallback({ message, headline }: { message: string; headli
       role="alert"
       className="rounded-card border border-signal-danger/40 bg-signal-danger/[0.07] p-5"
     >
-      <p className="text-sm font-medium text-bone-100">
+      <p className="text-sm font-medium text-[color:var(--text-primary)]">
         {headline ?? "Your enquiry was not sent."}
       </p>
-      <p className="mt-2 text-sm text-steel-300">
+      <p className="mt-2 text-sm text-[color:var(--text-secondary)]">
         Nothing has been recorded at our end. Please reach an advisor directly — it is the fastest
         way from here.
       </p>
@@ -90,9 +90,9 @@ export function AdvisorFallback({ message, headline }: { message: string; headli
         </div>
       ) : null}
 
-      <div className="mt-4 rounded-lg border border-[color:var(--hairline)] bg-carbon-950/40 p-3">
-        <p className="text-xs uppercase tracking-wide text-steel-500">Message to send</p>
-        <p className="mt-1 whitespace-pre-line text-sm text-bone-200">{message}</p>
+      <div className="mt-4 rounded-lg border border-[color:var(--hairline)] bg-[color:var(--surface-sunken)] p-3">
+        <p className="text-xs uppercase tracking-wide text-[color:var(--text-muted)]">Message to send</p>
+        <p className="mt-1 whitespace-pre-line text-sm text-[color:var(--text-primary)]">{message}</p>
         <div className="mt-2">
           <CopyMessage message={message} />
         </div>
@@ -112,13 +112,13 @@ export function FormSuccess({
 }) {
   return (
     <div className="rounded-card border border-signal-success/40 bg-signal-success/[0.07] p-6">
-      <p className="text-display-sm text-bone-100">{title}</p>
-      <p className="mt-2 text-sm text-steel-300">{body}</p>
-      <div className="mt-5 rounded-lg border border-[color:var(--hairline-strong)] bg-carbon-950/50 px-4 py-3">
-        <p className="text-xs uppercase tracking-wide text-steel-500">Your reference</p>
-        <p className="tabular mt-1 text-lg tracking-[0.2em] text-gold-300">{reference}</p>
+      <p className="text-display-sm text-[color:var(--text-primary)]">{title}</p>
+      <p className="mt-2 text-sm text-[color:var(--text-secondary)]">{body}</p>
+      <div className="mt-5 rounded-lg border border-[color:var(--hairline-strong)] bg-[color:var(--surface-sunken)] px-4 py-3">
+        <p className="text-xs uppercase tracking-wide text-[color:var(--text-muted)]">Your reference</p>
+        <p className="tabular mt-1 text-lg tracking-[0.2em] text-[color:var(--accent)]">{reference}</p>
       </div>
-      <p className="mt-3 text-xs text-steel-400">
+      <p className="mt-3 text-xs text-[color:var(--text-muted)]">
         Keep this reference. You can quote it to an advisor to pick up where you left off.
       </p>
     </div>

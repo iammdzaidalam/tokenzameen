@@ -49,13 +49,13 @@ export function MasterplanPicker({
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
       <div>
         <div className="no-scrollbar -mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0">
-          <div className="relative aspect-[16/10] min-w-[34rem] overflow-hidden rounded-panel border border-[color:var(--hairline)] bg-carbon-850">
+          <div className="relative aspect-[14/9] min-w-[34rem] overflow-hidden rounded-panel border border-[color:var(--hairline)] bg-carbon-850">
             <Image
               src={masterplan.src}
               alt={masterplan.alt}
               fill
               sizes="(max-width: 1024px) 90vw, 55vw"
-              className="object-cover opacity-90"
+              className="object-fill opacity-90"
             />
 
             <div
@@ -117,6 +117,7 @@ export function MasterplanPicker({
         </div>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Badge tone="outline">Indicative layout</Badge>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {(Object.keys(LEGEND_TONE) as UnitStatus[]).map((status) => (
               <li key={status} className="flex items-center gap-2 text-xs text-[color:var(--text-secondary)]">
@@ -138,7 +139,7 @@ export function MasterplanPicker({
 
       <div
         aria-live="polite"
-        className="flex flex-col rounded-panel border border-[color:var(--hairline)] bg-[color:var(--surface-raised)] p-6"
+        className="flex flex-col rounded-panel border border-[color:var(--hairline)] bg-[color:var(--page)] p-6"
       >
         {selected ? (
           <>
@@ -179,7 +180,7 @@ export function MasterplanPicker({
             <RequestButton
               subject={`availability on plot ${selected.plotNumber}`}
               source="request-price"
-              variant="primary"
+              variant="solid"
               className="mt-6"
               full
             >

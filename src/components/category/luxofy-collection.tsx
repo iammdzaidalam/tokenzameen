@@ -4,6 +4,7 @@ import { Section } from "@/components/ui/section";
 import { Tabs } from "@/components/ui/tabs";
 import { PropertyCard } from "@/components/property/property-card";
 import { Reveal } from "@/components/motion/reveal";
+import { AccentScope } from "@/components/category/accent-scope";
 import { SectionHead } from "@/components/category/section-head";
 import type { Accent } from "@/components/category/accent";
 import type { Project } from "@/types/catalog";
@@ -51,7 +52,7 @@ function Panel({ project, format }: { project: Project; format: "villas" | "apar
           ))}
         </div>
 
-        <div className="mt-8 border-t border-[color:var(--hairline)] pt-6">
+        <div className="mt-8 rounded-card bg-bone-100 p-6">
           <p className="eyebrow text-[color:var(--text-muted)]">What is not published yet</p>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-[color:var(--text-secondary)]">
             Luxofy has not released configurations, carpet areas, a payment plan or a price. We do not
@@ -59,7 +60,7 @@ function Panel({ project, format }: { project: Project; format: "villas" | "apar
             as the developer releases it.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button href={`/purchase/${project.slug}`} variant="secondary" size="sm">
+            <Button href={`/purchase/${project.slug}`} variant="solid" size="sm">
               View the collection
             </Button>
             <Button href="/advisory" variant="link" size="sm">
@@ -77,10 +78,12 @@ function Panel({ project, format }: { project: Project; format: "villas" | "apar
 export function LuxofyCollection({
   projects,
   accent,
+  index,
   defaultFormat,
 }: {
   projects: Project[];
   accent: Accent;
+  index: string;
   defaultFormat: "villas" | "apartments";
 }) {
   const project = findLuxofy(projects);
@@ -90,25 +93,27 @@ export function LuxofyCollection({
     defaultFormat === "villas" ? ["villas", "apartments"] : ["apartments", "villas"];
 
   return (
-    <Section tone="dark" space="lg" aria-labelledby="luxofy-heading">
+    <Section tone="paper" space="lg" aria-labelledby="luxofy-heading">
       <Container width="wide">
-        <SectionHead
-          id="luxofy-heading"
-          eyebrow="The Luxofy Collection"
-          title="A curated collection of luxury residences."
-          lede="Luxofy sits in both of our residential formats, so it is presented as one collection with two ways in. Choose the format you are actually buying — the considerations are not the same."
-          accent={accent}
-        />
-
-        <Reveal delay={0.1} className="mt-12">
-          <Tabs
-            items={order.map((format) => ({
-              id: format,
-              label: FRAMING[format].label,
-              content: <Panel project={project} format={format} />,
-            }))}
+        <AccentScope accent={accent} tone="light">
+          <SectionHead
+            index={index}
+            id="luxofy-heading"
+            eyebrow="The Luxofy Collection"
+            title="A curated collection of luxury residences."
+            lede="Luxofy sits in both of our residential formats, so it is presented as one collection with two ways in. Choose the format you are actually buying — the considerations are not the same."
           />
-        </Reveal>
+
+          <Reveal delay={0.1} className="mt-12">
+            <Tabs
+              items={order.map((format) => ({
+                id: format,
+                label: FRAMING[format].label,
+                content: <Panel project={project} format={format} />,
+              }))}
+            />
+          </Reveal>
+        </AccentScope>
       </Container>
     </Section>
   );

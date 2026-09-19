@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
+import { TileArrow } from "@/components/ui/tile-arrow";
 import { categories } from "@/lib/catalog";
 import { cn } from "@/lib/cn";
 
@@ -20,13 +20,13 @@ const SHAPES = [
 
 export function CategoryCollections() {
   return (
-    <Section id="collections" aria-label="What are you looking for" space="xl">
+    <Section id="collections" tone="bone" aria-label="What are you looking for" space="xl">
       <Container width="wide">
         <Reveal>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <Eyebrow withRule>The Collections</Eyebrow>
-              <h2 className="mt-6 max-w-[16ch] text-display-lg uppercase">
+              <IndexLabel index="02">The collections</IndexLabel>
+              <h2 className="mt-6 max-w-[16ch] text-display-lg uppercase text-[color:var(--text-primary)]">
                 What are you looking for?
               </h2>
             </div>
@@ -51,7 +51,7 @@ export function CategoryCollections() {
             >
               <Link
                 href={`/purchase/${category.slug}`}
-                className="group relative block h-full w-full overflow-hidden rounded-panel border border-[color:var(--hairline)] bg-carbon-850 transition-[transform,border-color] duration-500 ease-[var(--ease-luxe)] hover:-translate-y-1.5 hover:border-[color:var(--hairline-strong)]"
+                className="group relative block h-full w-full overflow-hidden rounded-card bg-carbon-850 transition-[transform,box-shadow] duration-500 ease-[var(--ease-luxe)] hover:-translate-y-1.5 hover:shadow-lift"
               >
                 <Image
                   src={category.hero.src}
@@ -66,16 +66,18 @@ export function CategoryCollections() {
                 />
 
                 <div className="relative flex h-full flex-col justify-between p-6 sm:p-8">
-                  <span className="eyebrow text-gold-300/90">{category.index}</span>
-                  <div>
-                    <h3 className="text-display-md text-bone-50">{category.name}</h3>
-                    <p className="mt-2 max-w-[26ch] text-sm leading-relaxed text-steel-200">
-                      {category.tagline}
-                    </p>
-                    <span className="mt-6 inline-flex items-center gap-2 text-sm text-gold-200">
-                      {category.cta}
-                      <ArrowUpRight className="size-4 transition-transform duration-500 ease-[var(--ease-luxe)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </span>
+                  <span className="eyebrow text-bone-100/70">{category.index}</span>
+                  <div className="flex items-end justify-between gap-4">
+                    <div>
+                      <h3 className="text-display-md text-bone-50">{category.name}</h3>
+                      <p className="mt-2 max-w-[26ch] text-sm leading-relaxed text-bone-200/85">
+                        {category.tagline}
+                      </p>
+                      <span className="mt-5 inline-block text-[0.8125rem] text-bone-100/80 underline decoration-bone-100/30 underline-offset-[6px]">
+                        {category.cta}
+                      </span>
+                    </div>
+                    <TileArrow tone="glass" />
                   </div>
                 </div>
               </Link>

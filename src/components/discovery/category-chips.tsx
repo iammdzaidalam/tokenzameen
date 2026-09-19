@@ -1,9 +1,8 @@
 "use client";
 
-import { CATEGORY_OPTIONS, countMatching } from "@/components/discovery/filter-logic";
+import { categories } from "@/lib/catalog";
 import { cn } from "@/lib/cn";
-import type { FilterState } from "@/lib/filters";
-import { CATEGORY_LABEL } from "@/lib/labels";
+import { countMatching, type FilterState } from "@/lib/filters";
 import type { Project } from "@/types/catalog";
 
 export function CategoryChips({
@@ -17,8 +16,6 @@ export function CategoryChips({
   onChange: (next: FilterState) => void;
   className?: string;
 }) {
-  const allActive = filters.categories.length === 0;
-
   return (
     <div
       role="group"
@@ -31,18 +28,18 @@ export function CategoryChips({
       <Chip
         label="All"
         count={countMatching(projects, filters, { categories: [] })}
-        active={allActive}
+        active={filters.categories.length === 0}
         onClick={() => onChange({ ...filters, categories: [] })}
       />
-      {CATEGORY_OPTIONS.map((slug) => {
-        const active = filters.categories.includes(slug);
+      {categories.map((category) => {
+        const active = filters.categories.includes(category.slug);
         return (
           <Chip
-            key={slug}
-            label={CATEGORY_LABEL[slug]}
-            count={countMatching(projects, filters, { categories: [slug] })}
+            key={category.slug}
+            label={category.shortName}
+            count={countMatching(projects, filters, { categories: [category.slug] })}
             active={active}
-            onClick={() => onChange({ ...filters, categories: active ? [] : [slug] })}
+            onClick={() => onChange({ ...filters, categories: active ? [] : [category.slug] })}
           />
         );
       })}
@@ -69,13 +66,13 @@ function Chip({
       className={cn(
         "inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-[0.8125rem] transition-colors duration-300",
         active
-          ? "border-[color:var(--accent)] bg-[color:var(--surface-raised)] text-[color:var(--accent)]"
-          : "border-[color:var(--hairline-strong)] text-[color:var(--text-secondary)] hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]",
-        count === 0 && !active && "opacity-45",
+          ? "border-[color:var(--text-primary)] bg-[color:var(--text-primary)] text-[color:var(--surface)]"
+          : "border-[color:var(--hairline-strong)] bg-[color:var(--surface)] text-[color:var(--text-secondary)] hover:border-[color:var(--text-primary)] hover:text-[color:var(--text-primary)]",
+        count === 0 && !active && "opacity-50",
       )}
     >
       {label}
-      <span className="tabular text-[0.6875rem] text-[color:var(--text-muted)]">{count}</span>
+      <span className="tabular text-[0.6875rem] opacity-60">{count}</span>
     </button>
   );
 }

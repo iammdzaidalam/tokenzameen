@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 
 export function MobileCtaBar() {
   return (
-    <div className="border-t border-[color:var(--hairline)] bg-[color:var(--surface-raised)] px-4 py-3 lg:hidden">
+    <div className="border-t border-[color:var(--hairline)] bg-[color:var(--surface)] px-4 py-3 shadow-panel lg:hidden">
       <div className="flex items-center gap-2">
-        <Button href={enquiryHref()} size="sm" className="flex-1 px-2 text-xs">
+        <Button href={enquiryHref()} variant="solid" size="sm" className="flex-1 px-2 text-xs">
           Enquire
         </Button>
         <Button

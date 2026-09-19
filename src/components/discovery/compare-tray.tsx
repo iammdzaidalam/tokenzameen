@@ -22,16 +22,16 @@ export function CompareTray({ projects }: { projects: Project[] }) {
     <div
       role="region"
       aria-label="Comparison tray"
-      className="border-t border-[color:var(--hairline)] bg-[color:var(--surface-raised)]"
+      className="border-t border-[color:var(--hairline)] bg-[color:var(--surface)] shadow-panel"
     >
       <Container width="wide" className="flex items-center gap-4 py-3">
         <ul className="no-scrollbar flex min-w-0 flex-1 items-center gap-2 overflow-x-auto">
           {items.map((project) => (
             <li
               key={project.slug}
-              className="flex shrink-0 items-center gap-2 rounded-full border border-[color:var(--hairline)] py-1 pl-1 pr-2"
+              className="flex shrink-0 items-center gap-2 rounded-full border border-[color:var(--hairline)] bg-[color:var(--surface-sunken)] py-1 pl-1 pr-2"
             >
-              <span className="relative size-9 shrink-0 overflow-hidden rounded-full bg-[color:var(--surface-sunken)]">
+              <span className="relative size-9 shrink-0 overflow-hidden rounded-full bg-bone-200">
                 <Image
                   src={project.hero.src}
                   alt={project.hero.alt}
@@ -68,7 +68,7 @@ export function CompareTray({ projects }: { projects: Project[] }) {
           >
             Clear
           </button>
-          <Button href="/purchase/compare" size="sm">
+          <Button href="/purchase/compare" variant="solid" size="sm">
             Compare ({items.length})
           </Button>
         </div>

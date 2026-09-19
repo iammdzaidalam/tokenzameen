@@ -148,9 +148,9 @@ export function EnquiryForm({
       </FormField>
 
       {projectName && projectSlug ? (
-        <div className="rounded-xl border border-[color:var(--hairline)] bg-white/[0.02] px-4 py-3">
-          <p className="text-xs tracking-wide text-steel-500">Property</p>
-          <p className="mt-0.5 text-sm text-bone-100">{projectName}</p>
+        <div className="rounded-xl border border-[color:var(--hairline)] bg-[color:var(--surface-sunken)] px-4 py-3">
+          <p className="text-xs tracking-wide text-[color:var(--text-muted)]">Property</p>
+          <p className="mt-0.5 text-sm text-[color:var(--text-primary)]">{projectName}</p>
         </div>
       ) : showPicker ? (
         <FormField label="Property" error={errors.projectSlug?.message}>

@@ -1,46 +1,57 @@
 import { HeroMontage } from "@/components/purchase/hero-montage";
+import { PopularSearches } from "@/components/search/popular-searches";
+import { SearchCard } from "@/components/search/search-card";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import { Section } from "@/components/ui/section";
 import { RevealLines } from "@/components/motion/reveal";
 import { categories } from "@/lib/catalog";
 
-export function PurchaseHero() {
+export function PurchaseHero({ cities }: { cities: string[] }) {
   return (
-    <section
-      aria-label="Real estate, curated"
-      className="grain relative flex min-h-[86svh] flex-col justify-end overflow-hidden bg-carbon-950 pb-14 pt-32 text-bone-100 sm:pb-20 lg:min-h-[100svh] lg:pb-24 lg:pt-40"
-    >
-      <HeroMontage frames={categories.map((category) => category.hero.src)} />
+    <Section tone="bone" space="none" aria-label="Real estate, curated" className="pb-16 pt-3 sm:pt-5">
+      <Container width="wide">
+        <div className="relative">
+          <div className="grain relative flex min-h-[62svh] flex-col items-center justify-center overflow-hidden rounded-frame bg-carbon-950 px-5 pb-28 pt-16 text-center text-bone-100 sm:px-10 lg:min-h-[76vh] lg:pb-[18rem]">
+            <HeroMontage frames={categories.map((category) => category.hero.src)} />
 
-      <Container width="wide" className="relative z-10">
-        <Eyebrow withRule className="text-gold-300">
-          TokenZameen · Purchase
-        </Eyebrow>
+            <div className="relative z-10 flex flex-col items-center">
+              <p className="eyebrow text-bone-100/70">TokenZameen · Purchase</p>
 
-        <h1 className="mt-7 max-w-[14ch] text-display-2xl uppercase text-bone-50">
-          <RevealLines lines={["Real estate,", "curated."]} delay={0.15} />
-        </h1>
+              <h1 className="mt-6 max-w-[15ch] text-display-2xl uppercase text-bone-50">
+                <RevealLines lines={["Real estate,", "curated."]} delay={0.15} />
+              </h1>
 
-        <p className="mt-7 max-w-xl text-base leading-relaxed text-steel-200 sm:mt-8 sm:text-lg">
-          Discover exceptional homes, investment opportunities, land and communities —
-          thoughtfully selected by TokenZameen.
-        </p>
+              <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-bone-200/90 sm:text-lg">
+                Discover exceptional homes, investment opportunities, land and communities —
+                thoughtfully selected by TokenZameen.
+              </p>
 
-        <div className="mt-9 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
-          <Button href="/purchase/properties" size="lg" className="w-full sm:w-auto">
-            Explore Properties
-          </Button>
-          <Button href="/advisory" variant="secondary" size="lg" className="w-full sm:w-auto">
-            Talk to an Advisor
-          </Button>
-        </div>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <Button href="/purchase/properties" size="md" className="bg-bone-50 text-carbon-950 shadow-none hover:bg-white">
+                  Explore Properties
+                </Button>
+                <Button
+                  href="/advisory"
+                  variant="glass"
+                  size="md"
+                  className="border-white/25 bg-white/10 text-bone-50 hover:bg-white/18"
+                >
+                  Talk to an Advisor
+                </Button>
+              </div>
+            </div>
+          </div>
 
-        <div aria-hidden className="mt-12 flex items-center gap-4 sm:mt-16">
-          <span className="eyebrow text-steel-400">Scroll</span>
-          <span className="h-px w-14 bg-gradient-to-r from-gold-400/70 to-transparent sm:w-20" />
+          <div className="relative z-20 -mt-20 lg:-mt-[16rem] lg:px-10">
+            <SearchCard cities={cities} />
+            <PopularSearches
+              className="mt-5"
+              labelClassName="lg:text-bone-100/80"
+            />
+          </div>
         </div>
       </Container>
-    </section>
+    </Section>
   );
 }

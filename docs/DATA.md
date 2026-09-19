@@ -100,6 +100,13 @@ to `areaMin`/`areaMax`, falling back to plot area when built-up is unknown.
 **`analytics_events`** — `type` (PRD 01 §41), `projectSlug`, `categorySlug`,
 `payload` jsonb, `sessionHash`. Indexed on `(type, createdAt)` and `projectSlug`.
 
+**`subscribers`** — newsletter signups from the footer. `email` (unique, stored
+lowercased), `source` (defaults to `footer`), `consent`, `ipHash`, `userAgent`,
+`createdAt`, `unsubscribedAt`. Deliberately not a lead: no phone, no score, no
+reference, never joined to `leads`. `subscribe()` treats a duplicate as success
+and clears `unsubscribedAt`; `POST /api/newsletter` takes `{ email, consent }`
+and returns the same 503 shape as the lead routes when the database is absent.
+
 Unknown values are `null` throughout. Nothing is defaulted to a made-up number.
 
 ## Lead scoring
@@ -227,6 +234,7 @@ no internal error text, and sets `Cache-Control: no-store`.
 | `POST /api/site-visits` | Reuses an existing lead matched on the normalised phone, otherwise creates one, then writes the visit row |
 | `POST /api/documents/request` | Lead with source `document-access`, plus a `document-request` event carrying `projectSlug` and `documentId` |
 | `POST /api/analytics` | Fire-and-forget ingestion. **Always 202**, whatever happens |
+| `POST /api/newsletter` | `{ email, consent }` → subscriber row, `{ ok: true }` (201). Not a lead; 503 without a database |
 | `GET /api/leads/[reference]` | A buyer checking their own enquiry. Returns reference, status, status label, project slug and the three timestamps — never the score, stage, advisor, message or contact details |
 
 Failure shape, shared with the client as `ApiFailure`:

@@ -8,6 +8,13 @@
       "when": 1789855160293,
       "tag": "0000_glorious_magma",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789856473691,
+      "tag": "0001_young_tarantula",
+      "breakpoints": true
     }
   ]
 }

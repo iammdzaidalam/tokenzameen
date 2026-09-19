@@ -13,24 +13,26 @@ import type { Category, Project } from "@/types/catalog";
 
 function StorytellingBlock({
   category,
+  index,
   featured,
 }: {
   category: Category;
+  index: string;
   featured: Project | null;
 }) {
   switch (category.slug) {
     case "apartments":
-      return <FormatStandards variant="apartments" accent={category.accent} />;
+      return <FormatStandards variant="apartments" accent={category.accent} index={index} />;
     case "villas":
-      return <FormatStandards variant="villas" accent={category.accent} />;
+      return <FormatStandards variant="villas" accent={category.accent} index={index} />;
     case "commercial":
-      return <CommercialThesis accent={category.accent} />;
+      return <CommercialThesis accent={category.accent} index={index} />;
     case "sustainable-living":
-      return <SustainablePillars accent={category.accent} featured={featured} />;
+      return <SustainablePillars accent={category.accent} index={index} featured={featured} />;
     case "spiritual-residences":
-      return <SpiritualCollections accent={category.accent} />;
+      return <SpiritualCollections accent={category.accent} index={index} />;
     case "plots":
-      return <PlotDiligence accent={category.accent} />;
+      return <PlotDiligence accent={category.accent} index={index} />;
   }
 }
 
@@ -53,20 +55,24 @@ export function CategoryExperience({
 
   const rest = featured ? projects.filter((project) => project.slug !== featured.slug) : projects;
 
+  let position = 0;
+  const next = () => String(++position).padStart(2, "0");
+
   return (
     <>
       <CategoryHero category={category} projectCount={projects.length} quiet={quiet} />
-      <CategoryAudience category={category} quiet={quiet} />
-      <StorytellingBlock category={category} featured={featured} />
-      {isLuxofyCategory ? (
+      <CategoryAudience category={category} index={next()} quiet={quiet} />
+      <StorytellingBlock category={category} index={next()} featured={featured} />
+      {isLuxofyCategory && featured ? (
         <LuxofyCollection
           projects={projects}
           accent={category.accent}
+          index={next()}
           defaultFormat={category.slug === "villas" ? "villas" : "apartments"}
         />
       ) : null}
-      <CategoryProjects category={category} projects={rest} featured={featured} />
-      <CategoryRail category={category} tone={quiet ? "darker" : "dark"} />
+      <CategoryProjects category={category} index={next()} projects={rest} featured={featured} />
+      <CategoryRail category={category} index={next()} />
       <AdvisoryCta
         accent={category.accent}
         quiet={quiet}

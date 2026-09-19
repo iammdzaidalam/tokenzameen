@@ -24,8 +24,8 @@ export function EmptyState({
   const [primary, ...rest] = suggestions;
 
   return (
-    <div className="rounded-panel border border-[color:var(--hairline)] bg-[color:var(--surface-raised)] p-8 sm:p-12">
-      <span className="grid size-11 place-items-center rounded-full border border-[color:var(--hairline-strong)] text-[color:var(--accent)]">
+    <div className="rounded-card border border-[color:var(--hairline)] bg-[color:var(--surface)] p-8 sm:p-12">
+      <span className="grid size-11 place-items-center rounded-full bg-[color:var(--surface-sunken)] text-[color:var(--text-primary)]">
         <SearchX className="size-5" />
       </span>
       <h2 className="mt-6 text-display-sm">No property matches this combination.</h2>
@@ -49,7 +49,7 @@ export function EmptyState({
 
       <div className="mt-7 flex flex-wrap gap-3">
         {primary ? (
-          <Button variant="primary" size="sm" onClick={() => onApply(primary.next)}>
+          <Button variant="solid" size="sm" onClick={() => onApply(primary.next)}>
             Remove {primary.label}
           </Button>
         ) : null}
@@ -64,7 +64,7 @@ export function EmptyState({
           </Button>
         ))}
         {activeCount > 0 ? (
-          <Button variant={primary ? "ghost" : "primary"} size="sm" onClick={onClearAll}>
+          <Button variant={primary ? "ghost" : "solid"} size="sm" onClick={onClearAll}>
             Clear every filter
           </Button>
         ) : null}

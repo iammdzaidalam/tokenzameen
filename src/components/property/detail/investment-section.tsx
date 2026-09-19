@@ -1,9 +1,13 @@
-import { Disclaimer, PendingPanel, Panel, SectionHeading } from "@/components/property/detail/detail-primitives";
+import Image from "next/image";
+import { Disclaimer, Panel, PendingPanel } from "@/components/property/detail/detail-primitives";
 import { MoneyCountUp, PercentCountUp } from "@/components/property/detail/count-up-money";
+import { IntelligenceBlock } from "@/components/property/detail/intelligence-block";
 import { RequestButton } from "@/components/property/detail/request-context";
 import { hasCommercialTerms } from "@/components/property/detail/sections";
+import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
+import { IndexLabel } from "@/components/ui/index-label";
 import { Section } from "@/components/ui/section";
 import { DISCLAIMERS } from "@/content/config";
 import type { CommercialTerms, Project } from "@/types/catalog";
@@ -47,73 +51,124 @@ function tilesFor(terms: CommercialTerms): SnapshotTile[] {
   return tiles;
 }
 
-export function InvestmentSection({ project }: { project: Project }) {
+/**
+ * The page's carbon inversion: Property Intelligence, the Investment Snapshot and
+ * the payment plan share one band, after board 04's glass cards over imagery.
+ */
+export function InvestmentSection({ project, index }: { project: Project; index: string }) {
   const terms = project.commercial;
   const snapshot = terms && hasCommercialTerms(project) ? tilesFor(terms) : [];
 
   return (
-    <Section tone="dark" aria-label={`${project.name} investment terms`}>
+    <Section
+      id="intelligence"
+      tone="darker"
+      space="xl"
+      aria-label={`${project.name} investment view`}
+      className="isolate scroll-mt-[9.5rem] overflow-hidden"
+    >
+      <Image
+        src={project.hero.src}
+        alt=""
+        aria-hidden
+        fill
+        sizes="100vw"
+        className="-z-10 object-cover opacity-20"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-carbon-950 via-carbon-950/70 to-carbon-950"
+      />
+
       <Container width="wide">
-        {snapshot.length > 0 && terms ? (
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <SectionHeading
-                eyebrow="Investment snapshot"
-                title="The terms, as published"
-                lead="Project-specific and indicative. Every figure here is confirmed against the lease and the transaction documents before anything is committed."
-              />
-              <div className="flex flex-wrap gap-2">
-                {terms.preLeased ? <Badge tone="gold">Pre-leased</Badge> : null}
-                <Badge tone="outline">Indicative</Badge>
-              </div>
+        <Reveal>
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <IndexLabel index={index}>Investment view</IndexLabel>
+              <h2 className="mt-6 max-w-[14ch] text-display-xl text-[color:var(--text-primary)]">
+                How we read this property.
+              </h2>
             </div>
+            <p className="max-w-sm text-sm leading-relaxed text-[color:var(--text-secondary)] lg:pb-3 lg:text-right">
+              Everything on this band is either published by the project, or marked as the
+              TokenZameen team’s own read. Nothing here is a guarantee of return.
+            </p>
+          </div>
+        </Reveal>
 
-            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-panel border border-[color:var(--hairline)] bg-[color:var(--hairline)] lg:grid-cols-4">
-              {snapshot.map((tile) => (
-                <div key={tile.label} className="flex flex-col gap-3 bg-[color:var(--surface)] p-6">
-                  <dt className="eyebrow text-[color:var(--text-muted)]">{tile.label}</dt>
-                  <dd className="tabular font-display text-display-sm leading-none text-[color:var(--accent)]">
-                    {tile.node}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+        <div className="mt-14 flex flex-col gap-20 lg:mt-20">
+          <IntelligenceBlock project={project} />
 
-            <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-              <Disclaimer label="Financial figures">{DISCLAIMERS.financial}</Disclaimer>
-              <Panel className="flex items-center justify-between gap-4 p-5 sm:p-5">
-                <div>
-                  <p className="eyebrow text-[color:var(--text-muted)]">Tenant</p>
-                  <p className="mt-1.5 text-sm text-[color:var(--text-primary)]">
-                    {terms.tenant ?? "Shared on request, where legally permitted"}
+          {snapshot.length > 0 && terms ? (
+            <div className="flex flex-col gap-8">
+              <div className="flex flex-wrap items-end justify-between gap-6">
+                <div className="max-w-2xl">
+                  <h3 className="text-display-md text-[color:var(--text-primary)]">Investment snapshot</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-[color:var(--text-secondary)] sm:text-base">
+                    The terms, as published. Project-specific and indicative — every figure is
+                    confirmed against the lease and the transaction documents before anything is
+                    committed.
                   </p>
                 </div>
-              </Panel>
+                <div className="flex flex-wrap gap-2">
+                  {terms.preLeased ? <Badge tone="outline">Pre-leased</Badge> : null}
+                  <Badge tone="outline">Indicative</Badge>
+                </div>
+              </div>
+
+              <dl className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+                {snapshot.map((tile, position) => (
+                  <Reveal
+                    as="div"
+                    key={tile.label}
+                    delay={position * 0.06}
+                    className="glass flex min-h-[10rem] flex-col justify-between gap-6 rounded-card p-5 sm:p-6"
+                  >
+                    <dt className="eyebrow text-[color:var(--text-muted)]">{tile.label}</dt>
+                    <dd className="tabular font-display text-display-md leading-none tracking-tight text-[color:var(--text-primary)]">
+                      {tile.node}
+                    </dd>
+                  </Reveal>
+                ))}
+              </dl>
+
+              <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+                <Disclaimer label="Financial figures">{DISCLAIMERS.financial}</Disclaimer>
+                <Panel tone="glass" className="flex items-center gap-4 p-5 sm:p-5">
+                  <div>
+                    <p className="eyebrow text-[color:var(--text-muted)]">Tenant</p>
+                    <p className="mt-1.5 text-sm text-[color:var(--text-primary)]">
+                      {terms.tenant ?? "Shared on request, where legally permitted"}
+                    </p>
+                  </div>
+                </Panel>
+              </div>
             </div>
+          ) : null}
+
+          <div className="flex flex-col gap-8">
+            <div className="max-w-2xl">
+              <h3 className="text-display-md text-[color:var(--text-primary)]">Payment plan</h3>
+            </div>
+            {terms?.paymentStructure ? (
+              <Panel tone="glass" className="max-w-3xl">
+                <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
+                  {terms.paymentStructure}
+                </p>
+              </Panel>
+            ) : (
+              <PendingPanel
+                className="max-w-3xl"
+                title="Payment structure not yet released"
+                body="The developer has not released a payment schedule we can publish. An advisor will send the current structure in writing, along with what each milestone depends on."
+                action={
+                  <RequestButton subject="the payment structure" source="request-price" variant="solid">
+                    Request the payment structure
+                  </RequestButton>
+                }
+              />
+            )}
           </div>
-        ) : null}
-
-        <div className={snapshot.length > 0 ? "mt-16" : ""}>
-          <SectionHeading eyebrow="Payment plan" title="How the payment is structured" size="md" />
-
-          {terms?.paymentStructure ? (
-            <Panel className="mt-8 max-w-3xl">
-              <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
-                {terms.paymentStructure}
-              </p>
-            </Panel>
-          ) : (
-            <PendingPanel
-              className="mt-8 max-w-3xl"
-              title="Payment structure not yet released"
-              body="The developer has not released a payment schedule we can publish. An advisor will send the current structure in writing, along with what each milestone depends on."
-              action={
-                <RequestButton subject="the payment structure" source="request-price" variant="primary">
-                  Request the payment structure
-                </RequestButton>
-              }
-            />
-          )}
         </div>
       </Container>
     </Section>

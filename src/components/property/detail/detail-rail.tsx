@@ -50,8 +50,8 @@ export function DetailRail({ project }: { project: Project }) {
 
   return (
     <div
-      data-surface="dark"
-      className="sticky top-[72px] z-[80] border-b border-white/10 bg-carbon-950/85 text-bone-100 backdrop-blur-xl"
+      data-surface="light"
+      className="sticky top-[72px] z-[80] border-b border-[color:var(--hairline)] bg-bone-100/92 text-[color:var(--text-primary)] backdrop-blur-xl"
     >
       <Container width="wide" className="flex items-center gap-6">
         <nav aria-label="Property sections" className="no-scrollbar -mx-1 flex-1 overflow-x-auto">
@@ -66,8 +66,8 @@ export function DetailRail({ project }: { project: Project }) {
                     className={cn(
                       "block whitespace-nowrap rounded-full px-3.5 py-2 text-[0.8125rem] transition-colors duration-300",
                       isActive
-                        ? "bg-white/10 text-bone-100"
-                        : "text-steel-300 hover:text-bone-100",
+                        ? "bg-[color:var(--surface-sunken)] text-[color:var(--text-primary)]"
+                        : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",
                     )}
                   >
                     {section.label}
@@ -85,10 +85,10 @@ export function DetailRail({ project }: { project: Project }) {
           )}
           inert={!pastHero}
         >
-          <p className="tabular hidden text-sm text-gold-200 xl:block">
+          <p className="tabular hidden text-sm text-[color:var(--accent)] xl:block">
             {formatPriceFrom(project.priceFrom)}
           </p>
-          <RequestButton subject="the full project details" variant="primary" size="sm">
+          <RequestButton subject="the full project details" variant="solid" size="sm">
             Request Details
           </RequestButton>
           <Button href="#site-visit" variant="secondary" size="sm">

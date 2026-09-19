@@ -7,8 +7,9 @@ import { RequestButton } from "@/components/property/detail/request-context";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
-import { RevealLines } from "@/components/motion/reveal";
+import { IndexLabel } from "@/components/ui/index-label";
+import { Section } from "@/components/ui/section";
+import { Reveal, RevealLines } from "@/components/motion/reveal";
 import { formatPriceFrom } from "@/lib/format";
 import { AVAILABILITY_LABEL, CATEGORY_LABEL, SPECIAL_TAG_LABEL } from "@/lib/labels";
 import type { Project } from "@/types/catalog";
@@ -24,119 +25,139 @@ export function DetailHero({ project }: { project: Project }) {
   const category = CATEGORY_LABEL[project.primaryCategory];
 
   return (
-    <section
+    <Section
       id="hero"
-      data-surface="dark"
+      tone="bone"
+      space="none"
       aria-label={`${project.name} introduction`}
-      className="grain relative isolate flex min-h-[88svh] flex-col overflow-hidden bg-carbon-950 text-bone-100"
+      className="pb-6 pt-6 sm:pt-8 lg:pb-20"
     >
-      <HeroMedia src={project.hero.src} alt={project.hero.alt} />
-
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-carbon-950 via-carbon-950/60 to-carbon-950/30"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-r from-carbon-950/85 via-carbon-950/25 to-transparent"
-      />
-
-      <Container width="wide" className="relative z-10 flex flex-1 flex-col pb-14 pt-[calc(72px+2rem)] sm:pb-20">
-        <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-steel-300">
-            <li>
-              <Link href="/purchase" className="transition-colors hover:text-bone-100">
-                Purchase
-              </Link>
-            </li>
-            <li aria-hidden className="text-steel-500">
-              <ChevronRight className="size-3" />
-            </li>
-            <li>
-              <Link
-                href={`/purchase/${project.primaryCategory}`}
-                className="transition-colors hover:text-bone-100"
-              >
-                {category}
-              </Link>
-            </li>
-            <li aria-hidden className="text-steel-500">
-              <ChevronRight className="size-3" />
-            </li>
-            <li aria-current="page" className="text-bone-100">
-              {project.name}
-            </li>
-          </ol>
-        </nav>
-
-        <div className="mt-auto pt-16">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
-            <Eyebrow className="text-gold-300">{category}</Eyebrow>
+      <Container width="wide">
+        <Reveal mode="fade" duration={0.6}>
+          <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
+            <nav aria-label="Breadcrumb">
+              <ol className="flex flex-wrap items-center gap-1.5 text-xs text-[color:var(--text-secondary)]">
+                <li>
+                  <Link href="/purchase" className="transition-colors hover:text-[color:var(--text-primary)]">
+                    Purchase
+                  </Link>
+                </li>
+                <li aria-hidden className="flex items-center">
+                  <ChevronRight className="size-3.5 opacity-50" />
+                </li>
+                <li>
+                  <Link
+                    href={`/purchase/${project.primaryCategory}`}
+                    className="transition-colors hover:text-[color:var(--text-primary)]"
+                  >
+                    {category}
+                  </Link>
+                </li>
+                <li aria-hidden className="flex items-center">
+                  <ChevronRight className="size-3.5 opacity-50" />
+                </li>
+                <li aria-current="page" className="text-[color:var(--text-primary)]">
+                  {project.name}
+                </li>
+              </ol>
+            </nav>
             <Badge tone={AVAILABILITY_TONE[project.availability]}>
               {AVAILABILITY_LABEL[project.availability]}
             </Badge>
           </div>
 
-          <h1 className="mt-5 text-display-2xl text-bone-50">
-            <RevealLines lines={[project.name]} />
-          </h1>
+          <div className="mt-6 sm:mt-8">
+            <IndexLabel>{category}</IndexLabel>
+          </div>
+        </Reveal>
 
-          <p className="mt-6 flex items-center gap-2 text-sm text-steel-200 sm:text-base">
-            <MapPin aria-hidden className="size-4 shrink-0 opacity-70" />
-            {project.location.label}
-          </p>
+        <div className="relative mt-5">
+          <div
+            data-surface="dark"
+            className="grain relative isolate flex min-h-[28rem] overflow-hidden rounded-frame bg-carbon-950 text-bone-100 sm:min-h-[60svh] lg:min-h-[70svh]"
+          >
+            <HeroMedia src={project.hero.src} alt={project.hero.alt} />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-carbon-950/90 via-carbon-950/40 to-carbon-950/15"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-r from-carbon-950/70 via-carbon-950/10 to-transparent"
+            />
 
-          <p className="mt-8 max-w-2xl font-subhead text-lg leading-snug text-bone-200 sm:text-xl">
-            {project.positioning}
-          </p>
+            <div className="relative flex w-full flex-col justify-end p-6 pb-28 sm:p-10 sm:pb-32 lg:p-14 lg:pr-[26rem]">
+              {project.specialTags.length > 0 ? (
+                <ul className="mb-6 flex flex-wrap gap-2">
+                  {project.specialTags.map((tag) => (
+                    <li key={tag}>
+                      <Badge tone="outline" className="border-white/40 bg-carbon-950/40 text-bone-100 backdrop-blur-sm">
+                        {SPECIAL_TAG_LABEL[tag]}
+                      </Badge>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
 
-          <div className="mt-8 flex flex-col gap-2 border-t border-white/10 pt-8 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
-            <div>
-              <p className="eyebrow text-steel-400">Price</p>
-              <p className="tabular mt-2 font-display text-display-sm text-gold-200">
+              <h1 className="max-w-[12ch] text-balance text-display-xl text-[color:var(--text-primary)]">
+                <RevealLines lines={[project.name]} delay={0.05} />
+              </h1>
+
+              <Reveal mode="fade" delay={0.35} duration={0.8}>
+                <p className="mt-6 max-w-xl text-pretty font-subhead text-lg leading-snug text-[color:var(--text-secondary)] sm:text-xl">
+                  {project.positioning}
+                </p>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <RequestButton
+                    subject="the full project details"
+                    variant="solid"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
+                    Request Details
+                  </RequestButton>
+                  <Button href="#site-visit" variant="glass" size="lg" className="w-full sm:w-auto">
+                    <CalendarClock aria-hidden className="size-4" />
+                    Schedule Site Visit
+                  </Button>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+
+          <Reveal
+            mode="up"
+            delay={0.5}
+            className="relative z-10 mx-4 -mt-20 sm:mx-8 sm:-mt-24 lg:absolute lg:-bottom-12 lg:right-10 lg:mx-0 lg:mt-0 lg:w-[22rem]"
+          >
+            <div
+              data-surface="light"
+              className="rounded-card bg-[color:var(--surface)] p-5 text-[color:var(--text-primary)] shadow-lift sm:p-6"
+            >
+              <p className="eyebrow text-[color:var(--text-muted)]">Starting price</p>
+              <p className="tabular mt-2 font-display text-display-sm text-[color:var(--text-primary)]">
                 {formatPriceFrom(project.priceFrom)}
               </p>
               {project.priceNote ? (
-                <p className="mt-2 max-w-md text-xs leading-relaxed text-steel-400">{project.priceNote}</p>
+                <p className="mt-2 text-xs leading-relaxed text-[color:var(--text-muted)]">
+                  {project.priceNote}
+                </p>
               ) : null}
-            </div>
 
-            {project.specialTags.length > 0 ? (
-              <ul className="flex flex-wrap gap-2 sm:justify-end">
-                {project.specialTags.map((tag) => (
-                  <li key={tag}>
-                    <Badge tone="gold">{SPECIAL_TAG_LABEL[tag]}</Badge>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
+              <p className="mt-4 flex items-center gap-1.5 border-t border-[color:var(--hairline)] pt-4 text-sm text-[color:var(--text-secondary)]">
+                <MapPin aria-hidden className="size-3.5 shrink-0 opacity-60" />
+                {project.location.label}
+              </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <RequestButton
-              subject="the full project details"
-              variant="primary"
-              size="lg"
-              className="max-sm:w-full"
-            >
-              Request Details
-            </RequestButton>
-            <Button
-              href="#site-visit"
-              variant="glass"
-              size="lg"
-              className="max-sm:w-full"
-            >
-              <CalendarClock aria-hidden className="size-4" />
-              Schedule Site Visit
-            </Button>
-            <div className="flex items-center gap-3 sm:ml-2">
-              <SaveButton slug={project.slug} name={project.name} />
-              <CompareButton slug={project.slug} name={project.name} withLabel className="glass" />
+              <div className="mt-4 flex items-center justify-between gap-3">
+                <CompareButton slug={project.slug} name={project.name} withLabel />
+                <SaveButton slug={project.slug} name={project.name} tone="bare" />
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </Container>
-    </section>
+    </Section>
   );
 }

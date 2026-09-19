@@ -63,3 +63,8 @@ export const ACCENT_BY_CATEGORY = {
   "spiritual-residences": "lotus",
   plots: "gold",
 } as const;
+
+export function sectionIndexer(): () => string {
+  let count = 0;
+  return () => String(++count).padStart(2, "0");
+}

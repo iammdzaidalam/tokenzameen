@@ -1,38 +1,40 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { FlipGroup, FlipItem } from "@/components/interactions/layout-flip";
+import { PropertyRow } from "@/components/discovery/property-row";
+import type { ResultView } from "@/components/discovery/toolbar";
 import { PropertyCard } from "@/components/property/property-card";
 import { cn } from "@/lib/cn";
 import type { Project } from "@/types/catalog";
 
 export function ResultsGrid({
   projects,
+  view,
   className,
 }: {
   projects: Project[];
+  view: ResultView;
   className?: string;
 }) {
-  const reduced = useReducedMotion();
-
   return (
-    <div
-      className={cn("grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3", className)}
+    <FlipGroup
+      id="discovery-results"
+      className={cn(
+        view === "grid"
+          ? "grid grid-cols-1 gap-6 sm:grid-cols-2 2xl:grid-cols-3"
+          : "flex flex-col gap-4",
+        className,
+      )}
     >
       {projects.map((project, index) => (
-        <motion.div
-          key={project.slug}
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: reduced ? 0 : 0.32,
-            delay: reduced ? 0 : Math.min(index, 5) * 0.035,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="flex"
-        >
-          <PropertyCard project={project} priority={index < 2} className="w-full" />
-        </motion.div>
+        <FlipItem key={project.slug} layoutId={`result-${project.slug}`} index={index} className="flex">
+          {view === "grid" ? (
+            <PropertyCard project={project} priority={index < 2} className="w-full" />
+          ) : (
+            <PropertyRow project={project} priority={index < 2} className="w-full" />
+          )}
+        </FlipItem>
       ))}
-    </div>
+    </FlipGroup>
   );
 }

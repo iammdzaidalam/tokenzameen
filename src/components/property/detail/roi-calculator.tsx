@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Disclaimer, Panel } from "@/components/property/detail/detail-primitives";
+import { Disclaimer, Panel, TintCard, type Tint } from "@/components/property/detail/detail-primitives";
 import { calculateRoi, leaseYearsFrom } from "@/components/property/detail/finance";
 import { Field, TextInput } from "@/components/ui/field";
 import { DISCLAIMERS } from "@/content/config";
@@ -17,7 +17,7 @@ function toNumber(value: string): number {
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
 }
 
-export function RoiCalculator({ terms }: { terms: CommercialTerms | null }) {
+export function RoiCalculator({ terms, tint }: { terms: CommercialTerms | null; tint: Tint }) {
   const startingValue = terms?.propertyValue?.amount ?? DEFAULT_VALUE;
   const startingRent = terms?.monthlyRent?.amount ?? DEFAULT_MONTHLY_RENT;
   const startingLease = leaseYearsFrom(terms?.leaseTenure ?? null) ?? DEFAULT_LEASE_YEARS;
@@ -35,125 +35,134 @@ export function RoiCalculator({ terms }: { terms: CommercialTerms | null }) {
   });
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field
-          label="Property value (₹)"
-          htmlFor="roi-value"
-          hint={
-            terms?.propertyValue
-              ? "Prefilled from the terms published for this property."
-              : "Your figure. No value is published for this property yet."
-          }
-          className="sm:col-span-2"
-        >
-          <TextInput
-            id="roi-value"
-            type="number"
-            inputMode="numeric"
-            min={0}
-            step={100000}
-            value={propertyValue}
-            onChange={(event) => setPropertyValue(event.target.value)}
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
+      <Panel className="flex flex-col gap-6">
+        <div>
+          <h3 className="font-subhead text-base font-medium text-[color:var(--text-primary)]">
+            Commercial return
+          </h3>
+          <p className="mt-1 text-xs text-[color:var(--text-muted)]">
+            Every figure is yours to set. Published terms are prefilled where they exist.
+          </p>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Field
+            label="Property value (₹)"
+            htmlFor="roi-value"
+            hint={
+              terms?.propertyValue
+                ? "Prefilled from the terms published for this property."
+                : "Your figure. No value is published for this property yet."
+            }
+            className="sm:col-span-2"
+          >
+            <TextInput
+              id="roi-value"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              step={100000}
+              value={propertyValue}
+              onChange={(event) => setPropertyValue(event.target.value)}
+            />
+          </Field>
+
+          <Field
+            label="Monthly rent (₹)"
+            htmlFor="roi-rent"
+            hint={terms?.monthlyRent ? "Prefilled from the published lease position." : "Your figure."}
+          >
+            <TextInput
+              id="roi-rent"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              step={1000}
+              value={monthlyRent}
+              onChange={(event) => setMonthlyRent(event.target.value)}
+            />
+          </Field>
+
+          <Field
+            label="Annual expenses (₹)"
+            htmlFor="roi-expenses"
+            hint="Maintenance, tax, insurance, vacancy — your estimate."
+          >
+            <TextInput
+              id="roi-expenses"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              step={1000}
+              value={annualExpenses}
+              onChange={(event) => setAnnualExpenses(event.target.value)}
+            />
+          </Field>
+
+          <Field
+            label="Lease period (years)"
+            htmlFor="roi-lease"
+            hint={terms?.leaseTenure ? `Stated lease: ${terms.leaseTenure}` : undefined}
+            className="sm:col-span-2"
+          >
+            <TextInput
+              id="roi-lease"
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={99}
+              step={1}
+              value={leaseYears}
+              onChange={(event) => setLeaseYears(event.target.value)}
+            />
+          </Field>
+        </div>
+      </Panel>
+
+      <div className="flex flex-col gap-4">
+        <dl aria-live="polite" className="grid grid-cols-2 gap-4">
+          <TintCard
+            label="Indicative gross yield"
+            value={
+              result && result.grossYieldPercent !== null
+                ? formatPercent(result.grossYieldPercent)
+                : "Enter a value"
+            }
+            tint={tint}
+            emphasis
           />
-        </Field>
-
-        <Field
-          label="Monthly rent (₹)"
-          htmlFor="roi-rent"
-          hint={terms?.monthlyRent ? "Prefilled from the published lease position." : "Your figure."}
-        >
-          <TextInput
-            id="roi-rent"
-            type="number"
-            inputMode="numeric"
-            min={0}
-            step={1000}
-            value={monthlyRent}
-            onChange={(event) => setMonthlyRent(event.target.value)}
+          <TintCard
+            label="Indicative net yield"
+            value={
+              result && result.netYieldPercent !== null
+                ? formatPercent(result.netYieldPercent)
+                : "Enter a value"
+            }
+            tint="steel"
+            emphasis
           />
-        </Field>
-
-        <Field
-          label="Annual expenses (₹)"
-          htmlFor="roi-expenses"
-          hint="Maintenance, tax, insurance, vacancy — your estimate."
-        >
-          <TextInput
-            id="roi-expenses"
-            type="number"
-            inputMode="numeric"
-            min={0}
-            step={1000}
-            value={annualExpenses}
-            onChange={(event) => setAnnualExpenses(event.target.value)}
+          <TintCard
+            label="Indicative annual rent"
+            value={result ? formatAmount(Math.round(result.annualRent)) : "Enter a rent"}
+            tint="steel"
           />
-        </Field>
-
-        <Field
-          label="Lease period (years)"
-          htmlFor="roi-lease"
-          hint={terms?.leaseTenure ? `Stated lease: ${terms.leaseTenure}` : undefined}
-          className="sm:col-span-2"
-        >
-          <TextInput
-            id="roi-lease"
-            type="number"
-            inputMode="numeric"
-            min={1}
-            max={99}
-            step={1}
-            value={leaseYears}
-            onChange={(event) => setLeaseYears(event.target.value)}
+          <TintCard
+            label="Indicative net rental income"
+            value={result ? formatAmount(Math.round(result.netRentalIncome)) : "Enter a rent"}
+            tint="steel"
           />
-        </Field>
-      </div>
-
-      <div className="flex flex-col gap-5">
-        <Panel className="flex flex-col gap-6">
-          <p className="eyebrow text-[color:var(--text-muted)]">Indicative result</p>
-
-          <dl aria-live="polite" className="grid grid-cols-2 gap-6">
-            <div>
-              <dt className="eyebrow text-[color:var(--text-muted)]">Indicative annual rent</dt>
-              <dd className="tabular mt-2 font-display text-xl text-[color:var(--text-primary)]">
-                {result ? formatAmount(Math.round(result.annualRent)) : "Enter a rent"}
-              </dd>
-            </div>
-            <div>
-              <dt className="eyebrow text-[color:var(--text-muted)]">Indicative net rental income</dt>
-              <dd className="tabular mt-2 font-display text-xl text-[color:var(--text-primary)]">
-                {result ? formatAmount(Math.round(result.netRentalIncome)) : "Enter a rent"}
-              </dd>
-            </div>
-            <div className="border-t border-[color:var(--hairline)] pt-5">
-              <dt className="eyebrow text-[color:var(--text-muted)]">Indicative gross yield</dt>
-              <dd className="tabular mt-2 font-display text-display-sm text-[color:var(--accent)]">
-                {result && result.grossYieldPercent !== null
-                  ? formatPercent(result.grossYieldPercent)
-                  : "Enter a value"}
-              </dd>
-            </div>
-            <div className="border-t border-[color:var(--hairline)] pt-5">
-              <dt className="eyebrow text-[color:var(--text-muted)]">Indicative net yield</dt>
-              <dd className="tabular mt-2 font-display text-display-sm text-[color:var(--text-primary)]">
-                {result && result.netYieldPercent !== null
-                  ? formatPercent(result.netYieldPercent)
-                  : "Enter a value"}
-              </dd>
-            </div>
-            <div className="col-span-2 border-t border-[color:var(--hairline)] pt-5">
-              <dt className="eyebrow text-[color:var(--text-muted)]">
-                Indicative net income across the lease period
-              </dt>
-              <dd className="tabular mt-2 font-display text-xl text-[color:var(--text-primary)]">
-                {result && result.netOverLease !== null
-                  ? formatAmount(Math.round(result.netOverLease))
-                  : "Enter a lease period"}
-              </dd>
-            </div>
-          </dl>
-        </Panel>
+          <TintCard
+            label="Indicative net income across the lease period"
+            value={
+              result && result.netOverLease !== null
+                ? formatAmount(Math.round(result.netOverLease))
+                : "Enter a lease period"
+            }
+            tint="steel"
+            className="col-span-2"
+          />
+        </dl>
 
         <Disclaimer label="Calculator">{DISCLAIMERS.calculator}</Disclaimer>
         <Disclaimer label="Financial figures">{DISCLAIMERS.financial}</Disclaimer>

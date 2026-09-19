@@ -52,7 +52,7 @@ export async function POST(request: Request): Promise<Response> {
     };
 
     const existing = await findLeadByPhone(values.phone);
-    if (!existing.ok && existing.error.code !== "not-found") {
+    if (!existing.ok) {
       logUnrecordedLead("POST /api/site-visits (lookup failed)", values);
       return failure("unavailable", LOST_LEAD_MESSAGE);
     }
@@ -60,7 +60,7 @@ export async function POST(request: Request): Promise<Response> {
     let leadId: string;
     let reference: string;
 
-    if (existing.ok && existing.data) {
+    if (existing.data) {
       leadId = existing.data.id;
       reference = existing.data.reference;
       const event = await appendLeadEvent({

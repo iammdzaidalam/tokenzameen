@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Disclaimer, Panel } from "@/components/property/detail/detail-primitives";
+import { Disclaimer, Panel, TintCard, type Tint } from "@/components/property/detail/detail-primitives";
 import { calculateEmi } from "@/components/property/detail/finance";
 import { Button } from "@/components/ui/button";
 import { Field, TextInput } from "@/components/ui/field";
@@ -22,9 +22,11 @@ function toNumber(value: string): number {
 export function EmiCalculator({
   publishedPrice,
   projectName,
+  tint,
 }: {
   publishedPrice: Money | null;
   projectName: string;
+  tint: Tint;
 }) {
   const startingPrice = publishedPrice?.amount ?? DEFAULT_PRICE;
   const [price, setPrice] = useState(String(startingPrice));
@@ -47,8 +49,17 @@ export function EmiCalculator({
     priceValue > 0 ? Math.round((downPaymentValue / priceValue) * 100) : null;
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
-      <div>
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
+      <Panel className="flex flex-col gap-6">
+        <div>
+          <h3 className="font-subhead text-base font-medium text-[color:var(--text-primary)]">
+            Residential EMI
+          </h3>
+          <p className="mt-1 text-xs text-[color:var(--text-muted)]">
+            Every figure is yours to set. Nothing here is a quoted rate or a committed price.
+          </p>
+        </div>
+
         <div className="grid gap-5 sm:grid-cols-2">
           <Field
             label="Property price (₹)"
@@ -131,7 +142,7 @@ export function EmiCalculator({
           <Button
             variant="link"
             size="sm"
-            className="mt-6"
+            className="self-start"
             onClick={() => {
               setPrice(String(publishedPrice.amount));
               setDownPayment(String(Math.round(publishedPrice.amount * DEFAULT_DOWN_PAYMENT_SHARE)));
@@ -140,48 +151,40 @@ export function EmiCalculator({
             Reset to the published price for {projectName}
           </Button>
         ) : null}
-      </div>
+      </Panel>
 
-      <div className="flex flex-col gap-5">
-        <Panel className="flex flex-col gap-6">
-          <p className="eyebrow text-[color:var(--text-muted)]">Indicative result</p>
-
-          <div aria-live="polite" className="flex flex-col gap-6">
-            {result ? (
-              <>
-                <div>
-                  <p className="text-sm text-[color:var(--text-secondary)]">Indicative monthly EMI</p>
-                  <p className="tabular mt-2 font-display text-display-md text-[color:var(--accent)]">
-                    {formatMoneyExact({ amount: Math.round(result.emi), currency: "INR" })}
-                  </p>
-                  <p className="mt-1 text-xs text-[color:var(--text-muted)]">
-                    over {result.months} monthly instalments
-                  </p>
-                </div>
-
-                <dl className="grid grid-cols-2 gap-6 border-t border-[color:var(--hairline)] pt-6">
-                  <div>
-                    <dt className="eyebrow text-[color:var(--text-muted)]">Indicative total interest</dt>
-                    <dd className="tabular mt-2 font-display text-xl text-[color:var(--text-primary)]">
-                      {formatAmount(Math.round(result.totalInterest))}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="eyebrow text-[color:var(--text-muted)]">Indicative total payable</dt>
-                    <dd className="tabular mt-2 font-display text-xl text-[color:var(--text-primary)]">
-                      {formatAmount(Math.round(result.totalPayable))}
-                    </dd>
-                  </div>
-                </dl>
-              </>
-            ) : (
+      <div className="flex flex-col gap-4">
+        <div aria-live="polite">
+          {result ? (
+            <dl className="grid grid-cols-2 gap-4">
+              <TintCard
+                label="Indicative monthly EMI"
+                value={formatMoneyExact({ amount: Math.round(result.emi), currency: "INR" })}
+                note={`over ${result.months} monthly instalments`}
+                tint={tint}
+                emphasis
+                className="col-span-2"
+              />
+              <TintCard
+                label="Indicative total interest"
+                value={formatAmount(Math.round(result.totalInterest))}
+                tint="steel"
+              />
+              <TintCard
+                label="Indicative total payable"
+                value={formatAmount(Math.round(result.totalPayable))}
+                tint="steel"
+              />
+            </dl>
+          ) : (
+            <Panel>
               <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
                 Enter a loan amount above zero and a tenure of at least one year to see an indicative
                 repayment.
               </p>
-            )}
-          </div>
-        </Panel>
+            </Panel>
+          )}
+        </div>
 
         <Disclaimer label="Calculator">{DISCLAIMERS.calculator}</Disclaimer>
         <Disclaimer label="Financial figures">{DISCLAIMERS.financial}</Disclaimer>

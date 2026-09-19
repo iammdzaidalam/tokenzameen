@@ -59,7 +59,7 @@ function n(value) {
   if (typeof value !== "number" || !Number.isFinite(value)) {
     throw new TypeError(`non-finite coordinate: ${String(value)}`);
   }
-  const r = Math.round(value * 100) / 100;
+  const r = Math.round(value * 10) / 10;
   return Object.is(r, -0) ? "0" : String(r);
 }
 
@@ -119,15 +119,12 @@ const C = {
   steel500: "#5a616b",
   steel400: "#767d88",
   steel300: "#939aa4",
-  steel200: "#b4bac2",
   bone100: "#f5f3ee",
   bone300: "#d9d5ca",
   gold200: "#e5d3a8",
   gold400: "#c9a961",
   sage400: "#7d9d7b",
   sage500: "#5c7d5b",
-  sage300: "#a8bfa6",
-  lotus300: "#cdbfd8",
   lotus400: "#a993ba",
 };
 
@@ -141,7 +138,7 @@ const PLANE = [C.carbon900, C.carbon800, C.carbon700, C.carbon600];
 const ACCENTS = {
   gold: { glow: C.gold400, haze: C.gold400, rim: C.gold200, lit: C.gold200, hair: C.gold400 },
   steel: { glow: C.steel400, haze: C.steel500, rim: C.bone300, lit: C.bone300, hair: C.steel300 },
-  sage: { glow: C.gold400, haze: C.sage400, rim: C.gold200, lit: C.gold200, hair: C.sage400 },
+  sage: { glow: C.gold400, haze: C.sage500, rim: C.gold200, lit: C.gold200, hair: C.sage400 },
   lotus: { glow: C.lotus400, haze: C.lotus400, rim: C.gold200, lit: C.gold200, hair: C.lotus400 },
 };
 
@@ -317,7 +314,7 @@ function addOverlays(doc, mood, accent) {
       rect(0, 0, 1, 18, { fill: C.bone100, "fill-opacity": "0.5" }) +
       `</pattern>`,
   );
-  doc.parts.push(rect(0, 0, doc.width, doc.height, { fill: `url(#${gridId})`, opacity: "0.05" }));
+  doc.parts.push(rect(0, 0, doc.width, doc.height, { fill: `url(#${gridId})`, opacity: "0.04" }));
 
   const vigId = doc.id("vignette");
   doc.defs.push(
@@ -625,9 +622,9 @@ function sceneTower(doc, R, opt) {
   L.push(path(treeLinePath(R, { y: HORIZON + 402, h: 74 }), { fill: C.carbon850 }));
   L.push(rect(EXT_L, HORIZON + 470, EXT_R - EXT_L, GROUND_BOTTOM - HORIZON - 470, { fill: PLANE[3], "fill-opacity": "0.9" }));
   L.push(rect(EXT_L, HORIZON + 470, EXT_R - EXT_L, 3, { fill: C.carbon400, "fill-opacity": "0.4" }));
-  for (let i = 0; i < 30; i += 1) {
-    const x = -300 + i * 96 + R.range(-22, 22);
-    L.push(rect(x, HORIZON + 470 - R.range(26, 70), 3, 70, { fill: C.carbon950, "fill-opacity": "0.7" }));
+  for (let i = 0; i < 12; i += 1) {
+    const cx = -280 + i * 244 + R.range(-40, 40);
+    L.push(canopy(R, { cx, cy: HORIZON + 468, r: R.range(54, 96), fill: "#07080a", opacity: 1, blobs: 4 }));
   }
 
   return {
@@ -736,7 +733,7 @@ function sceneVilla(doc, R, opt) {
     rect(vx0 + 18, slabY + 24, vx1 - vx0 - 36, groundY - slabY - 24, { fill: A.lit, "fill-opacity": "0.8" }) +
     rect(1412, 782, 190, 222, { fill: C.carbon400 }) +
     rect(bx0, bTop, bx1 - bx0, bBase - bTop, { fill: C.carbon500 });
-  L.push(reflect(mirrored, { y0: poolTop, k: 0.62, opacity: 0.44, clipId }));
+  L.push(reflect(mirrored, { y0: poolTop, k: 0.62, opacity: 0.6, clipId }));
   L.push(
     group({ "clip-path": `url(#${clipId})` },
       ripples(R, { y0: poolTop + 8, y1: poolBottom - 20, x0: poolX0, x1: poolX1, color: A.rim, opacity: 0.26, count: 20 }),
@@ -765,20 +762,20 @@ function sceneVilla(doc, R, opt) {
     x1: 0, y1: 1150, x2: 0, y2: 1600,
     stops: [[0, C.carbon700, 0.5], [0.55, C.carbon600, 0.85], [1, C.carbon500, 0.9]],
   });
-  L.push(poly([[2075, 1150], [2250, 1150], [2436, 1600], [1662, 1600]], { fill: approach }));
+  L.push(poly([[2110, 1150], [2270, 1150], [2430, 1600], [1950, 1600]], { fill: approach }));
   L.push(
-    path("M 2158 1150 L 2158 1600", {
+    path("M 2190 1150 L 2190 1600", {
       stroke: A.hair, "stroke-width": "3", "stroke-opacity": "0.26", "stroke-dasharray": "26 30", fill: "none",
     }),
   );
   for (let i = 0; i < 6; i += 1) {
     const t = i / 5;
     const y = lerp(1180, 1560, t);
-    const half = lerp(90, 384, t);
+    const half = lerp(88, 232, t);
     for (const side of [-1, 1]) {
-      L.push(rect(2158 + side * half - 4, y - lerp(18, 34, t), 8, lerp(18, 34, t), { fill: "#07080a" }));
+      L.push(rect(2190 + side * half - 4, y - lerp(18, 34, t), 8, lerp(18, 34, t), { fill: "#07080a" }));
       L.push(
-        circle(2158 + side * half, y - lerp(20, 38, t), lerp(4, 7, t), {
+        circle(2190 + side * half, y - lerp(20, 38, t), lerp(4, 7, t), {
           fill: A.lit,
           "fill-opacity": o(0.34 + 0.4 * M.litOp),
         }),
@@ -819,7 +816,7 @@ function sceneCommercial(doc, R, opt) {
     L.push(
       backBlock(doc, R, {
         name: `sb${i}`, x: b.x, w: b.w, top: b.top, base: HORIZON + 300,
-        cw: 24, ch: 30, ww: 10, wh: 14, ratio: 0.2, lit: A.lit, litOp: M.litOp * 0.55, max: 14,
+        cw: 24, ch: 30, ww: 10, wh: 14, ratio: 0.2, lit: A.lit, litOp: M.litOp * 0.55, max: 10,
       }),
     );
   });
@@ -879,13 +876,16 @@ function sceneCommercial(doc, R, opt) {
     stops: [[0, C.carbon800, 1], [0.35, C.carbon900, 1], [1, C.carbon950, 1]],
   });
   L.push(rect(EXT_L, arcBase + 16, EXT_R - EXT_L, GROUND_BOTTOM - arcBase - 16, { fill: street }));
+  const poolId = doc.id("lamppool");
+  doc.defs.push(
+    `<radialGradient id="${poolId}">` +
+      `<stop offset="0" stop-color="${A.lit}" stop-opacity="${o(0.16 + 0.16 * M.litOp)}"/>` +
+      `<stop offset="0.5" stop-color="${A.lit}" stop-opacity="${o(0.05 + 0.05 * M.litOp)}"/>` +
+      `<stop offset="1" stop-color="${A.lit}" stop-opacity="0"/>` +
+      `</radialGradient>`,
+  );
   for (let i = 0; i < 9; i += 1) {
-    L.push(
-      ellipse(760 + i * 118, 1230 + R.range(-14, 26), 62, 20, {
-        fill: A.lit,
-        "fill-opacity": o(0.05 + 0.07 * M.litOp),
-      }),
-    );
+    L.push(ellipse(760 + i * 118, 1230 + R.range(-14, 26), 98, 32, { fill: `url(#${poolId})` }));
   }
   for (let i = 0; i < 5; i += 1) {
     const x = 640 + i * 268;
@@ -926,7 +926,12 @@ function sceneEco(doc, R, opt) {
 
   L.push(poly(ridgeShape(R, { y: HORIZON + 2, amp: 240, step: 240, jag: 0.5 }), { fill: C.carbon850 }));
   L.push(poly(ridgeShape(R, { y: HORIZON + 26, amp: 132, step: 220, jag: 0.35 }), { fill: "#0d0f11" }));
-  L.push(groundPlane(doc, { near: "#111412", far: C.carbon850 }));
+  L.push(groundPlane(doc, { near: "#16191b", far: "#101316" }));
+  const land = radialGrad(doc, "land", {
+    cx: 1280, cy: 1000, r: 1500,
+    stops: [[0, A.glow, 0.09], [0.45, A.glow, 0.04], [1, A.glow, 0]],
+  });
+  L.push(rect(EXT_L, HORIZON, EXT_R - EXT_L, GROUND_BOTTOM - HORIZON, { fill: land }));
   L.push(path(treeLinePath(R, { y: HORIZON + 40, h: 70 }), { fill: "#0b0d0c" }));
 
   for (let i = 0; i < 15; i += 1) {
@@ -999,7 +1004,7 @@ function sceneEco(doc, R, opt) {
       ripples(R, { y0: 1112, y1: 1244, x0: 350, x1: 920, color: A.rim, opacity: 0.34, count: 14 }),
     ),
   );
-  L.push(ellipse(636, 1178, 300, 78, { fill: "none", stroke: A.rim, "stroke-width": "2.4", "stroke-opacity": "0.42" }));
+  L.push(path("M 336 1178 A 300 78 0 0 1 936 1178", { fill: "none", stroke: A.rim, "stroke-width": "2.2", "stroke-opacity": "0.3" }));
 
   const walk = "M -260 1640 Q 620 1430 1180 1320 Q 1760 1212 2480 1186";
   L.push(path(walk, { fill: "none", stroke: C.carbon500, "stroke-width": "38", "stroke-opacity": "0.7", "stroke-linecap": "round" }));
@@ -1011,7 +1016,7 @@ function sceneEco(doc, R, opt) {
     L.push(rect(x, y, 2.6, R.range(26, 64), { fill: C.sage400, "fill-opacity": "0.24" }));
   }
 
-  L.push(path(treeLinePath(R, { y: 1620, h: 150, depth: 900 }), { fill: "#050706" }));
+  L.push(path(treeLinePath(R, { y: 1660, h: 260, depth: 900 }), { fill: "#050706" }));
   for (const t of [{ cx: 210, cy: 1592, r: 224 }, { cx: 2150, cy: 1650, r: 262 }]) {
     L.push(canopy(R, { cx: t.cx, cy: t.cy, r: t.r, fill: "#050706", opacity: 1, blobs: 6 }));
   }
@@ -1020,7 +1025,7 @@ function sceneEco(doc, R, opt) {
     layers: L,
     focus: {
       wide: { cx: 1140, cy: 980, s: 0.94 },
-      portrait: { cx: 1120, cy: 900, s: 1.1 },
+      portrait: { cx: 890, cy: 980, s: 1.06 },
       cluster: { cx: 1064, cy: 950, s: 1.58 },
       green: { cx: 1740, cy: 986, s: 1.3 },
       water: { cx: 648, cy: 1140, s: 1.72 },
@@ -1236,19 +1241,15 @@ function scenePlots(doc, R, opt) {
     );
   }
 
-  for (let i = 0; i < 14; i += 1) {
-    const z = zNear * Math.pow(1.2, i);
+  for (let i = 0; i < 10; i += 1) {
+    const z = zNear * Math.pow(1.28, i);
     if (z > zFar) break;
     for (const side of [-1, 1]) {
       const [tx, ty] = ground(side * (halfW + 160), z);
-      const r = Math.max(7, rise(165, z));
+      const r = Math.max(7, rise(165, z)) * R.range(0.78, 1.3);
       L.push(rect(tx - Math.max(1.4, rise(9, z)) / 2, ty - r * 1.1, Math.max(1.4, rise(9, z)), r * 1.1, { fill: "#060907" }));
       L.push(canopy(R, { cx: tx, cy: ty - r * 1.28, r, fill: "#060907", opacity: 1, blobs: 4 }));
-      L.push(
-        canopy(R, {
-          cx: tx - r * 0.3, cy: ty - r * 1.5, r: r * 0.34, fill: C.sage500, opacity: 0.16, blobs: 2,
-        }),
-      );
+      L.push(canopy(R, { cx: tx + r * 0.62, cy: ty - r * 0.95, r: r * 0.72, fill: "#060907", opacity: 1, blobs: 3 }));
     }
   }
 
@@ -1259,7 +1260,14 @@ function scenePlots(doc, R, opt) {
   L.push(rect(vxc - vw / 2, vy - vh, vw, vh, { fill: PLANE[1] }));
   L.push(rect(vxc - vw * 0.56, vy - vh - rise(22, villaZ), vw * 1.12, rise(22, villaZ), { fill: PLANE[2] }));
   L.push(rect(vxc + vw * 0.16, vy - vh * 1.5, vw * 0.26, vh * 0.52, { fill: PLANE[2] }));
-  L.push(rect(vxc - vw * 0.3, vy - vh * 0.74, vw * 0.42, vh * 0.46, { fill: A.lit, "fill-opacity": o(0.18 + 0.5 * M.litOp) }));
+  for (let i = 0; i < 4; i += 1) {
+    L.push(
+      rect(vxc - vw * 0.3 + i * vw * 0.115, vy - vh * 0.74, vw * 0.085, vh * 0.46, {
+        fill: A.lit,
+        "fill-opacity": o((0.18 + 0.5 * M.litOp) * (i === 1 ? 1 : 0.78)),
+      }),
+    );
+  }
   L.push(rect(vxc + vw / 2 - 3, vy - vh, 3.4, vh, { fill: A.rim, "fill-opacity": "0.5" }));
 
   const gateZ = 640;
@@ -1282,14 +1290,14 @@ function scenePlots(doc, R, opt) {
   L.push(rect(glx - gatePw / 2, gly - gatePh - 14, grx - glx + gatePw, 16, { fill: PLANE[3] }));
   L.push(rect(glx - gatePw / 2, gly - gatePh - 14, grx - glx + gatePw, 3, { fill: A.rim, "fill-opacity": "0.5" }));
 
-  for (let i = 0; i < 40; i += 1) {
+  for (let i = 0; i < 26; i += 1) {
     const X = R.range(-halfW - 120, halfW + 120);
     const z = R.range(zNear * 0.86, 1500);
     const [gx, gy] = ground(X, z);
     L.push(rect(gx, gy, Math.max(1.2, rise(3, z)), rise(R.range(8, 22), z), { fill: C.sage400, "fill-opacity": "0.26" }));
   }
 
-  L.push(path(treeLinePath(R, { y: 1478, h: 66, depth: 900 }), { fill: "#050706" }));
+  L.push(path(treeLinePath(R, { y: 1512, h: 140, depth: 900 }), { fill: "#050706" }));
   for (const t of [{ cx: 150, cy: 1520, r: 250 }, { cx: 2280, cy: 1560, r: 276 }]) {
     L.push(canopy(R, { cx: t.cx, cy: t.cy, r: t.r, fill: "#050706", opacity: 1, blobs: 6 }));
   }

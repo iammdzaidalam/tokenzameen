@@ -23,6 +23,7 @@ export function InventoryViews({
 
   return (
     <Tabs
+      label="Inventory view"
       items={[
         {
           id: "plan",
