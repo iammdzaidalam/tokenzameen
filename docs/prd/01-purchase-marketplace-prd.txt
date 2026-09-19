@@ -1,0 +1,1546 @@
+
+
+===== PAGE 1 =====
+TokenZameen — Purchase Marketplace 
+Detailed Product Requirements Document (PRD) 
+Product 
+TokenZameen Purchase Platform 
+Objective 
+Build a premium, conversion-focused property discovery and purchase platform within the 
+TokenZameen website where users can discover, compare, enquire about, reserve, and initiate the 
+purchase of curated real-estate opportunities. 
+The platform will organize properties into five primary categories: 
+1. Apartments  
+2. Villas  
+3. Commercial Spaces  
+4. Sustainable Living  
+5. Plots  
+The experience should combine: 
+• Luxury real-estate discovery  
+• Investment intelligence  
+• Transparent property information  
+• Interactive property exploration  
+• Lead generation  
+• Site-visit booking  
+• Purchase/enquiry workflow  
+• TokenZameen's advisory layer  
+ 
+1. PROPERTY INVENTORY 
+The initial marketplace inventory should include the following projects. 
+Project Category Location Property Type 
+Luxofy Apartments / Villas Goa Luxury Apartments & 
+Villas 
+Garden Court Plots Goa-Maharashtra 
+Border Residential Plots 
+Verdaant Court Plots Goa-Maharashtra 
+Border Residential Plots 
+
+===== PAGE 2 =====
+Project Category Location Property Type 
+WE Communities Sustainable Living Bangalore, Gurgaon Sustainable Villas 
+ETH Infra – Haridwar 
+One Apartments Haridwar Apartments 
+Omaxe Chowk Commercial 
+Spaces Chandni Chowk, Delhi Commercial Property 
+Yugen Plots Goa-Maharashtra 
+Border Plots  , villas 
+The CMS/admin panel must allow additional projects to be added later without changing the frontend 
+architecture. 
+ 
+2. WEBSITE INFORMATION ARCHITECTURE 
+The Purchase section should have the following structure: 
+PURCHASE 
+│ 
+├── All Properties 
+│ 
+├── Apartments 
+│   └── ETH Infra – Haridwar One 
+│   └── Luxofy 
+│ 
+├── Villas 
+│   └── Luxofy 
+│ 
+├── Commercial Spaces 
+│   └── Omaxe Chowk 
+│ 
+├── Sustainable Living 
+│   └── WE Communities 
+│ 
+└── Plots 
+    └── Garden Court 
+    └── Verdaant Court 
+
+===== PAGE 3 =====
+    └── Yugen 
+A prominent "View All Properties" CTA should also exist. 
+ 
+3. HERO SECTION 
+The Purchase page should open with a cinematic, premium hero section. 
+Headline 
+Find a Property Worth Owning. 
+Alternative: 
+Curated Real Estate. Exceptional Opportunities. 
+Supporting copy: 
+Discover premium apartments, villas, commercial spaces, sustainable communities and land 
+opportunities curated by TokenZameen. 
+Primary CTA 
+Explore Properties 
+Secondary CTA 
+Talk to an Advisor 
+Visual Direction 
+Use: 
+• Full-width architectural imagery/video  
+• Dark cinematic overlay  
+• Smooth parallax  
+• Subtle grain  
+• Glassmorphism UI  
+• Large typography  
+• Minimal navigation  
+The aesthetic should communicate: 
+Luxury × Trust × Technology × Real Estate 
+ 
+4. PROPERTY CATEGORY NA VIGATION 
+Immediately below the hero, create an interactive category selector. 
+[ All Properties ] 
+ 
+[ Apartments ] [ Villas ] [ Commercial ] 
+
+===== PAGE 4 =====
+[ Sustainable Living ] [ Plots ] 
+Each category should have a visual card. 
+Apartments 
+Urban living, intelligently selected. 
+Villas 
+Private spaces designed for elevated living. 
+Commercial 
+Income-producing real estate opportunities. 
+Sustainable Living 
+Homes designed around a better future. 
+Plots 
+Own the land. Build the future. 
+Clicking a category dynamically filters the marketplace. 
+ 
+5. PROPERTY DISCOVERY ENGINE 
+The main marketplace should be a sophisticated property discovery interface. 
+Desktop layout 
+Left: 
+Filter sidebar 
+Right: 
+Property grid 
+Example: 
+---------------------------------------------------- 
+FILTERS          | PROPERTY DISCOVERY 
+                  | 
+Property Type    | [Property Card] [Property Card] 
+Location         | 
+Budget           | [Property Card] [Property Card] 
+Bedrooms         | 
+Area             | 
+Possession       | 
+Investment       | 
+
+===== PAGE 5 =====
+Amenities        | 
+---------------------------------------------------- 
+ 
+6. FILTER SYSTEM 
+Users should be able to filter properties by: 
+Property Type 
+• Apartment  
+• Villa  
+• Commercial  
+• Sustainable Villa  
+• Plot  
+Location 
+Searchable location selector. 
+Examples: 
+• Delhi  
+• Haridwar  
+• NCR  
+• Uttarakhand  
+• etc.  
+Budget 
+Slider: 
+₹25 Lakh ───────────── ₹10 Cr+ 
+Investment Profile 
+• Self Use  
+• Investment  
+• Rental Income  
+• Capital Appreciation  
+• Commercial Income  
+• Land Banking  
+Property Size 
+• Sq. Ft.  
+• Sq. Yd.  
+
+===== PAGE 6 =====
+• BHK  
+• Plot Size  
+Bedrooms 
+• 1 BHK  
+• 2 BHK  
+• 3 BHK  
+• 4 BHK  
+• 5+ BHK  
+Availability 
+• Available  
+• Limited Inventory  
+• Coming Soon  
+Special Opportunities 
+• Pre-Leased  
+• High Rental Potential  
+• Early Access  
+• Premium Location  
+• Sustainable  
+• Investment Opportunity  
+ 
+7. SORTING 
+Allow users to sort by: 
+• Recommended  
+• Price — Low to High  
+• Price — High to Low  
+• Newest  
+• Highest Rental Potential  
+• Highest Appreciation Potential  
+• Most Popular  
+ 
+8. PROPERTY CARD 
+Every property card should feel premium and information-rich without becoming cluttered. 
+
+===== PAGE 7 =====
+Example 
+┌─────────────────────────────────┐ 
+│                                 │ 
+│       PROPERTY IMAGE            │ 
+│                                 │ 
+│  ● PREMIUM OPPORTUNITY          │ 
+│                                 │ 
+├─────────────────────────────────┤ 
+│ OMAXE CHOWK                     │ 
+│ Commercial Spaces               │ 
+│                                 │ 
+│ Chandni Chowk, Delhi            │ 
+│                                 │ 
+│ ₹1.00 Cr onwards                │ 
+│                                 │ 
+│ Pre-Leased • Commercial         │ 
+│ Rental Potential • Prime Zone   │ 
+│                                 │ 
+│ [ View Property → ]             │ 
+└─────────────────────────────────┘ 
+Card information 
+Each card should show: 
+• Project name  
+• Location  
+• Property category  
+• Property type  
+• Starting price  
+• Size  
+• Key USP  
+• Availability  
+• Investment indicator  
+• Property image  
+
+===== PAGE 8 =====
+ 
+9. PROJECT-SPECIFIC POSITIONING 
+9.1 LUXOFY 
+Category 
+Luxury Apartments & Villas 
+Positioning 
+Luxury, curated for modern living. 
+Highlight: 
+• Premium residences  
+• Luxury architecture  
+• Lifestyle amenities  
+• Location advantages  
+• Spacious layouts  
+• Investment potential  
+CTA: 
+Explore Luxofy 
+ 
+10. GARDEN COURT 
+Category 
+Plots 
+Positioning: 
+Own the land. Create your vision. 
+Display: 
+• Plot sizes  
+• Location  
+• Price  
+• Development status  
+• Connectivity  
+• Amenities  
+• Infrastructure  
+• Legal/documentation information  
+CTA: 
+
+===== PAGE 9 =====
+Explore Garden Court 
+ 
+11. VERDAANT COURT 
+Category 
+Plots 
+Positioning: 
+A premium address. A long-term asset. 
+Display: 
+• Plot sizes  
+• Location  
+• Pricing  
+• Infrastructure  
+• Connectivity  
+• Development details  
+• Investment rationale  
+CTA: 
+Explore Verdaant Court 
+ 
+12. WE COMMUNITIES 
+Category 
+Sustainable Living 
+Positioning: 
+Live closer to nature. Live for the future. 
+This project should have a visually distinct experience. 
+Highlight: 
+• Sustainable villas  
+• Green architecture  
+• Community living  
+• Natural surroundings  
+• Sustainability features  
+• Energy efficiency  
+• Water management  
+
+===== PAGE 10 =====
+• Open spaces  
+• Wellness  
+CTA: 
+Discover Sustainable Living 
+ 
+13. ETH INFRA — HARIDWAR ONE 
+Category 
+Apartments 
+Positioning: 
+A new address in Haridwar. 
+Property information should include: 
+• Project location  
+• Apartment configurations  
+• Unit sizes  
+• Starting price  
+• Amenities  
+• Connectivity  
+• Developer information  
+• Construction status  
+• Possession information  
+• Investment potential  
+CTA: 
+View Haridwar One 
+ 
+14. OMAXE CHOWK 
+Category 
+Commercial Spaces 
+This should be positioned as a commercial investment opportunity. 
+Hero message 
+Own a piece of Delhi's next commercial destination. 
+Show: 
+• Commercial unit types  
+
+===== PAGE 11 =====
+• Unit sizes  
+• Price  
+• Floor  
+• Location  
+• Pre-leased status where applicable  
+• Tenant information where legally appropriate  
+• Lease information  
+• Rental income  
+• Lease tenure  
+• Expected yield  
+• Payment structure  
+For investment-oriented listings, create a prominent: 
+Investment Snapshot 
+PROPERTY V ALUE 
+₹1.00 Cr 
+ 
+INITIAL INVESTMENT 
+₹50 Lakh 
+ 
+MONTHLY RENT 
+₹75,000 
+ 
+OWNERSHIP 
+100% 
+ 
+LEASE 
+5 Years PDC* 
+Any financial return figures must be clearly labelled as project-specific / indicative / subject to 
+documentation, rather than presented as guaranteed returns. 
+CTA: 
+Request Investment Details 
+ 
+15. YUGEN 
+
+===== PAGE 12 =====
+Category 
+Plots 
+Positioning: 
+Land today. Possibility tomorrow. 
+Highlight: 
+• Plot dimensions  
+• Location  
+• Infrastructure  
+• Connectivity  
+• Development  
+• Pricing  
+• Appreciation thesis  
+• Availability  
+CTA: 
+Explore Yugen 
+ 
+16. PROPERTY DETAIL PAGE 
+Clicking a property should open a highly immersive property detail page. 
+Structure: 
+PROPERTY HERO 
+↓ 
+Overview 
+↓ 
+Property Highlights 
+↓ 
+Gallery 
+↓ 
+Location 
+↓ 
+Amenities 
+↓ 
+Floor Plans / Plot Plans 
+
+===== PAGE 13 =====
+↓ 
+Investment Information 
+↓ 
+Developer Information 
+↓ 
+Documents 
+↓ 
+FAQs 
+↓ 
+Schedule a Site Visit 
+↓ 
+Enquire / Purchase 
+ 
+17. PROPERTY HERO 
+Example: 
+OMAXE CHOWK 
+ 
+Commercial Spaces 
+Chandni Chowk, Delhi 
+ 
+₹1 Cr onwards 
+ 
+Pre-Leased Commercial Opportunity 
+ 
+[ Request Details ] 
+[ Schedule Site Visit ] 
+Use immersive full-screen imagery. 
+ 
+18. PROPERTY HIGHLIGHTS 
+Create an icon-based information grid. 
+Example: 
+PROPERTY TYPE 
+
+===== PAGE 14 =====
+Commercial 
+ 
+LOCATION 
+Chandni Chowk 
+ 
+SIZE 
+XXXX sq.ft. 
+ 
+STATUS 
+Pre-Leased 
+ 
+POSSESSION 
+XXXX 
+ 
+PRICE 
+₹1 Cr+ 
+For apartments: 
+BHK 
+3 BHK 
+ 
+AREA 
+1,850 sq.ft. 
+ 
+FLOOR 
+12th 
+ 
+POSSESSION 
+2028 
+ 
+PRICE 
+₹2.XX Cr 
+ 
+
+===== PAGE 15 =====
+19. GALLERY 
+Create: 
+• Large hero image  
+• Image grid  
+• Full-screen gallery  
+• Video support  
+• 360° tour support if available  
+Animations should be subtle and premium. 
+ 
+20. LOCATION EXPERIENCE 
+Include an interactive map. 
+Show: 
+• Project location  
+• Major roads  
+• Metro  
+• Airports  
+• Schools  
+• Hospitals  
+• Shopping  
+• Business districts  
+• Tourist destinations  
+Use cards such as: 
+Metro              5 min 
+Airport           35 min 
+Hospital          10 min 
+School             8 min 
+Market             3 min 
+Only display verified values provided by the project/admin data. 
+ 
+21. INVESTMENT INTELLIGENCE 
+This is where TokenZameen should differentiate itself from conventional property portals. 
+Add: 
+
+===== PAGE 16 =====
+TokenZameen Property Intelligence 
+Example: 
+INVESTMENT PROFILE 
+ 
+Rental Potential       █████████░ 
+Capital Appreciation   ████████░░ 
+Location Advantage     ██████████ 
+Liquidity              ██████░░░░ 
+Demand                 █████████░ 
+Also display: 
+• Rental potential  
+• Capital appreciation potential  
+• Location score  
+• Demand score  
+• Infrastructure score  
+• Investment horizon  
+Avoid implying that these scores are guarantees. 
+ 
+22. EMI / PAYMENT CALCULATOR 
+For eligible residential properties: 
+Allow users to enter: 
+Property Price 
+Down Payment 
+Loan Amount 
+Interest Rate 
+Loan Tenure 
+Output: 
+Estimated EMI 
+Total Interest 
+Total Payable 
+ 
+23. COMMERCIAL ROI CALCULATOR 
+
+===== PAGE 17 =====
+For commercial properties, provide: 
+Property Value 
+Monthly Rent 
+Annual Rent 
+Annual Expenses 
+Net Rental Income 
+Estimated Yield 
+Example: 
+Property Value       ₹1,00,00,000 
+Monthly Rent         ₹75,000 
+Annual Rent          ₹9,00,000 
+Gross Yield          9.0% 
+Include a clear disclaimer that calculations are indicative and subject to actual lease terms, expenses, 
+taxes and documentation. 
+ 
+24. DOCUMENT V AULT 
+Every property should have a secure document section. 
+Potential documents: 
+• Brochure  
+• Floor plans  
+• Price list  
+• Payment plan  
+• Site plan  
+• RERA details  
+• Approvals  
+• Legal documents  
+• Lease documents  
+• Project specifications  
+Some documents should only become available after lead verification/login. 
+ 
+25. USER ACCOUNT 
+Users should be able to create a TokenZameen account. 
+Dashboard: 
+
+===== PAGE 18 =====
+MY TOKENZAMEEN 
+ 
+Saved Properties 
+Recently Viewed 
+My Enquiries 
+Scheduled Site Visits 
+Documents 
+Advisor 
+ 
+26. WISHLIST 
+Every property card should have: 
+♡ Save 
+Users can create a shortlist. 
+Example: 
+MY SHORTLIST 
+ 
+Luxofy 
+ETH Infra – Haridwar One 
+Garden Court 
+Omaxe Chowk 
+ 
+27. PROPERTY COMPARISON 
+Allow users to compare up to 3–4 properties. 
+Example: 
+Parameter Property A Property B Property C 
+Price ₹X ₹Y ₹Z 
+Area X sq.ft. Y sq.ft. Z sq.ft. 
+Location A B C 
+Type Villa Apartment Villa 
+Rental Potential X Y Z 
+Amenities X Y Z 
+
+===== PAGE 19 =====
+Parameter Property A Property B Property C 
+Possession X Y Z 
+ 
+28. PURCHASE CTA 
+The purchase process should not immediately ask users to make payment. 
+Instead: 
+Step 1 
+Express Interest 
+User submits: 
+• Name  
+• Phone  
+• Email  
+• Property  
+• Budget  
+• Purpose  
+• Preferred callback time  
+Step 2 
+Property Advisor Connects 
+Step 3 
+Documentation & Verification 
+Step 4 
+Site Visit 
+Step 5 
+Unit/Plot Selection 
+Step 6 
+Booking / Purchase 
+Step 7 
+Documentation 
+Step 8 
+Transaction Completion 
+ 
+29. SITE VISIT BOOKING 
+
+===== PAGE 20 =====
+CTA: 
+Schedule a Site Visit 
+Form: 
+Name 
+Phone 
+Email 
+Preferred Date 
+Preferred Time 
+Number of Visitors 
+Property 
+Confirmation: 
+Your site visit request has been received. A TokenZameen advisor will confirm your appointment 
+shortly. 
+ 
+30. LEAD CAPTURE 
+Every major CTA should feed into a central CRM. 
+Lead sources: 
+• Property enquiry  
+• Schedule site visit  
+• Request price  
+• Download brochure  
+• Investment enquiry  
+• Callback request  
+• WhatsApp  
+• Purchase intent  
+Lead fields: 
+Lead ID 
+Name 
+Phone 
+Email 
+Property 
+Category 
+Budget 
+
+===== PAGE 21 =====
+Purpose 
+Source 
+Lead Score 
+Advisor 
+Status 
+Last Contact 
+Next Follow-up 
+ 
+31. AI PROPERTY ADVISOR 
+Add an AI-powered assistant. 
+CTA 
+Ask TokenZameen AI 
+Example questions: 
+"Show me villas under ₹3 crore." 
+"Which properties have rental income potential?" 
+"I want a plot for long-term investment." 
+"Compare Omaxe Chowk and another commercial opportunity." 
+"Which properties are suitable for self-use?" 
+The AI should only make claims based on structured property data and verified information. 
+ 
+32. LEAD SCORING 
+Backend should automatically score users. 
+Example: 
+Browsing 
+↓ 
+Property View 
+↓ 
+Save Property 
+↓ 
+Download Brochure 
+↓ 
+Request Price 
+
+===== PAGE 22 =====
+↓ 
+Site Visit 
+↓ 
+Purchase Intent 
+Lead score: 
+Cold → Warm → Hot → Purchase Ready 
+ 
+33. ADMIN / CMS 
+TokenZameen should have an internal property management dashboard. 
+Admin sections 
+Dashboard 
+ 
+Properties 
+Projects 
+Inventory 
+Leads 
+Site Visits 
+Users 
+Advisors 
+Documents 
+Offers 
+Content 
+Analytics 
+Admin should be able to: 
+• Add property  
+• Edit property  
+• Delete property  
+• Upload images  
+• Upload brochures  
+• Update prices  
+• Update availability  
+• Mark property as sold  
+
+===== PAGE 23 =====
+• Add offers  
+• Add investment metrics  
+• Add FAQs  
+• Manage leads  
+• Assign advisors  
+ 
+34. INVENTORY MANAGEMENT 
+Each project should support individual inventory. 
+For example: 
+OMAXE CHOWK 
+ 
+Unit 
+Floor 
+Area 
+Type 
+Price 
+Rent 
+Status 
+Tenant 
+Lease 
+Status: 
+  Available 
+  Reserved 
+  Sold 
+For plots: 
+Plot No. 
+Plot Size 
+Facing 
+Road Width 
+Price 
+Status 
+For apartments: 
+Tower 
+
+===== PAGE 24 =====
+Floor 
+Unit 
+BHK 
+Area 
+Price 
+Status 
+ 
+35. SEARCH 
+Global property search should understand natural language. 
+Example: 
+"3 BHK under ₹2 crore in Delhi" 
+or: 
+"commercial property with rental income" 
+or: 
+"plots near Haridwar" 
+Search should convert natural language into filters. 
+ 
+36. MOBILE EXPERIENCE 
+The entire purchase platform must be mobile-first. 
+Mobile UI: 
+Search 
+↓ 
+Category chips 
+↓ 
+Property cards 
+↓ 
+Filters 
+↓ 
+Property details 
+↓ 
+Sticky CTA 
+Sticky bottom CTA: 
+
+===== PAGE 25 =====
+Enquire | WhatsApp | Call 
+ 
+37. DESIGN SYSTEM 
+Overall aesthetic 
+Dark Futuristic Luxury Real Estate 
+Colors 
+• Carbon Black  
+• Deep Charcoal  
+• Off White  
+• Metallic Grey  
+• Warm Gold / premium accent  
+Typography 
+Headings: PP Neue Machina 
+Subheadings: Neue Montreal 
+Body: Inter 
+UI 
+Use: 
+• Glassmorphism  
+• Thin borders  
+• Large whitespace  
+• Rounded cards  
+• Soft shadows  
+• Cinematic photography  
+• Smooth hover states  
+• Micro-interactions  
+ 
+38. ANIMATIONS 
+Use animations deliberately. 
+Page load 
+Hero text: 
+Fade + upward movement 
+Property cards 
+Image: 
+
+===== PAGE 26 =====
+Slow scale on hover 
+Filters 
+Smooth slide-in 
+Numbers 
+Animated counters 
+Property details 
+Scroll-triggered reveal 
+Gallery 
+Smooth image transitions 
+Avoid excessive animations that negatively impact page speed. 
+ 
+39. TRUST LAYER 
+Every property should include: 
+Verified Information 
+✓ Property information verified 
+✓ Documentation available 
+✓ Developer information available 
+✓ TokenZameen advisor support 
+Where applicable, show: 
+• RERA number  
+• Developer details  
+• Legal status  
+• Last updated date  
+ 
+40. SEO ARCHITECTURE 
+Every project gets an indexable page: 
+/tokenzameen/purchase 
+ 
+/tokenzameen/purchase/apartments 
+ 
+/tokenzameen/purchase/villas 
+ 
+
+===== PAGE 27 =====
+/tokenzameen/purchase/commercial 
+ 
+/tokenzameen/purchase/sustainable-living 
+ 
+/tokenzameen/purchase/plots 
+ 
+/tokenzameen/purchase/luxofy 
+ 
+/tokenzameen/purchase/garden-court 
+ 
+/tokenzameen/purchase/verdaant-court 
+ 
+/tokenzameen/purchase/we-communities 
+ 
+/tokenzameen/purchase/eth-infra-haridwar-one 
+ 
+/tokenzameen/purchase/omaxe-chowk 
+ 
+/tokenzameen/purchase/yugen 
+ 
+41. ANALYTICS 
+Track: 
+• Page views  
+• Property views  
+• Search queries  
+• Filter usage  
+• Saves  
+• Comparisons  
+• Brochure downloads  
+• Enquiries  
+• Calls  
+• WhatsApp clicks  
+
+===== PAGE 28 =====
+• Site visit requests  
+• Purchase requests  
+• Conversion rate  
+• Lead-to-site-visit rate  
+• Site-visit-to-purchase rate  
+ 
+42. PRIMARY USER JOURNEY 
+LANDING PAGE 
+       ↓ 
+PURCHASE 
+       ↓ 
+CHOOSE CATEGORY 
+       ↓ 
+DISCOVER PROPERTY 
+       ↓ 
+VIEW PROPERTY 
+       ↓ 
+COMPARE / SA VE 
+       ↓ 
+INVESTMENT INTELLIGENCE 
+       ↓ 
+REQUEST DETAILS 
+       ↓ 
+TOKENZAMEEN ADVISOR 
+       ↓ 
+SITE VISIT 
+       ↓ 
+PROPERTY SELECTION 
+       ↓ 
+DOCUMENT VERIFICATION 
+       ↓ 
+BOOKING 
+
+===== PAGE 29 =====
+       ↓ 
+PURCHASE 
+ 
+MASTER AI WEBSITE GENERATION PROMPT 
+Use the following as the actual prompt for Lovable / Replit / Bolt / Cursor / similar AI 
+development tools: 
+Build a production-grade, premium real-estate marketplace called TokenZameen Purchase as a 
+major section of the TokenZameen website. 
+The platform should allow users to discover, evaluate, compare, enquire about, schedule site visits for, 
+and ultimately purchase curated real-estate opportunities. 
+The experience should feel like a combination of a luxury real-estate marketplace, institutional 
+investment platform, and intelligent property advisory service. 
+CORE BRAND 
+Brand: TokenZameen 
+Positioning: 
+"Curated Real Estate. Exceptional Opportunities." 
+Design language: 
+Dark futuristic enterprise luxury. 
+Visual identity: 
+• Carbon black 
+• Deep charcoal 
+• Off-white 
+• Metallic grey 
+• Restrained premium gold accent 
+• Cinematic real-estate photography 
+• Glassmorphism 
+• Thin borders 
+• Large typography 
+• Generous whitespace 
+• Subtle grain 
+• Premium micro-interactions 
+Typography: 
+• PP Neue Machina for major headings 
+• Neue Montreal for subheadings 
+
+===== PAGE 30 =====
+• Inter for body copy and UI 
+Do not create a generic property portal. The interface must look premium, sophisticated, modern and 
+technology-driven. 
+ 
+PURCHASE INFORMATION ARCHITECTURE 
+Create five primary property categories: 
+1. Apartments 
+2. Villas 
+3. Commercial Spaces 
+4. Sustainable Living 
+5. Plots 
+Initial projects: 
+1. Luxofy — Apartments & Villas 
+2. Garden Court — Plots 
+3. Verdaant Court — Plots 
+4. WE Communities — Sustainable Villas 
+5. ETH Infra — Haridwar One — Apartments 
+6. Omaxe Chowk — Commercial Spaces 
+7. Yugen — Plots 
+Build the architecture so additional projects can easily be added through a CMS. 
+ 
+PURCHASE LANDING PAGE 
+Create a cinematic hero. 
+Headline: 
+"Find a Property Worth Owning." 
+Subheadline: 
+"Discover premium apartments, villas, commercial spaces, sustainable communities and land 
+opportunities curated by TokenZameen." 
+Primary CTA: 
+"Explore Properties" 
+Secondary CTA: 
+"Talk to an Advisor" 
+Below the hero, create five large category cards: 
+Apartments 
+"Urban living, intelligently selected." 
+
+===== PAGE 31 =====
+Villas 
+"Private spaces designed for elevated living." 
+Commercial Spaces 
+"Income-producing real estate opportunities." 
+Sustainable Living 
+"Homes designed around a better future." 
+Plots 
+"Own the land. Build the future." 
+Each category should have premium imagery and smooth hover animation. 
+ 
+PROPERTY DISCOVERY 
+Create an advanced marketplace. 
+Desktop: 
+• Left filter panel 
+• Right property grid 
+Mobile: 
+• Horizontal category navigation 
+• Sticky filter button 
+• Two-column or single-column property grid 
+• Sticky bottom enquiry CTA 
+Filters: 
+Property Type 
+Location 
+Budget 
+Bedrooms 
+Area 
+Possession 
+Investment Profile 
+Availability 
+Special Opportunities 
+Amenities 
+Sorting: 
+Recommended 
+Price Low to High 
+Price High to Low 
+Newest 
+Rental Potential 
+Capital Appreciation Potential 
+ 
+
+===== PAGE 32 =====
+PROPERTY CARDS 
+Create premium property cards. 
+Every card should contain: 
+Project image 
+Project name 
+Category 
+Location 
+Starting price 
+Size 
+Key USP 
+Availability 
+Investment indicator 
+Save button 
+Example: 
+OMAXE CHOWK 
+Commercial Spaces 
+Chandni Chowk, Delhi 
+₹1 Cr onwards 
+Pre-Leased 
+Rental Potential 
+[View Property] 
+Cards should have subtle image zoom, glass overlays and smooth transitions. 
+ 
+PROJECTS 
+Create dedicated project pages for: 
+LUXOFY 
+Category: Apartments / Villas 
+Positioning: "Luxury, curated for modern living." 
+GARDEN COURT 
+Category: Plots 
+Positioning: "Own the land. Create your vision." 
+VERDAANT COURT 
+Category: Plots 
+Positioning: "A premium address. A long-term asset." 
+WE COMMUNITIES 
+Category: Sustainable Living 
+Positioning: "Live closer to nature. Live for the future." 
+ETH INFRA — HARIDWAR ONE 
+Category: Apartments 
+Positioning: "A new address in Haridwar." 
+
+===== PAGE 33 =====
+OMAXE CHOWK 
+Category: Commercial Spaces 
+Positioning: "Own a piece of Delhi's next commercial destination." 
+YUGEN 
+Category: Plots 
+Positioning: "Land today. Possibility tomorrow." 
+ 
+PROPERTY DETAIL PAGE 
+Every project/property must have: 
+1. Cinematic hero 
+2. Property overview 
+3. Key highlights 
+4. Image gallery 
+5. Video support 
+6. Location map 
+7. Amenities 
+8. Floor plans / plot plans 
+9. Pricing 
+10. Availability 
+11. Investment intelligence 
+12. Payment plan 
+13. Developer information 
+14. Documents 
+15. FAQs 
+16. Site visit booking 
+17. Enquiry CTA 
+Create sticky CTAs: 
+"Request Details" 
+"Schedule Site Visit" 
+ 
+INVESTMENT INTELLIGENCE 
+Make TokenZameen differentiated from normal property portals. 
+Add a section called: 
+"TokenZameen Property Intelligence" 
+
+===== PAGE 34 =====
+Display analytical indicators such as: 
+Rental Potential 
+Capital Appreciation Potential 
+Location Advantage 
+Demand 
+Infrastructure 
+Investment Horizon 
+Use visual score bars or circular indicators. 
+Do not represent these scores as guaranteed investment returns. 
+For commercial properties include: 
+Property Value 
+Monthly Rent 
+Annual Rent 
+Gross Rental Yield 
+Lease Tenure 
+Occupancy / Pre-Leased Status 
+All financial calculations must be labelled as indicative and subject to actual documentation, lease 
+terms, taxes, expenses and transaction conditions. 
+ 
+OMAXE CHOWK SPECIAL EXPERIENCE 
+Create a dedicated commercial investment interface. 
+Show: 
+Property Value 
+Initial Investment 
+Monthly Rental Income 
+Annual Rental Income 
+Ownership 
+Lease Details 
+Payment Structure 
+Create a commercial ROI calculator. 
+Inputs: 
+Property Value 
+Monthly Rent 
+Annual Expenses 
+Lease Period 
+Outputs: 
+Annual Rental Income 
+Net Rental Income 
+Indicative Gross Yield 
+Indicative Net Yield 
+Include appropriate financial disclaimers. 
+
+===== PAGE 35 =====
+ 
+RESIDENTIAL EMI CALCULATOR 
+For apartments and villas: 
+Property Price 
+Down Payment 
+Loan Amount 
+Interest Rate 
+Loan Tenure 
+Outputs: 
+Estimated EMI 
+Total Interest 
+Total Payable 
+ 
+PROPERTY COMPARISON 
+Allow users to select up to four properties and compare: 
+Price 
+Area 
+Location 
+Property Type 
+Bedrooms 
+Amenities 
+Possession 
+Rental Potential 
+Investment Indicators 
+Developer 
+Availability 
+Create a beautiful comparison table. 
+ 
+WISHLIST 
+Users should be able to save properties. 
+Create: 
+"My Shortlist" 
+Users can: 
+Save 
+Remove 
+Compare 
+Request Details 
+Schedule Site Visit 
+ 
+USER ACCOUNT 
+
+===== PAGE 36 =====
+Create: 
+"My TokenZameen" 
+Dashboard sections: 
+Saved Properties 
+Recently Viewed 
+My Enquiries 
+Site Visits 
+Documents 
+Advisor 
+ 
+SITE VISIT 
+Create a polished site-visit booking flow. 
+Fields: 
+Name 
+Phone 
+Email 
+Property 
+Preferred Date 
+Preferred Time 
+Number of Visitors 
+After submission display: 
+"Your site visit request has been received. A TokenZameen advisor will confirm your appointment 
+shortly." 
+ 
+PURCHASE FLOW 
+Do not immediately process payment from the property listing. 
+The flow should be: 
+Discover Property 
+→ Express Interest 
+→ Advisor Contact 
+→ Documentation & Verification 
+→ Site Visit 
+→ Unit / Plot Selection 
+→ Booking 
+→ Documentation 
+→ Transaction Completion 
+Create clear CTAs throughout this funnel. 
+ 
+AI PROPERTY ADVISOR 
+Add a floating "Ask TokenZameen AI" button. 
+
+===== PAGE 37 =====
+The AI assistant should understand queries such as: 
+"Show me villas under ₹3 crore." 
+"Find commercial properties with rental income potential." 
+"I want a plot for long-term investment." 
+"Compare these two properties." 
+"Show me apartments in Haridwar." 
+The assistant should use only verified property data available in the platform. 
+ 
+ADMIN CMS 
+Create a complete admin architecture. 
+Admin sections: 
+Dashboard 
+Projects 
+Properties 
+Inventory 
+Leads 
+Site Visits 
+Users 
+Advisors 
+Documents 
+Offers 
+Content 
+Analytics 
+Admin capabilities: 
+Create project 
+Edit project 
+Delete project 
+Upload images 
+Upload videos 
+Upload brochures 
+Upload documents 
+Update prices 
+Update availability 
+Update inventory 
+Mark units as reserved 
+Mark units as sold 
+Add investment metrics 
+Manage FAQs 
+Manage leads 
+Assign advisors 
+ 
+INVENTORY 
+
+===== PAGE 38 =====
+Support inventory at individual unit/plot level. 
+Apartments: 
+Tower 
+Floor 
+Unit 
+BHK 
+Area 
+Price 
+Status 
+Villas: 
+Villa Number 
+Plot Area 
+Built-up Area 
+Bedrooms 
+Price 
+Status 
+Commercial: 
+Unit 
+Floor 
+Area 
+Price 
+Rent 
+Lease Status 
+Tenant Information 
+Status 
+Plots: 
+Plot Number 
+Plot Size 
+Facing 
+Road Width 
+Price 
+Status 
+Statuses: 
+Available 
+Reserved 
+Sold 
+ 
+SEARCH 
+Create intelligent natural-language property search. 
+Examples: 
+"3 BHK under ₹2 crore" 
+
+===== PAGE 39 =====
+"commercial property with rental income" 
+"plots for long-term investment" 
+"villas under ₹5 crore" 
+Convert natural-language intent into marketplace filters. 
+ 
+TRUST 
+Every listing should have a trust layer. 
+Where applicable display: 
+Verified Information 
+RERA Details 
+Developer 
+Documentation 
+Last Updated 
+TokenZameen Advisor Support 
+Do not fabricate RERA numbers, prices, rental figures, project specifications or legal information. 
+Use placeholders in the UI where data has not yet been supplied. 
+ 
+LEAD MANAGEMENT 
+Every enquiry should create a lead. 
+Lead fields: 
+Lead ID 
+Name 
+Phone 
+Email 
+Property 
+Category 
+Budget 
+Purpose 
+Source 
+Lead Score 
+Advisor 
+Status 
+Last Contact 
+Next Follow-up 
+Lead statuses: 
+New 
+Contacted 
+Qualified 
+Site Visit 
+Negotiation 
+Booking 
+
+===== PAGE 40 =====
+Purchased 
+Lost 
+Lead scoring: 
+Cold 
+Warm 
+Hot 
+Purchase Ready 
+ 
+ANALYTICS 
+Track: 
+Property Views 
+Category Views 
+Searches 
+Filter Usage 
+Saves 
+Comparisons 
+Brochure Downloads 
+Enquiries 
+Calls 
+WhatsApp Clicks 
+Site Visit Requests 
+Purchase Requests 
+Lead Conversion 
+Site Visit Conversion 
+Purchase Conversion 
+Create an admin analytics dashboard. 
+ 
+SEO 
+Create SEO-friendly pages: 
+/purchase 
+/purchase/apartments 
+/purchase/villas 
+/purchase/commercial 
+/purchase/sustainable-living 
+/purchase/plots 
+Project pages: 
+/purchase/luxofy 
+/purchase/garden-court 
+/purchase/verdaant-court 
+/purchase/we-communities 
+/purchase/eth-infra-haridwar-one 
+/purchase/omaxe-chowk 
+/purchase/yugen 
+
+===== PAGE 41 =====
+Use structured metadata and property-specific SEO content. 
+ 
+ANIMATION 
+Use premium motion design. 
+Hero: 
+Fade + upward reveal 
+Cards: 
+Image zoom on hover 
+Numbers: 
+Count-up animation 
+Sections: 
+Scroll-triggered reveal 
+Gallery: 
+Smooth transitions 
+Filters: 
+Smooth slide animation 
+Navigation: 
+Subtle glass effect 
+Keep animations sophisticated and performance-friendly. 
+Do not overuse animations. 
+ 
+RESPONSIVE DESIGN 
+Desktop: 
+Premium multi-column marketplace. 
+Tablet: 
+Adaptive grid. 
+Mobile: 
+Mobile-first property discovery. 
+Mobile sticky footer: 
+Enquire 
+Call 
+WhatsApp 
+Ensure every form, filter, gallery and comparison feature works perfectly on mobile. 
+ 
+TECHNICAL REQUIREMENTS 
+Build this as a scalable production architecture. 
+Use reusable components for: 
+
+===== PAGE 42 =====
+PropertyCard 
+PropertyGrid 
+PropertyFilter 
+PropertyHero 
+PropertyGallery 
+PropertyOverview 
+InvestmentIntelligence 
+ROICalculator 
+EMICalculator 
+ComparisonTable 
+SiteVisitForm 
+EnquiryForm 
+AIAdvisor 
+Wishlist 
+InventoryTable 
+AdminDashboard 
+Use structured property data rather than hardcoding individual project pages. 
+Create a centralized data model for: 
+Projects 
+Properties 
+Units 
+Images 
+Documents 
+Amenities 
+Locations 
+Pricing 
+Investment Metrics 
+Leads 
+Users 
+Site Visits 
+The platform must be easy to expand from the initial seven projects to hundreds or thousands of 
+properties. 
+ 
+FINAL EXPERIENCE 
+The website should communicate: 
+"TokenZameen is not merely showing you properties. 
+TokenZameen helps you discover, understand, evaluate and acquire real estate." 
+The final product must feel: 
+Premium 
+Trustworthy 
+Intelligent 
+Investment-oriented 
+Modern 
+Futuristic 
+
+===== PAGE 43 =====
+Conversion-focused 
+Institutional 
+Prioritize exceptional UX, fast performance, responsive design, strong visual hierarchy and a seamless 
+journey from discovery to enquiry to purchase. 
+ 

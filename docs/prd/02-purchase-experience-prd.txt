@@ -1,0 +1,711 @@
+
+
+===== PAGE 1 =====
+TokenZameen — Purchase Experience 
+Core positioning 
+REAL ESTATE, CURATED. 
+Discover exceptional properties, investment opportunities and communities — selected by 
+TokenZameen. 
+The experience should combine: 
+• Luxury real-estate presentation  
+• Curated property discovery  
+• Investment intelligence  
+• AI-assisted property search  
+• Property comparison  
+• Site-visit booking  
+• Advisor-assisted acquisition  
+• Verified project information  
+ 
+1. THE SIX PROPERTY COLLECTIONS 
+The main Purchase section should revolve around six visually distinct collections. 
+01 — APARTMENTS 
+Elevated urban living. 
+For buyers looking for: 
+• 1–5 BHK apartments  
+• Premium residences  
+• Urban homes  
+• Investment apartments  
+• Ready-to-move / under-construction projects  
+Current projects: 
+• Luxofy  
+• ETH Infra — Haridwar One  
+CTA: 
+Explore Apartments → 
+ 
+02 — VILLAS 
+Space. Privacy. Ownership. 
+
+===== PAGE 2 =====
+For: 
+• Luxury villas  
+• Second homes  
+• Holiday homes  
+• Gated communities  
+• Premium residences  
+Current projects: 
+• Luxofy  
+CTA: 
+Explore Villas → 
+ 
+03 — COMMERCIAL 
+Real estate with an income thesis. 
+For: 
+• Retail  
+• Offices  
+• Commercial units  
+• Pre-leased assets  
+• Investment properties  
+Current project: 
+• Omaxe Chowk  
+CTA: 
+Explore Commercial → 
+This section should have stronger investment analytics than the residential categories. 
+ 
+04 — SUSTAINABLE LIVING 
+Built around a better future. 
+For buyers interested in: 
+• Sustainable communities  
+• Eco-conscious villas  
+• Green architecture  
+• Nature-centric living  
+
+===== PAGE 3 =====
+• Wellness-oriented communities  
+Current project: 
+• WE Communities  
+CTA: 
+Discover Sustainable Living → 
+ 
+05 — SPIRITUAL RESIDENCES 
+Where living meets inner peace. 
+This becomes a distinctive TokenZameen category. 
+For: 
+• Spiritual destinations  
+• Pilgrimage locations  
+• Meditation communities  
+• Wellness residences  
+• Nature + spirituality  
+• Second homes near spiritual centres  
+• Retreat-oriented properties  
+CTA: 
+Explore Spiritual Residences → 
+The visual language should be: 
+serenity + nature + architecture + spirituality 
+rather than traditional "religious property" imagery. 
+ 
+06 — PLOTS 
+Own the land. Shape what comes next. 
+For: 
+• Residential plots  
+• Investment land  
+• Second-home plots  
+• Gated plotted developments  
+• Land banking  
+Current projects: 
+
+===== PAGE 4 =====
+• Garden Court  
+• Verdaant Court  
+• Yugen  
+CTA: 
+Explore Plots → 
+ 
+2. PURCHASE LANDING PAGE 
+The page should follow this hierarchy: 
+TOKENZAMEEN 
+ 
+        PURCHASE 
+ 
+REAL ESTATE, CURATED. 
+ 
+Discover exceptional properties, 
+investment opportunities and 
+communities selected by TokenZameen. 
+ 
+[ Explore Properties ] 
+ 
+[ Talk to an Advisor ] 
+ 
+──────────────────────────── 
+ 
+WHAT ARE YOU LOOKING FOR? 
+ 
+[ Apartments ] 
+[ Villas ] 
+[ Commercial ] 
+[ Sustainable Living ] 
+[ Spiritual Residences ] 
+[ Plots ] 
+
+===== PAGE 5 =====
+ 
+──────────────────────────── 
+ 
+FEATURED COLLECTIONS 
+ 
+Curated properties worth exploring. 
+ 
+──────────────────────────── 
+ 
+TOKENZAMEEN VERIFIED 
+ 
+Properties selected with 
+greater transparency. 
+ 
+──────────────────────────── 
+ 
+FEATURED OPPORTUNITIES 
+ 
+Projects currently available. 
+ 
+──────────────────────────── 
+ 
+DISCOVER BY INTENT 
+ 
+I WANT TO... 
+ 
+Buy a Home 
+Find a Second Home 
+Generate Rental Income 
+Buy Commercial 
+Buy Land 
+Live Sustainably 
+
+===== PAGE 6 =====
+Find Spiritual Living 
+ 
+──────────────────────────── 
+ 
+TOKENZAMEEN AI 
+ 
+Tell us what you're looking for. 
+ 
+──────────────────────────── 
+ 
+COMPARE PROPERTIES 
+ 
+Shortlist. Compare. Decide. 
+ 
+──────────────────────────── 
+ 
+TOKENZAMEEN ADVISORY 
+ 
+From discovery to acquisition. 
+ 
+──────────────────────────── 
+ 
+CTA 
+ 
+Find Your Property 
+ 
+3. HERO 
+I would keep the hero extremely premium. 
+Headline 
+REAL ESTATE, CURATED. 
+Subheading: 
+Discover exceptional homes, investment opportunities, land and communities — thoughtfully selected 
+by TokenZameen. 
+
+===== PAGE 7 =====
+Buttons: 
+Explore Properties 
+Talk to an Advisor 
+Background: 
+A cinematic montage of: 
+• Luxury apartment  
+• Villa  
+• Commercial architecture  
+• Green community  
+• Spiritual residence  
+• Landscape / plotted development  
+The transition between the six environments can be very subtle. 
+ 
+4. "WHAT ARE YOU LOOKING FOR?" 
+Immediately after the hero. 
+Instead of forcing the user to browse categories, ask: 
+What kind of property are you looking for? 
+Six cards: 
+┌───────────────┐ 
+│ APARTMENTS    │ 
+│ Elevated      │ 
+│ urban living. │ 
+└───────────────┘ 
+ 
+┌───────────────┐ 
+│ VILLAS        │ 
+│ Space. Privacy│ 
+│ Ownership.    │ 
+└───────────────┘ 
+ 
+┌───────────────┐ 
+│ COMMERCIAL    │ 
+
+===== PAGE 8 =====
+│ Real estate   │ 
+│ with an income│ 
+│ thesis.       │ 
+└───────────────┘ 
+ 
+┌───────────────┐ 
+│ SUSTAINABLE   │ 
+│ LIVING        │ 
+│ Built around  │ 
+│ a better      │ 
+│ future.       │ 
+└───────────────┘ 
+ 
+┌───────────────┐ 
+│ SPIRITUAL     │ 
+│ RESIDENCES    │ 
+│ Where living  │ 
+│ meets inner   │ 
+│ peace.        │ 
+└───────────────┘ 
+ 
+┌───────────────┐ 
+│ PLOTS         │ 
+│ Own the land. │ 
+│ Shape what    │ 
+│ comes next.   │ 
+└───────────────┘ 
+Use large photography + minimal copy. 
+ 
+5. FEATURED COLLECTIONS 
+Don't immediately dump all properties onto the user. 
+Create an editorial section: 
+
+===== PAGE 9 =====
+THE TOKENZAMEEN COLLECTION 
+A selection of properties we're currently bringing to the attention of our community. 
+Then feature properties asymmetrically. 
+For example: 
+FEATURED 
+OMAXE CHOWK 
+Commercial 
+Chandni Chowk, Delhi 
+A commercial real-estate opportunity in one of Delhi's historic commercial districts. 
+₹1 Cr onwards 
+[Explore Opportunity] 
+Large image. 
+ 
+Then two smaller properties: 
+Garden Court 
+Plots 
+WE Communities 
+Sustainable Villas 
+Then another large feature: 
+Luxofy 
+Luxury Villas & Apartments 
+This gives the page an editorial luxury feel. 
+ 
+6. DISCOVER BY INTENT 
+This is one of the most important additions. 
+Most property portals organize around property type. 
+TokenZameen should also organize around why someone wants to buy. 
+WHAT ARE YOU LOOKING TO ACHIEVE? 
+Six options: 
+BUY A HOME 
+Find a place to call home. 
+FIND A SECOND HOME 
+Own your escape. 
+
+===== PAGE 10 =====
+GENERATE RENTAL INCOME 
+Explore income-oriented properties. 
+BUY COMMERCIAL 
+Explore commercial real estate. 
+OWN LAND 
+Acquire land for tomorrow. 
+LIVE DIFFERENTLY 
+Explore sustainable and spiritual residences. 
+ 
+7. TOKENZAMEEN VERIFIED 
+This should become a major brand asset. 
+NOT EVERY PROPERTY BELONGS ON TOKENZAMEEN. 
+Subheading: 
+We aim to bring greater transparency to property discovery by organizing important project, developer 
+and property information in one place. 
+Then show: 
+01 
+PROJECT 
+ 
+02 
+DEVELOPER 
+ 
+03 
+LOCATION 
+ 
+04 
+DOCUMENTATION 
+ 
+05 
+PRICING 
+ 
+06 
+INVENTORY 
+
+===== PAGE 11 =====
+Where actually verified, show: 
+TOKENZAMEEN VERIFIED 
+Do not claim verification for information your team has not independently checked. 
+ 
+8. PROPERTY DISCOVERY ENGINE 
+Then introduce the actual marketplace. 
+EXPLORE PROPERTIES 
+Top navigation: 
+All 
+Apartments 
+Villas 
+Commercial 
+Sustainable 
+Spiritual 
+Plots 
+Search: 
+Search by location, project or property type 
+Example: 
+"3 BHK under ₹2 Cr in Delhi" 
+ 
+9. FILTERS 
+Location 
+Delhi 
+Gurgaon 
+Goa 
+Haridwar 
+Uttarakhand 
+etc. 
+Budget 
+₹25L → ₹10Cr+ 
+Property type 
+Apartment 
+Villa 
+Commercial 
+Plot 
+
+===== PAGE 12 =====
+Sustainable Villa 
+Spiritual Residence 
+Purpose 
+Self Use 
+Investment 
+Second Home 
+Rental Income 
+Land Banking 
+Size 
+Sq.ft. / Sq.yd. 
+Availability 
+Available 
+Limited Inventory 
+Sold Out 
+Coming Soon 
+ 
+10. PROPERTY CARDS 
+Every property should have a premium card. 
+Example: 
+┌───────────────────────────────────┐ 
+│                                   │ 
+│           PROPERTY IMAGE          │ 
+│                                   │ 
+│       TOKENZAMEEN VERIFIED        │ 
+│                                   │ 
+├───────────────────────────────────┤ 
+│ GARDEN COURT                      │ 
+│ Plots                             │ 
+│ Goa–Maharashtra Region            │ 
+│                                   │ 
+│ 360–515 sq. yd.                   │ 
+│ ₹XX Lakh onwards                  │ 
+│                                   │ 
+│ [♡]       [Explore Property →]    │ 
+└───────────────────────────────────┘ 
+
+===== PAGE 13 =====
+ 
+11. INDIVIDUAL PROJECT PAGE 
+Every project gets its own immersive page. 
+Structure: 
+HERO 
+ 
+PROJECT OVERVIEW 
+ 
+WHY THIS PROJECT 
+ 
+PROPERTY SNAPSHOT 
+ 
+GALLERY 
+ 
+MASTERPLAN 
+ 
+A V AILABLE INVENTORY 
+ 
+LOCATION 
+ 
+AMENITIES 
+ 
+INVESTMENT INTELLIGENCE 
+ 
+PAYMENT PLAN 
+ 
+DOCUMENTS 
+ 
+DEVELOPER 
+ 
+FAQs 
+ 
+
+===== PAGE 14 =====
+SITE VISIT 
+ 
+ENQUIRE 
+ 
+12. MASTERPLAN EXPERIENCE 
+This should be particularly strong for: 
+• Garden Court  
+• Verdaant Court  
+• Yugen  
+Show the actual development masterplan. 
+Users can click individual plots. 
+Example: 
+PLOT 24 
+420 Sq. Yd. 
+East Facing 
+₹XX 
+Available 
+[Enquire] 
+This can become a signature TokenZameen interaction. 
+ 
+13. APARTMENT INVENTORY 
+For projects like Haridwar One: 
+TOWER A 
+ 
+Floor 15 
+ 
+1501 
+3 BHK 
+1,850 sq.ft. 
+₹XX 
+A V AILABLE 
+ 
+
+===== PAGE 15 =====
+1502 
+3 BHK 
+1,850 sq.ft. 
+₹XX 
+SOLD 
+Users can browse the building visually. 
+ 
+14. COMMERCIAL INVENTORY 
+For Omaxe Chowk: 
+UNIT 
+ 
+Floor 
+Area 
+Price 
+Monthly Rent 
+Lease Status 
+Availability 
+Then: 
+INVESTMENT SNAPSHOT 
+PROPERTY V ALUE 
+ 
+₹1 Cr 
+ 
+MONTHLY RENT 
+ 
+₹75,000 
+ 
+ANNUAL RENT 
+ 
+₹9 Lakh 
+ 
+GROSS RENTAL YIELD 
+
+===== PAGE 16 =====
+ 
+9% 
+All calculations should be clearly labelled as indicative and tied to actual documentation/lease terms. 
+ 
+15. INVESTMENT INTELLIGENCE 
+Every eligible property can have: 
+TOKENZAMEEN PROPERTY INTELLIGENCE 
+LOCATION 
+██████████ 
+ 
+DEMAND 
+████████░░ 
+ 
+RENTAL POTENTIAL 
+████████░░ 
+ 
+INFRASTRUCTURE 
+█████████░ 
+ 
+LIQUIDITY 
+██████░░░░ 
+Don't make this look like a guaranteed investment score. 
+Instead call it: 
+Property Intelligence 
+and explain the underlying factors. 
+ 
+16. AI PROPERTY ADVISOR 
+Introduce: 
+MEET YOUR PROPERTY ADVISOR 
+Tell us what you're looking for. TokenZameen AI will help you navigate the collection. 
+Example: 
+User: 
+
+===== PAGE 17 =====
+"I have ₹2 crore and want a second home near Goa." 
+AI: 
+Based on your requirements, explore these properties: 
+Garden Court 
+Plots 
+Luxofy 
+Villas 
+Then allow: 
+Compare 
+Save 
+Talk to Advisor 
+ 
+17. PROPERTY COMPARISON 
+Users can select up to four. 
+Example: 
+ Garden Court Yugen Verdaant Court 
+Type Plot Plot Plot 
+Location — — — 
+Size — — — 
+Price — — — 
+Development — — — 
+Amenities — — — 
+Availability — — — 
+ 
+18. SPIRITUAL RESIDENCES — SPECIAL EXPERIENCE 
+This category deserves its own visual identity. 
+Hero: 
+WHERE LIVING MEETS INNER PEACE. 
+Subheading: 
+Discover residences shaped by serenity, nature, wellness and proximity to places of spiritual 
+significance. 
+Collections could eventually include: 
+
+===== PAGE 18 =====
+PILGRIMAGE RESIDENCES 
+Homes near significant pilgrimage destinations. 
+WELLNESS RESIDENCES 
+Homes designed around wellness and retreat living. 
+MEDITATION COMMUNITIES 
+Communities built around mindfulness and contemplation. 
+NATURE RETREATS 
+Residences surrounded by natural landscapes. 
+The important thing is to keep the category inclusive and lifestyle-oriented, rather than associating it 
+with one particular religion unless a specific project requires that positioning. 
+ 
+19. SUSTAINABLE LIVING 
+Similarly, give this category its own storytelling. 
+BUILT AROUND A BETTER FUTURE. 
+Then: 
+GREEN ARCHITECTURE 
+NATURAL LANDSCAPES 
+ENERGY EFFICIENCY 
+WATER MANAGEMENT 
+COMMUNITY LIVING 
+WELLNESS 
+Feature: 
+WE Communities 
+ 
+20. LUXURY COLLECTION 
+Luxofy can also have a special treatment. 
+THE LUXOFY COLLECTION 
+A curated collection of luxury residences. 
+Tabs: 
+Villas | Apartments 
+Then individual projects. 
+ 
+21. ADVISORY CTA 
+
+===== PAGE 19 =====
+Near the bottom: 
+NOT SURE WHERE TO START? 
+Tell us your requirements. Our property advisors will help you navigate the TokenZameen collection. 
+Fields: 
+Budget 
+Location 
+Property Type 
+Purpose 
+Timeline 
+CTA: 
+Talk to an Advisor 
+ 
+22. SITE VISIT 
+Every property page gets: 
+Experience it in person. 
+Schedule a Site Visit 
+Form: 
+• Name  
+• Phone  
+• Email  
+• Property  
+• Preferred date  
+• Preferred time  
+ 
+23. PURCHASE JOURNEY 
+The complete journey becomes: 
+DISCOVER 
+   ↓ 
+EXPLORE 
+   ↓ 
+SA VE 
+   ↓ 
+
+===== PAGE 20 =====
+COMPARE 
+   ↓ 
+UNDERSTAND 
+   ↓ 
+TALK TO ADVISOR 
+   ↓ 
+SITE VISIT 
+   ↓ 
+SELECT 
+   ↓ 
+DOCUMENT VERIFICATION 
+   ↓ 
+BOOK 
+   ↓ 
+PURCHASE 
+ 
+24. FINAL NA VIGATION 
+I would make the TokenZameen navigation: 
+TOKENZAMEEN 
+ 
+Purchase 
+   ├── Apartments 
+   ├── Villas 
+   ├── Commercial 
+   ├── Sustainable Living 
+   ├── Spiritual Residences 
+   └── Plots 
+ 
+Discover 
+   ├── Buy a Home 
+   ├── Second Homes 
+   ├── Rental Income 
+
+===== PAGE 21 =====
+   ├── Commercial 
+   ├── Land 
+   └── Sustainable & Spiritual 
+ 
+TokenZameen Verified 
+ 
+TokenZameen REIT 
+ 
+Wealth Advisory 
+ 
+AI Property Advisor 
+ 
+About 
+The brand philosophy 
+The entire Purchase section should communicate one simple idea: 
+Don't search through thousands of properties. Discover the ones worth exploring. 
+ 

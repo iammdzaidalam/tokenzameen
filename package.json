@@ -6,22 +6,47 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "typegen": "next typegen",
+    "check:data": "tsx scripts/check-content.ts",
+    "verify": "pnpm typecheck && pnpm lint && pnpm check:data && pnpm build",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "tsx scripts/seed-db.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.9.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.45.2",
+    "embla-carousel-react": "^8.6.0",
+    "lucide-react": "^1.47.0",
+    "motion": "^13.4.0",
     "next": "16.3.5",
+    "postgres": "^3.4.9",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-hook-form": "^7.88.0",
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "typescript": "^5"
   },
-  "packageManager": "pnpm@11.5.3"
+  "packageManager": "pnpm@11.5.3",
+  "engines": {
+    "node": ">=20.9.0"
+  }
 }
