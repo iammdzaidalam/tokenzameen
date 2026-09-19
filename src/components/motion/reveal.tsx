@@ -130,7 +130,13 @@ export function RevealItem({
   );
 }
 
-/** Splits a heading into lines that rise from behind a clip mask. */
+/**
+ * Splits a heading into lines that rise from behind a clip mask. This one runs
+ * on CSS keyframes rather than the motion runtime: hero headlines are the most
+ * important text on the page and must not depend on a JavaScript frame loop
+ * that a background tab or a low-power mode can pause. The global
+ * prefers-reduced-motion rule collapses the animation to an instant reveal.
+ */
 export function RevealLines({
   lines,
   className,
@@ -142,36 +148,16 @@ export function RevealLines({
   lineClassName?: string;
   delay?: number;
 }) {
-  const reduced = useReducedMotion();
-
-  if (reduced) {
-    return (
-      <span className={className}>
-        {lines.map((line) => (
-          <span key={line} className={cn("block", lineClassName)}>
-            {line}
-          </span>
-        ))}
-      </span>
-    );
-  }
-
   return (
     <span className={className}>
       {lines.map((line, index) => (
-        <span key={line} className="block overflow-hidden pb-[0.08em]">
-          <motion.span
-            className={cn("block will-change-transform", lineClassName)}
-            initial={{ y: "110%", opacity: 0 }}
-            animate={{ y: "0%", opacity: 1 }}
-            transition={{
-              duration: 0.9,
-              delay: delay + index * 0.09,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+        <span key={`${index}-${line}`} className="block overflow-hidden pb-[0.08em]">
+          <span
+            className={cn("tz-rise block will-change-transform", lineClassName)}
+            style={{ animationDelay: `${delay + index * 0.09}s` }}
           >
             {line}
-          </motion.span>
+          </span>
         </span>
       ))}
     </span>

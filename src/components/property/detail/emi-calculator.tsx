@@ -9,7 +9,6 @@ import { DISCLAIMERS } from "@/content/config";
 import { formatAmount, formatMoneyExact } from "@/lib/format";
 import type { Money } from "@/types/catalog";
 
-const DEFAULT_PRICE = 10_000_000;
 const DEFAULT_DOWN_PAYMENT_SHARE = 0.2;
 const DEFAULT_RATE = 8.5;
 const DEFAULT_TENURE = 20;
@@ -28,10 +27,10 @@ export function EmiCalculator({
   projectName: string;
   tint: Tint;
 }) {
-  const startingPrice = publishedPrice?.amount ?? DEFAULT_PRICE;
-  const [price, setPrice] = useState(String(startingPrice));
+  const startingPrice = publishedPrice?.amount ?? null;
+  const [price, setPrice] = useState(startingPrice === null ? "" : String(startingPrice));
   const [downPayment, setDownPayment] = useState(
-    String(Math.round(startingPrice * DEFAULT_DOWN_PAYMENT_SHARE)),
+    startingPrice === null ? "" : String(Math.round(startingPrice * DEFAULT_DOWN_PAYMENT_SHARE)),
   );
   const [rate, setRate] = useState(String(DEFAULT_RATE));
   const [tenure, setTenure] = useState(String(DEFAULT_TENURE));

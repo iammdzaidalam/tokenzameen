@@ -51,7 +51,7 @@ export function DocumentsSection({ project, index }: { project: Project; index: 
                           ? " · released after a short verification step"
                           : document.href
                             ? " · open document"
-                            : " · not uploaded yet, an advisor will send it"}
+                            : " · requested from the project owner and not on file yet"}
                       </p>
                     </div>
 

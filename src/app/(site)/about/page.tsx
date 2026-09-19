@@ -35,8 +35,8 @@ const PRINCIPLES = [
   { title: "Investment intelligence", body: "A qualitative read on the factors that tend to drive an asset — never a score invented to fill a panel." },
   { title: "AI-assisted property search", body: "Ask in your own words. The answer is built only from what each project has published." },
   { title: "Property comparison", body: "Set properties side by side on the same fields, including the ones that read “on request”." },
-  { title: "Site-visit booking", body: "Choose a day and a slot; an advisor confirms and meets you at the project." },
-  { title: "Advisor-assisted acquisition", body: "One advisor stays with your requirement from the first call to completion." },
+  { title: "Site-visit booking", body: "Choose a day and a slot; an advisor confirms the visit with you." },
+  { title: "Advisor-assisted acquisition", body: "An advisor is attached to every enquiry." },
   { title: "Verified project information", body: "Six facets checked per project, with the unchecked ones shown as unchecked." },
 ];
 

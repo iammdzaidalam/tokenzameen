@@ -62,7 +62,7 @@ export function CommercialThesis({ accent, index }: { accent: Accent; index: str
 
             <RevealItem className="rounded-card bg-[color:var(--surface-raised)] p-7 sm:p-8">
               <h3 className="text-display-sm text-balance text-[color:var(--text-primary)]">
-                Every figure on a commercial page is confirmed against a document.
+                Every figure on a commercial page is labelled with where it came from.
               </h3>
               <div className="mt-5 space-y-4 text-sm leading-relaxed text-[color:var(--text-secondary)]">
                 <p>

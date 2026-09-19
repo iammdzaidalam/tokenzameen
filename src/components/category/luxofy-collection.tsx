@@ -20,7 +20,7 @@ const FRAMING = {
     label: "Villas",
     heading: "Taken as a villa",
     body: [
-      "A villa at Luxofy is a land-and-privacy decision. Your own boundary, an outdoor room that belongs to nobody else, and a house that can be lived in slowly — which is usually the point of owning in Goa rather than visiting it.",
+      "A villa at Luxofy is a land-and-privacy decision. Your own boundary and your own outdoor space, and a house that can be lived in slowly — which is usually the point of owning in Goa rather than visiting it.",
       "It is also the heavier commitment of the two formats: more to maintain, more to secure, and more to let when you are not there.",
     ],
   },
@@ -28,7 +28,7 @@ const FRAMING = {
     label: "Apartments",
     heading: "Taken as an apartment",
     body: [
-      "An apartment at Luxofy is the lighter way to hold the same address. Lock it and leave it, share the cost of the common areas, and arrive to a home that has been looked after in your absence.",
+      "An apartment at Luxofy is the lighter way to hold the same address. Lock it and leave it, share common areas, and carry a lighter footprint when you are away.",
       "It suits a buyer who wants the location and the architecture without taking on the upkeep of a standalone house.",
     ],
   },

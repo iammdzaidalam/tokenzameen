@@ -96,7 +96,7 @@ export function SearchCard({ cities, className }: { cities: string[]; className?
       <div
         role="group"
         aria-label="What are you buying for"
-        className="inline-flex gap-1 rounded-full bg-bone-100 p-1"
+        className="no-scrollbar flex max-w-full gap-1 overflow-x-auto rounded-full bg-bone-100 p-1 sm:inline-flex"
       >
         {TABS.map((entry) => {
           const active = entry.id === tab;
@@ -107,7 +107,7 @@ export function SearchCard({ cities, className }: { cities: string[]; className?
               aria-pressed={active}
               onClick={() => setTab(entry.id)}
               className={cn(
-                "min-h-11 whitespace-nowrap rounded-full px-4 text-[0.8125rem] font-medium transition-colors duration-300",
+                "min-h-11 shrink-0 whitespace-nowrap rounded-full px-3 text-[0.8125rem] font-medium transition-color sm:px-4s duration-300",
                 active
                   ? "bg-white text-carbon-900 shadow-[0_1px_2px_rgb(10_10_12/0.12)]"
                   : "text-carbon-500 hover:text-carbon-900",

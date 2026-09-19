@@ -46,7 +46,7 @@ const ROUTES = [
 ];
 
 const NEXT = [
-  { index: "01", title: "We call you", body: "In the window you chose, from a TokenZameen advisor — not a call centre." },
+  { index: "01", title: "We call you", body: "In the window you chose, from a TokenZameen advisor —." },
   { index: "02", title: "We shortlist with you", body: "The advisor works from what you told us and what each project has published." },
   { index: "03", title: "A site visit when you are ready", body: "Booked on a day you pick, confirmed by the same advisor." },
 ];

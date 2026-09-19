@@ -25,6 +25,13 @@ const SOURCED_AREA_BOUNDS = new Map<string, [number, number]>([
   ["garden-court", [360, 515]],
 ]);
 
+/**
+ * A verified facet is a claim that a TokenZameen team member read the source
+ * document. Record "<slug>:<facet>" with the document reference here; nothing
+ * in the brief supports any facet today, so the map is empty on purpose.
+ */
+const VERIFIED_EVIDENCE = new Map<string, string>([]);
+
 const BANNED_SUBSTRINGS = [
   "lorem ipsum",
   "todo",
@@ -114,6 +121,21 @@ for (const project of projects) {
     const yieldValue = project.commercial.grossYieldPercent;
     if (yieldValue !== null && !SOURCED_PERCENTS.has(yieldValue)) {
       fail(`${project.slug}: gross yield ${yieldValue}% is not a figure the brief supplies.`);
+    }
+  }
+
+  for (const [facet, confirmed] of Object.entries(project.verified)) {
+    if (confirmed && !VERIFIED_EVIDENCE.has(`${project.slug}:${facet}`)) {
+      fail(
+        `${project.slug}: verified.${facet} is true but no evidence is recorded. ` +
+          `Add the source to VERIFIED_EVIDENCE in scripts/check-content.ts before marking a facet confirmed.`,
+      );
+    }
+  }
+
+  for (const tag of project.specialTags) {
+    if (tag === "early-access") {
+      fail(`${project.slug}: "early-access" is a launch-phase status the brief assigns to no project.`);
     }
   }
 

@@ -30,7 +30,7 @@ export function PopularSearches({
   return (
     <div className={cn("flex flex-wrap items-center gap-2.5", className)}>
       <span className={cn("eyebrow text-[color:var(--text-muted)]", labelClassName)}>
-        Popular searches :
+        Quick searches :
       </span>
       {chips.map((chip) => (
         <Link

@@ -354,3 +354,20 @@
     opacity: 0.5;
   }
 }
+
+@keyframes tz-rise {
+  from {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@layer components {
+  .tz-rise {
+    animation: tz-rise 0.9s var(--ease-luxe) both;
+  }
+}

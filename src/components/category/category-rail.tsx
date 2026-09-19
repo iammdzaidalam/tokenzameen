@@ -42,8 +42,8 @@ export function CategoryRail({ category, index }: { category: Category; index: s
             index={index}
             id="rail-heading"
             eyebrow="Other collections"
-            title="Most buyers look at two."
-            lede={`The brief rarely stays inside one collection. These are the ones most often considered alongside ${category.name}.`}
+            title="Worth reading side by side."
+            lede={`The brief rarely stays inside one collection. These are the ones that sit naturally alongside ${category.name}.`}
             size="md"
           />
 
