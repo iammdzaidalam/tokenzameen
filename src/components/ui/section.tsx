@@ -1,12 +1,14 @@
 import { cn } from "@/lib/cn";
 
-type Tone = "dark" | "darker" | "light" | "transparent";
+type Tone = "paper" | "bone" | "light" | "dark" | "darker" | "transparent";
 type Space = "none" | "sm" | "md" | "lg" | "xl";
 
 const TONES: Record<Tone, string> = {
+  paper: "bg-white text-carbon-900",
+  bone: "bg-bone-100 text-carbon-900",
+  light: "bg-bone-100 text-carbon-900",
   dark: "bg-carbon-900 text-bone-100",
   darker: "bg-carbon-950 text-bone-100",
-  light: "bg-bone-100 text-carbon-900",
   transparent: "",
 };
 
@@ -21,9 +23,10 @@ const SPACES: Record<Space, string> = {
 export function Section({
   children,
   className,
-  tone = "dark",
+  tone = "bone",
   space = "lg",
   id,
+  rounded = false,
   "aria-label": ariaLabel,
 }: {
   children: React.ReactNode;
@@ -31,14 +34,22 @@ export function Section({
   tone?: Tone;
   space?: Space;
   id?: string;
+  rounded?: boolean;
   "aria-label"?: string;
 }) {
+  const dark = tone === "dark" || tone === "darker";
   return (
     <section
       id={id}
       aria-label={ariaLabel}
-      data-surface={tone === "light" ? "light" : "dark"}
-      className={cn("relative", TONES[tone], SPACES[space], className)}
+      data-surface={dark ? "dark" : "light"}
+      className={cn(
+        "relative",
+        TONES[tone],
+        SPACES[space],
+        rounded && "rounded-frame",
+        className,
+      )}
     >
       {children}
     </section>

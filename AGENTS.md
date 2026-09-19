@@ -10,8 +10,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # TokenZameen — engineering rules
 
-Read `docs/ENGINEERING.md` before writing code. It is the contract every contributor
-works to. The short version:
+Read `docs/ENGINEERING.md` and `docs/DESIGN-REFERENCES.md` before writing code.
+Together they are the contract every contributor works to. The short version:
 
 ## Non-negotiables
 
@@ -28,7 +28,14 @@ works to. The short version:
    `@ts-expect-error`, no `as unknown as`.
 4. **Nothing throws in a render path.** Data helpers return `null`/empty arrays and
    the UI handles that state. Route handlers catch and return typed JSON errors.
-5. **Stay inside your assigned files.** If you need something outside them, add it
+5. **The design follows the reference boards.** `docs/DESIGN-REFERENCES.md` turns the
+   eight supplied boards into rules: a light editorial base on bone, carbon-black
+   inversion sections, an inset rounded hero with a floating search card, chip
+   rows, hairline stat grids with one inverted cell, `/01` index labels and
+   circular arrow buttons on tiles. Where it disagrees with the PRD's "dark
+   futuristic luxury" line, it wins on layout and surface; the PRD wins on
+   palette, typography and tone.
+6. **Stay inside your assigned files.** If you need something outside them, add it
    to your hand-off notes instead of editing another owner's file.
 
 ## Next.js 16 facts that differ from older training data

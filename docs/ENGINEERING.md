@@ -49,10 +49,14 @@ statement a buyer could act on.
 
 ## 3. Design system
 
-Dark futuristic luxury, with light editorial sections for contrast.
+**Read `docs/DESIGN-REFERENCES.md` first.** It translates the eight supplied
+reference boards into binding layout rules. This section covers the mechanics.
 
-**Surfaces** — wrap page sections in `<Section tone="dark" | "darker" | "light">`.
-`tone="light"` sets `data-surface="light"`, which flips the semantic CSS variables
+A light editorial base on bone, with deliberate carbon-black inversion sections.
+
+**Surfaces** — wrap page sections in `<Section tone="bone" | "paper" | "dark" | "darker">`.
+`bone` is the default page band, `paper` is white, and the two dark tones set
+`data-surface="dark"`, which flips the semantic CSS variables
 (`--surface`, `--text-primary`, `--text-secondary`, `--hairline`, `--accent`).
 Inside a section, prefer the semantic variables over hard-coded palette classes so
 a section works in either tone:
@@ -92,12 +96,15 @@ Nothing bounces, nothing loops, nothing blocks interaction.
 | `@/components/ui/eyebrow` | `<Eyebrow withRule>` |
 | `@/components/ui/button` | `<Button variant="primary"\|"secondary"\|"solid"\|"glass"\|"ghost"\|"link" size="sm"\|"md"\|"lg"\|"icon" href? full?>` |
 | `@/components/ui/badge` | `<Badge tone="neutral"\|"gold"\|"sage"\|"lotus"\|"success"\|"warning"\|"danger"\|"outline">` |
-| `@/components/ui/overlay` | `<Overlay open onClose title placement="center"\|"bottom"\|"right"\|"full">` — focus-trapped dialog |
+| `@/components/ui/overlay` | `<Overlay open onClose title placement tone="light"\|"dark">` — focus-trapped dialog; the portal sets its own surface, so use semantic variables inside it |
 | `@/components/ui/accordion` | `<Accordion items={[{id,title,content}]}>` |
 | `@/components/ui/tabs` | `<Tabs items={[{id,label,content}]}>` |
 | `@/components/ui/field` | `Field`, `TextInput`, `TextArea`, `Select`, `Checkbox`, `RadioPill` |
 | `@/components/ui/range-slider` | `<RangeSlider min max step value onChange formatValue minLabel maxLabel>` |
 | `@/components/ui/score-bar` | `<ScoreBar label value max accent>` |
+| `@/components/ui/stat-grid` | `<StatGrid stats invertIndex columns>` — hairline cells, one inverted |
+| `@/components/ui/index-label` | `<IndexLabel index="01">Label</IndexLabel>` |
+| `@/components/ui/tile-arrow` | `<TileArrow tone="solid"\|"glass"\|"accent">` — rotates on group hover |
 | `@/components/motion/reveal` | `Reveal`, `RevealGroup`, `RevealItem`, `RevealLines` |
 | `@/components/motion/count-up` | `<CountUp to from format prefix suffix>` |
 | `@/components/property/property-card` | `<PropertyCard project variant="default"\|"feature"\|"compact" priority>` |

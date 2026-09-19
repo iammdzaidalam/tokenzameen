@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/layout/logo";
+import { FooterLandscape } from "@/components/layout/footer-landscape";
+import { NewsletterForm } from "@/components/layout/newsletter-form";
 import { discoverLinks, purchaseLinks } from "@/components/layout/nav-data";
 import { SITE } from "@/content/config";
 
@@ -22,71 +24,89 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-carbon-950 text-bone-100">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 -bottom-40 h-96 bg-[radial-gradient(60%_100%_at_50%_100%,rgba(201,169,97,0.14),transparent_70%)]"
-      />
-      <Container width="wide" className="relative py-16 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
-          <div className="max-w-sm">
+    <footer
+      data-surface="light"
+      className="relative overflow-hidden border-t border-[color:var(--hairline)] bg-bone-50 text-carbon-900"
+    >
+      <Container width="wide" className="relative z-10 pt-16 sm:pt-20">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_repeat(3,0.8fr)_1.1fr]">
+          <div className="max-w-xs">
             <Logo />
-            <p className="mt-6 font-display text-display-sm text-bone-100">
-              Don&apos;t search through thousands of properties.
+            <p className="mt-5 text-sm leading-relaxed text-carbon-500">
+              Don&apos;t search through thousands of properties. Discover the ones worth
+              exploring.
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-steel-400">
-              Discover the ones worth exploring.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              {SITE.advisorPhone ? (
-                <a
-                  href={`tel:${SITE.advisorPhone}`}
-                  className="rounded-full border border-white/12 px-4 py-2 text-sm text-steel-300 transition-colors hover:border-gold-400/50 hover:text-gold-200"
-                >
-                  {SITE.advisorPhone}
-                </a>
-              ) : null}
+            <ul className="mt-7 flex flex-col gap-3 text-sm text-carbon-500">
               {SITE.advisorEmail ? (
-                <a
-                  href={`mailto:${SITE.advisorEmail}`}
-                  className="rounded-full border border-white/12 px-4 py-2 text-sm text-steel-300 transition-colors hover:border-gold-400/50 hover:text-gold-200"
-                >
-                  {SITE.advisorEmail}
-                </a>
+                <li>
+                  <a href={`mailto:${SITE.advisorEmail}`} className="flex items-center gap-3 transition-colors hover:text-carbon-900">
+                    <Mail className="size-4 shrink-0 text-gold-600" />
+                    {SITE.advisorEmail}
+                  </a>
+                </li>
               ) : null}
-            </div>
+              {SITE.advisorPhone ? (
+                <li>
+                  <a href={`tel:${SITE.advisorPhone}`} className="flex items-center gap-3 transition-colors hover:text-carbon-900">
+                    <Phone className="size-4 shrink-0 text-gold-600" />
+                    {SITE.advisorPhone}
+                  </a>
+                </li>
+              ) : null}
+              <li className="flex items-center gap-3">
+                <MapPin className="size-4 shrink-0 text-gold-600" />
+                India
+              </li>
+            </ul>
           </div>
 
           <FooterColumn title="Purchase" links={purchaseLinks} />
           <FooterColumn title="Discover" links={discoverLinks} />
           <FooterColumn title="Company" links={companyLinks} />
-        </div>
 
-        <div className="mt-16 border-t border-white/10 pt-8">
-          <p className="max-w-4xl text-xs leading-relaxed text-steel-500">
-            TokenZameen presents curated real-estate opportunities. Property information,
-            pricing, availability and documentation are supplied by developers and project
-            owners, and are subject to change and to verification. Nothing on this site is an
-            offer, an invitation to invest, or a guarantee of return. Figures shown in
-            calculators and investment summaries are indicative and depend on final
-            documentation, lease terms, taxes and transaction costs.
-          </p>
-          <div className="mt-8 flex flex-col-reverse gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs text-steel-500">
-              © {year} TokenZameen. All rights reserved.
+          <div>
+            <p className="eyebrow text-carbon-500">Collection updates</p>
+            <p className="mt-5 text-sm leading-relaxed text-carbon-500">
+              A short note when a property joins the collection, or when something
+              already in it changes.
             </p>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2">
-              {legalLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-xs text-steel-400 transition-colors hover:text-bone-100">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className="mt-5">
+              <NewsletterForm />
+            </div>
           </div>
         </div>
+
+        <div className="mt-16 border-t border-[color:var(--hairline)] pt-8">
+          <p className="max-w-4xl text-xs leading-relaxed text-carbon-500">
+            TokenZameen presents curated real-estate opportunities. Property
+            information, pricing, availability and documentation are supplied by
+            developers and project owners, and are subject to change and to
+            verification. Nothing on this site is an offer, an invitation to invest, or
+            a guarantee of return. Figures shown in calculators and investment summaries
+            are indicative and depend on final documentation, lease terms, taxes and
+            transaction costs.
+          </p>
+        </div>
       </Container>
+
+      <div className="relative mt-10 h-48 sm:h-64 lg:h-72">
+        <FooterLandscape className="absolute inset-0 size-full text-carbon-900/30" />
+        <Container
+          width="wide"
+          className="absolute inset-x-0 bottom-0 flex flex-col-reverse gap-4 pb-7 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <p className="text-xs text-carbon-500">© {year} TokenZameen. All rights reserved.</p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {legalLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-xs text-carbon-500 transition-colors hover:text-carbon-900">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </div>
     </footer>
   );
 }
@@ -100,13 +120,13 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <p className="eyebrow text-steel-500">{title}</p>
+      <p className="eyebrow text-carbon-500">{title}</p>
       <ul className="mt-5 flex flex-col gap-3">
         {links.map((link) => (
           <li key={link.href}>
             <Link
               href={link.href}
-              className="group inline-flex items-center gap-1.5 text-sm text-steel-300 transition-colors hover:text-bone-100"
+              className="group inline-flex items-center gap-1.5 text-sm text-carbon-500 transition-colors hover:text-carbon-900"
             >
               {link.label}
               <ArrowUpRight className="size-3 opacity-0 transition-opacity group-hover:opacity-60" />

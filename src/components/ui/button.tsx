@@ -44,7 +44,8 @@ export function Button(props: ButtonProps | AnchorProps) {
     const { href, variant, size, full, className, ...rest } = props;
     const isExternal = /^(https?:|mailto:|tel:)/.test(href);
     if (isExternal) {
-      const { prefetch: _prefetch, ...anchorRest } = rest as Record<string, unknown>;
+      const anchorRest = { ...(rest as Record<string, unknown>) };
+      delete anchorRest.prefetch;
       return (
         <a
           href={href}

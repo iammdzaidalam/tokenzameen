@@ -40,6 +40,7 @@ export function Overlay({
   title,
   description,
   placement = "center",
+  tone = "light",
   className,
   panelClassName,
   showClose = true,
@@ -51,6 +52,7 @@ export function Overlay({
   title?: string;
   description?: string;
   placement?: Placement;
+  tone?: "light" | "dark";
   className?: string;
   panelClassName?: string;
   showClose?: boolean;
@@ -110,7 +112,11 @@ export function Overlay({
   return createPortal(
     <AnimatePresence>
       {open ? (
-        <div className={cn("fixed inset-0 z-[120]", className)} role="presentation">
+        <div
+          data-surface={tone}
+          className={cn("fixed inset-0 z-[120]", className)}
+          role="presentation"
+        >
           <motion.div
             className="absolute inset-0 bg-carbon-950/80 backdrop-blur-sm"
             initial={{ opacity: 0 }}
@@ -128,7 +134,7 @@ export function Overlay({
             aria-describedby={description ? `${labelledBy ?? "overlay"}-description` : undefined}
             tabIndex={-1}
             className={cn(
-              "absolute flex flex-col overflow-hidden border border-[color:var(--hairline)] bg-carbon-850 text-bone-100 shadow-panel outline-none",
+              "absolute flex flex-col overflow-hidden border border-[color:var(--hairline)] bg-[color:var(--surface)] text-[color:var(--text-primary)] shadow-panel outline-none",
               PANEL_POSITION[placement],
               PANEL_RADIUS[placement],
               panelClassName,
@@ -149,7 +155,7 @@ export function Overlay({
                   {description ? (
                     <p
                       id={`${labelledBy ?? "overlay"}-description`}
-                      className="mt-1 text-sm text-steel-300"
+                      className="mt-1 text-sm text-[color:var(--text-secondary)]"
                     >
                       {description}
                     </p>
@@ -160,7 +166,7 @@ export function Overlay({
                     type="button"
                     onClick={onClose}
                     aria-label="Close"
-                    className="-mr-1 grid size-9 shrink-0 place-items-center rounded-full border border-[color:var(--hairline)] text-steel-300 transition-colors hover:border-gold-400/50 hover:text-gold-200"
+                    className="-mr-1 grid size-9 shrink-0 place-items-center rounded-full border border-[color:var(--hairline)] text-[color:var(--text-secondary)] transition-colors hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
                   >
                     <X className="size-4" />
                   </button>

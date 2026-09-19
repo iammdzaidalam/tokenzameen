@@ -60,7 +60,7 @@ export const EMPTY_FILTERS: FilterState = {
   sort: "recommended",
 };
 
-const CATEGORY_VALUES: CategorySlug[] = [
+export const CATEGORY_VALUES: CategorySlug[] = [
   "apartments",
   "villas",
   "commercial",
@@ -68,7 +68,7 @@ const CATEGORY_VALUES: CategorySlug[] = [
   "spiritual-residences",
   "plots",
 ];
-const TYPE_VALUES: PropertyType[] = [
+export const TYPE_VALUES: PropertyType[] = [
   "apartment",
   "villa",
   "commercial",
@@ -76,8 +76,8 @@ const TYPE_VALUES: PropertyType[] = [
   "spiritual-residence",
   "plot",
 ];
-const BEDROOM_VALUES: BedroomConfig[] = ["1bhk", "2bhk", "3bhk", "4bhk", "5plus"];
-const PURPOSE_VALUES: Purpose[] = [
+export const BEDROOM_VALUES: BedroomConfig[] = ["1bhk", "2bhk", "3bhk", "4bhk", "5plus"];
+export const PURPOSE_VALUES: Purpose[] = [
   "self-use",
   "investment",
   "second-home",
@@ -86,8 +86,8 @@ const PURPOSE_VALUES: Purpose[] = [
   "commercial-income",
   "land-banking",
 ];
-const AVAILABILITY_VALUES: Availability[] = ["available", "limited", "coming-soon", "sold-out"];
-const TAG_VALUES: SpecialTag[] = [
+export const AVAILABILITY_VALUES: Availability[] = ["available", "limited", "coming-soon", "sold-out"];
+export const TAG_VALUES: SpecialTag[] = [
   "pre-leased",
   "high-rental-potential",
   "early-access",
@@ -150,6 +150,15 @@ export function serializeFilters(filters: FilterState): URLSearchParams {
   if (filters.publishedPriceOnly) params.set("priced", "1");
   if (filters.sort !== "recommended") params.set("sort", filters.sort);
   return params;
+}
+
+/** Counts how many projects survive the filter set with one dimension patched. */
+export function countMatching(
+  source: Project[],
+  filters: FilterState,
+  patch: Partial<FilterState>,
+): number {
+  return filterProjects(source, { ...filters, ...patch }).length;
 }
 
 export function countActiveFilters(filters: FilterState): number {

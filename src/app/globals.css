@@ -65,6 +65,13 @@
 
   --radius-card: 1.25rem;
   --radius-panel: 1.75rem;
+  --radius-frame: 1.5rem;
+  --radius-tile: 1rem;
+
+  --color-tint-sage: #eef3ec;
+  --color-tint-gold: #f6f0e2;
+  --color-tint-steel: #eceef1;
+  --color-tint-lotus: #f1edf5;
 
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-exit: cubic-bezier(0.4, 0, 1, 1);
@@ -75,21 +82,8 @@
 
 @layer base {
   :root {
-    --surface: var(--color-carbon-900);
-    --surface-raised: var(--color-carbon-800);
-    --surface-sunken: var(--color-carbon-950);
-    --hairline: rgb(255 255 255 / 0.09);
-    --hairline-strong: rgb(255 255 255 / 0.16);
-    --text-primary: var(--color-bone-100);
-    --text-secondary: var(--color-steel-300);
-    --text-muted: var(--color-steel-400);
-    --accent: var(--color-gold-400);
-    --accent-contrast: var(--color-carbon-950);
-    color-scheme: dark;
-  }
-
-  [data-surface="light"] {
-    --surface: var(--color-bone-100);
+    --page: var(--color-bone-100);
+    --surface: #ffffff;
     --surface-raised: #ffffff;
     --surface-sunken: var(--color-bone-200);
     --hairline: rgb(10 10 12 / 0.1);
@@ -98,8 +92,29 @@
     --text-secondary: var(--color-carbon-500);
     --text-muted: var(--color-steel-500);
     --accent: var(--color-gold-600);
+    --accent-quiet: var(--color-gold-500);
     --accent-contrast: var(--color-bone-50);
+    --invert-surface: var(--color-carbon-900);
+    --invert-text: var(--color-bone-100);
     color-scheme: light;
+  }
+
+  [data-surface="dark"] {
+    --page: var(--color-carbon-900);
+    --surface: var(--color-carbon-900);
+    --surface-raised: var(--color-carbon-800);
+    --surface-sunken: var(--color-carbon-950);
+    --hairline: rgb(255 255 255 / 0.1);
+    --hairline-strong: rgb(255 255 255 / 0.18);
+    --text-primary: var(--color-bone-100);
+    --text-secondary: var(--color-steel-300);
+    --text-muted: var(--color-steel-400);
+    --accent: var(--color-gold-400);
+    --accent-quiet: var(--color-gold-300);
+    --accent-contrast: var(--color-carbon-950);
+    --invert-surface: var(--color-bone-100);
+    --invert-text: var(--color-carbon-900);
+    color-scheme: dark;
   }
 
   * {
@@ -108,13 +123,13 @@
 
   html {
     -webkit-tap-highlight-color: transparent;
+    background-color: var(--color-carbon-950);
   }
 
   body {
-    background-color: var(--color-carbon-900);
-    color: var(--color-bone-100);
+    background-color: var(--color-bone-100);
+    color: var(--color-carbon-900);
     font-family: var(--font-sans);
-    font-feature-settings: "cv11", "ss01";
     text-rendering: optimizeLegibility;
   }
 
@@ -124,9 +139,13 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-gold-400);
+    outline: 2px solid var(--color-gold-600);
     outline-offset: 2px;
     border-radius: 2px;
+  }
+
+  [data-surface="dark"] :focus-visible {
+    outline-color: var(--color-gold-400);
   }
 
   h1, h2, h3, h4 {
@@ -143,6 +162,11 @@
   .surface {
     background-color: var(--surface);
     color: var(--text-primary);
+  }
+
+  .invert-block {
+    background-color: var(--invert-surface);
+    color: var(--invert-text);
   }
 
   .hairline {
@@ -167,15 +191,15 @@
   }
 
   .glass {
-    background-color: rgb(255 255 255 / 0.05);
-    border: 1px solid rgb(255 255 255 / 0.1);
+    background-color: rgb(255 255 255 / 0.82);
+    border: 1px solid rgb(255 255 255 / 0.6);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
   }
 
-  [data-surface="light"] .glass {
-    background-color: rgb(255 255 255 / 0.7);
-    border-color: rgb(10 10 12 / 0.08);
+  [data-surface="dark"] .glass {
+    background-color: rgb(255 255 255 / 0.06);
+    border-color: rgb(255 255 255 / 0.12);
   }
 
   .grain::after {
@@ -259,4 +283,8 @@
   .range-thumb::-moz-range-track {
     background: transparent;
   }
+}
+
+@utility rounded-frame {
+  border-radius: var(--radius-frame);
 }

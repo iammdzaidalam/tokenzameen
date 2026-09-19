@@ -10,96 +10,96 @@ import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/layout/logo";
 import { discoverLinks, primaryNav, purchaseLinks } from "@/components/layout/nav-data";
 import { cn } from "@/lib/cn";
-import { useLockBodyScroll } from "@/lib/hooks";
+import { useLockBodyScroll, useScrolledPast } from "@/lib/hooks";
 
 type Panel = "purchase" | "discover" | null;
 
+interface MenuState {
+  path: string;
+  panel: Panel;
+  mobileOpen: boolean;
+}
+
 export function SiteHeader() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-  const [panel, setPanel] = useState<Panel>(null);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const scrolled = useScrolledPast(16);
   const reduced = useReducedMotion();
-  useLockBodyScroll(mobileOpen);
+  const [stored, setStored] = useState<MenuState>({ path: pathname, panel: null, mobileOpen: false });
+
+  // Navigating away closes the menus, resolved during render rather than in an effect.
+  const menu = stored.path === pathname ? stored : { path: pathname, panel: null, mobileOpen: false };
+  const setPanel = (panel: Panel) => setStored({ path: pathname, panel, mobileOpen: false });
+  const setMobileOpen = (mobileOpen: boolean) => setStored({ path: pathname, panel: null, mobileOpen });
+
+  useLockBodyScroll(menu.mobileOpen);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    setPanel(null);
-    setMobileOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (!panel) return;
+    if (!menu.panel) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPanel(null);
+      if (event.key === "Escape") setStored({ path: pathname, panel: null, mobileOpen: false });
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [panel]);
+  }, [menu.panel, pathname]);
 
-  const panelLinks = panel === "purchase" ? purchaseLinks : panel === "discover" ? discoverLinks : [];
+  const panelLinks =
+    menu.panel === "purchase" ? purchaseLinks : menu.panel === "discover" ? discoverLinks : [];
 
   return (
     <header
+      data-surface="light"
       className={cn(
-        "fixed inset-x-0 top-0 z-[100] transition-[background-color,border-color,backdrop-filter] duration-500",
-        scrolled || panel
-          ? "border-b border-white/10 bg-carbon-950/80 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent",
+        "sticky top-0 z-[100] transition-[background-color,border-color,box-shadow] duration-500",
+        scrolled || menu.panel
+          ? "border-b border-[color:var(--hairline)] bg-bone-100/85 backdrop-blur-xl"
+          : "border-b border-transparent bg-bone-100",
       )}
-      onMouseLeave={() => setPanel(null)}
+      onMouseLeave={() => (menu.panel ? setPanel(null) : undefined)}
     >
       <Container width="wide" className="flex h-[72px] items-center justify-between gap-6">
-        <div className="flex items-center gap-10">
-          <Logo />
-          <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
-            {primaryNav.map((item) => {
-              const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
-              return (
-                <div key={item.href} onMouseEnter={() => setPanel(item.panel)}>
-                  <Link
-                    href={item.href}
-                    aria-expanded={item.panel ? panel === item.panel : undefined}
-                    className={cn(
-                      "relative rounded-full px-4 py-2 text-sm transition-colors",
-                      isActive || panel === item.panel
-                        ? "text-bone-100"
-                        : "text-steel-300 hover:text-bone-100",
-                    )}
-                  >
-                    {item.label}
-                    {isActive ? (
-                      <span className="absolute inset-x-4 -bottom-0.5 h-px bg-gold-400" />
-                    ) : null}
-                  </Link>
-                </div>
-              );
-            })}
-          </nav>
-        </div>
+        <Logo />
+
+        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+          {primaryNav.map((item) => {
+            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+            return (
+              <div key={item.href} onMouseEnter={() => setPanel(item.panel)}>
+                <Link
+                  href={item.href}
+                  aria-expanded={item.panel ? menu.panel === item.panel : undefined}
+                  className={cn(
+                    "relative rounded-full px-4 py-2 text-sm transition-colors",
+                    isActive || menu.panel === item.panel
+                      ? "text-carbon-900"
+                      : "text-carbon-500 hover:text-carbon-900",
+                  )}
+                >
+                  {item.label}
+                  {isActive ? (
+                    <span className="absolute inset-x-4 -bottom-0.5 h-px bg-gold-600" />
+                  ) : null}
+                </Link>
+              </div>
+            );
+          })}
+        </nav>
 
         <div className="flex items-center gap-2">
           <Link
             href="/purchase/properties"
             aria-label="Search properties"
-            className="grid size-10 place-items-center rounded-full border border-white/10 text-steel-300 transition-colors hover:border-gold-400/50 hover:text-gold-200"
+            className="grid size-10 place-items-center rounded-full border border-[color:var(--hairline)] text-carbon-500 transition-colors hover:border-carbon-900 hover:text-carbon-900"
           >
             <Search className="size-4" />
           </Link>
-          <Button href="/advisory" size="sm" className="hidden sm:inline-flex">
+          <Button href="/advisory" variant="solid" size="sm" className="hidden sm:inline-flex">
             Talk to an Advisor
           </Button>
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
-            className="grid size-10 place-items-center rounded-full border border-white/10 text-steel-300 transition-colors hover:text-bone-100 lg:hidden"
+            className="grid size-10 place-items-center rounded-full border border-[color:var(--hairline)] text-carbon-500 transition-colors hover:text-carbon-900 lg:hidden"
           >
             <Menu className="size-4" />
           </button>
@@ -107,30 +107,30 @@ export function SiteHeader() {
       </Container>
 
       <AnimatePresence>
-        {panel ? (
+        {menu.panel ? (
           <motion.div
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduced ? { opacity: 0 } : { opacity: 0, y: -8 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden border-t border-white/10 bg-carbon-950/95 backdrop-blur-xl lg:block"
+            className="hidden border-t border-[color:var(--hairline)] bg-bone-50/95 backdrop-blur-xl lg:block"
           >
             <Container width="wide" className="grid grid-cols-3 gap-x-10 gap-y-2 py-8">
               {panelLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="group flex items-start justify-between gap-4 rounded-xl px-4 py-3.5 transition-colors hover:bg-white/5"
+                  className="group flex items-start justify-between gap-4 rounded-xl px-4 py-3.5 transition-colors hover:bg-bone-200/70"
                 >
                   <span>
-                    <span className="block font-subhead text-[0.9375rem] font-medium text-bone-100">
+                    <span className="block font-subhead text-[0.9375rem] font-medium text-carbon-900">
                       {link.label}
                     </span>
-                    <span className="mt-0.5 block text-[0.8125rem] text-steel-400">
+                    <span className="mt-0.5 block text-[0.8125rem] text-carbon-500">
                       {link.description}
                     </span>
                   </span>
-                  <ArrowUpRight className="mt-0.5 size-4 shrink-0 text-steel-500 transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-400" />
+                  <ArrowUpRight className="mt-0.5 size-4 shrink-0 text-steel-400 transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold-600" />
                 </Link>
               ))}
             </Container>
@@ -139,13 +139,13 @@ export function SiteHeader() {
       </AnimatePresence>
 
       <AnimatePresence>
-        {mobileOpen ? (
+        {menu.mobileOpen ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[110] flex flex-col bg-carbon-950 lg:hidden"
+            className="fixed inset-0 z-[110] flex flex-col bg-bone-100 lg:hidden"
           >
             <div className="flex h-[72px] shrink-0 items-center justify-between px-5">
               <Logo />
@@ -153,7 +153,7 @@ export function SiteHeader() {
                 type="button"
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"
-                className="grid size-10 place-items-center rounded-full border border-white/10 text-steel-300"
+                className="grid size-10 place-items-center rounded-full border border-[color:var(--hairline)] text-carbon-500"
               >
                 <X className="size-4" />
               </button>
@@ -165,7 +165,7 @@ export function SiteHeader() {
                 <Button href="/verified" variant="secondary" full>
                   TokenZameen Verified
                 </Button>
-                <Button href="/advisory" full>
+                <Button href="/advisory" variant="solid" full>
                   Talk to an Advisor
                 </Button>
               </div>
@@ -186,15 +186,15 @@ function MobileGroup({
 }) {
   return (
     <div className="mt-8 first:mt-4">
-      <p className="eyebrow text-gold-400">{title}</p>
-      <div className="mt-3 divide-y divide-white/8 border-y border-white/8">
+      <p className="eyebrow text-gold-600">{title}</p>
+      <div className="mt-3 divide-y divide-[color:var(--hairline)] border-y border-[color:var(--hairline)]">
         {links.map((link) => (
           <Link key={link.href} href={link.href} className="flex items-center justify-between gap-4 py-4">
             <span>
-              <span className="block font-subhead text-base text-bone-100">{link.label}</span>
-              <span className="mt-0.5 block text-[0.8125rem] text-steel-400">{link.description}</span>
+              <span className="block font-subhead text-base text-carbon-900">{link.label}</span>
+              <span className="mt-0.5 block text-[0.8125rem] text-carbon-500">{link.description}</span>
             </span>
-            <ArrowUpRight className="size-4 shrink-0 text-steel-500" />
+            <ArrowUpRight className="size-4 shrink-0 text-steel-400" />
           </Link>
         ))}
       </div>

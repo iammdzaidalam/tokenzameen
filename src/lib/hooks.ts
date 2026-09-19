@@ -1,19 +1,47 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
+
+export { readStore, writeStore } from "@/lib/storage";
+
+const noopSubscribe = () => () => {};
+
+export function useMounted(): boolean {
+  return useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  );
+}
 
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false);
+  const subscribeToQuery = useCallback(
+    (onChange: () => void) => {
+      const list = window.matchMedia(query);
+      list.addEventListener("change", onChange);
+      return () => list.removeEventListener("change", onChange);
+    },
+    [query],
+  );
 
-  useEffect(() => {
-    const list = window.matchMedia(query);
-    setMatches(list.matches);
-    const onChange = (event: MediaQueryListEvent) => setMatches(event.matches);
-    list.addEventListener("change", onChange);
-    return () => list.removeEventListener("change", onChange);
-  }, [query]);
+  return useSyncExternalStore(
+    subscribeToQuery,
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
+}
 
-  return matches;
+export function useScrolledPast(threshold: number): boolean {
+  const subscribeToScroll = useCallback((onChange: () => void) => {
+    window.addEventListener("scroll", onChange, { passive: true });
+    return () => window.removeEventListener("scroll", onChange);
+  }, []);
+
+  return useSyncExternalStore(
+    subscribeToScroll,
+    () => window.scrollY > threshold,
+    () => false,
+  );
 }
 
 export function useLockBodyScroll(active: boolean) {
@@ -30,31 +58,4 @@ export function useLockBodyScroll(active: boolean) {
       body.style.paddingRight = previousPadding;
     };
   }, [active]);
-}
-
-export function useMounted(): boolean {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  return mounted;
-}
-
-/** Reads and writes a JSON value in localStorage, tolerating private-mode failures. */
-export function readStore<T>(key: string, fallback: T): T {
-  if (typeof window === "undefined") return fallback;
-  try {
-    const raw = window.localStorage.getItem(key);
-    if (!raw) return fallback;
-    return JSON.parse(raw) as T;
-  } catch {
-    return fallback;
-  }
-}
-
-export function writeStore<T>(key: string, value: T): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(key, JSON.stringify(value));
-  } catch {
-    // Storage can be unavailable in private mode or when the quota is full.
-  }
 }
