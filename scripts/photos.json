@@ -1,0 +1,67 @@
+{
+  "categories": {
+    "apartments": "photo-1785581389975-44a7781dca19",
+    "villas": "photo-1781795414968-8ece31826420",
+    "commercial": "photo-1622533087594-627c3aa0d68a",
+    "sustainable-living": "photo-1786545638082-e22c26805098",
+    "spiritual-residences": "photo-1760624493013-8a7436f343a5",
+    "plots": "photo-1741526998901-f27309ab63fe"
+  },
+  "brand": {
+    "home-hero": "photo-1768200498972-fd56353d73fc",
+    "purchase-hero": "photo-1781795414968-8ece31826420",
+    "advisory-hero": "photo-1631510390389-c1e4fb20ff31",
+    "about-hero": "photo-1724582586529-62622e50c0b3"
+  },
+  "projects": {
+    "omaxe-chowk": [
+      "photo-1549757521-4160565ff3de",
+      "photo-1622533087594-627c3aa0d68a",
+      "photo-1523477593243-78bbf626fd3b",
+      "photo-1532888277436-2286814f0ee1",
+      "photo-1725868214949-bb85733e0a17"
+    ],
+    "luxofy": [
+      "photo-1781795414968-8ece31826420",
+      "photo-1787704113747-c1a65d1a6a62",
+      "photo-1762117360890-5eacdbb07b04",
+      "photo-1758957701419-2c6e266f7988",
+      "photo-1762117360871-f11fbad00ee1"
+    ],
+    "garden-court": [
+      "photo-1741526998115-53463b93cb4a",
+      "photo-1718696070559-f388cb0fb384",
+      "photo-1685337189973-da659723bfbf",
+      "photo-1720800670109-dd0a12a6f7bc",
+      "photo-1662083555510-1187b2aba1e2"
+    ],
+    "we-communities": [
+      "photo-1786545638082-e22c26805098",
+      "photo-1763738173556-1f7f52de0327",
+      "photo-1761342613225-d8a89ab221fb",
+      "photo-1704457030816-6b9b08d1bb08",
+      "photo-1628744876497-eb30460be9f6"
+    ],
+    "eth-infra-haridwar-one": [
+      "photo-1432297984334-707d34c4163a",
+      "photo-1785581389975-44a7781dca19",
+      "photo-1760346517344-7c84b1b3aa61",
+      "photo-1515263487990-61b07816b324",
+      "photo-1704040686413-2c607dbd2f06"
+    ],
+    "verdaant-court": [
+      "photo-1741526998901-f27309ab63fe",
+      "photo-1685337189973-da659723bfbf",
+      "photo-1720800670109-dd0a12a6f7bc",
+      "photo-1662083555510-1187b2aba1e2",
+      "photo-1631645033513-15144f920557"
+    ],
+    "yugen": [
+      "photo-1631645033513-15144f920557",
+      "photo-1704457030496-3463cf1b8650",
+      "photo-1704457030816-6b9b08d1bb08",
+      "photo-1776762893034-c437e452f1be",
+      "photo-1741526998115-53463b93cb4a"
+    ]
+  }
+}

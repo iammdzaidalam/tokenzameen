@@ -13,7 +13,7 @@ import { CATEGORY_LABEL } from "@/lib/labels";
 export function HomeHero() {
   const projects = getAllProjects();
   const highlight = getFeaturedProjects()[0] ?? projects[0] ?? null;
-  const backdrop = categories.find((category) => category.slug === "villas") ?? categories[0];
+  const backdrop = { hero: { src: "/photos/photo-1768200498972-fd56353d73fc.jpg" } };
   const [lead, tail] = SITE.tagline.split(", ");
   const lines = tail ? [`${lead},`, tail] : [SITE.tagline];
 
@@ -22,7 +22,7 @@ export function HomeHero() {
       <Container width="wide">
         <div
           data-surface="dark"
-          className="grain relative flex min-h-[70svh] flex-col justify-between overflow-hidden rounded-frame bg-carbon-950 text-bone-100 lg:min-h-[78vh]"
+          className="relative flex min-h-[70svh] flex-col justify-between overflow-hidden rounded-frame bg-bone-200 text-white lg:min-h-[78vh]"
         >
           {backdrop ? (
             <Image
@@ -31,15 +31,10 @@ export function HomeHero() {
               fill
               priority
               sizes="100vw"
-              className="object-cover opacity-80"
+              className="object-cover"
             />
           ) : null}
-          <div aria-hidden className="absolute inset-0 bg-carbon-950/45" />
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_0%,transparent_10%,rgba(6,6,7,0.55)_65%,#060607_100%)]"
-          />
-          <div aria-hidden className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-carbon-950 via-carbon-950/70 to-transparent" />
+          <div aria-hidden className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-carbon-950/80 via-carbon-950/30 to-transparent" />
 
           <div className="relative z-10 flex items-center justify-between gap-4 p-6 sm:p-10 lg:p-12">
             <p className="eyebrow flex items-center gap-2 text-bone-100/75">

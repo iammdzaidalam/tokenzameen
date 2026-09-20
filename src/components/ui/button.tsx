@@ -8,11 +8,13 @@ const button = cva(
     variants: {
       variant: {
         primary:
-          "bg-gold-400 text-carbon-950 hover:bg-gold-300 active:scale-[0.985] shadow-[0_8px_30px_-12px_rgba(201,169,97,0.7)]",
+          "bg-carbon-900 text-bone-50 hover:bg-carbon-800 active:scale-[0.985] [[data-surface=dark]_&]:bg-bone-50 [[data-surface=dark]_&]:text-carbon-900 [[data-surface=dark]_&]:hover:bg-white",
         secondary:
           "border border-[color:var(--hairline-strong)] bg-transparent text-[color:var(--text-primary)] hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]",
         solid:
           "bg-[color:var(--text-primary)] text-[color:var(--surface)] hover:opacity-90 active:scale-[0.985]",
+        accent:
+          "bg-[color:var(--accent)] text-white hover:opacity-90 active:scale-[0.985]",
         glass: "glass text-[color:var(--text-primary)] hover:bg-white/10",
         ghost:
           "bg-transparent text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",

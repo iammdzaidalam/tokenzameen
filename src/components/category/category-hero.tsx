@@ -69,7 +69,7 @@ export function CategoryHero({
         <div
           data-surface="dark"
           className={cn(
-            "grain relative mt-5 flex overflow-hidden rounded-frame bg-carbon-950 text-bone-100",
+            "relative mt-5 flex overflow-hidden rounded-frame bg-bone-200 text-white",
             quiet
               ? "min-h-[30rem] sm:min-h-[62svh] lg:min-h-[70svh]"
               : "min-h-[28rem] sm:min-h-[60svh] lg:min-h-[68svh]",
@@ -88,8 +88,8 @@ export function CategoryHero({
             className={cn(
               "absolute inset-0 bg-gradient-to-t",
               quiet
-                ? "from-carbon-950/85 via-carbon-950/40 to-carbon-950/15"
-                : "from-carbon-950/90 via-carbon-950/45 to-carbon-950/20",
+                ? "from-carbon-950/75 via-carbon-950/25 to-transparent"
+                : "from-carbon-950/80 via-carbon-950/25 to-transparent",
             )}
           />
 

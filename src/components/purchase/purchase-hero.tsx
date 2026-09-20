@@ -1,19 +1,29 @@
-import { HeroMontage } from "@/components/purchase/hero-montage";
+import Image from "next/image";
 import { PopularSearches } from "@/components/search/popular-searches";
 import { SearchCard } from "@/components/search/search-card";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { RevealLines } from "@/components/motion/reveal";
-import { categories } from "@/lib/catalog";
 
 export function PurchaseHero({ cities }: { cities: string[] }) {
   return (
     <Section tone="bone" space="none" aria-label="Real estate, curated" className="pb-16 pt-3 sm:pt-5">
       <Container width="wide">
         <div className="relative">
-          <div className="grain relative flex min-h-[62svh] flex-col items-center justify-center overflow-hidden rounded-frame bg-carbon-950 px-5 pb-28 pt-16 text-center text-bone-100 sm:px-10 lg:min-h-[76vh] lg:pb-[18rem]">
-            <HeroMontage frames={categories.map((category) => category.hero.src)} />
+          <div
+            data-surface="dark"
+            className="relative flex min-h-[62svh] flex-col items-center justify-center overflow-hidden rounded-frame bg-bone-200 px-5 pb-28 pt-16 text-center text-white sm:px-10 lg:min-h-[76vh] lg:pb-[18rem]"
+          >
+            <Image
+              src="/photos/photo-1781795414968-8ece31826420.jpg"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-carbon-950/70 via-carbon-950/20 to-carbon-950/10" />
 
             <div className="relative z-10 flex flex-col items-center">
               <p className="eyebrow text-bone-100/70">TokenZameen · Purchase</p>

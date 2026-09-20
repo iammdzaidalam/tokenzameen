@@ -74,16 +74,12 @@ export function DetailHero({ project }: { project: Project }) {
         <div className="relative mt-5">
           <div
             data-surface="dark"
-            className="grain relative isolate flex min-h-[28rem] overflow-hidden rounded-frame bg-carbon-950 text-bone-100 sm:min-h-[60svh] lg:min-h-[70svh]"
+            className="relative isolate flex min-h-[28rem] overflow-hidden rounded-frame bg-bone-200 text-white sm:min-h-[60svh] lg:min-h-[70svh]"
           >
             <HeroMedia src={project.hero.src} alt={project.hero.alt} />
             <div
               aria-hidden
-              className="absolute inset-0 bg-gradient-to-t from-carbon-950/90 via-carbon-950/40 to-carbon-950/15"
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-gradient-to-r from-carbon-950/70 via-carbon-950/10 to-transparent"
+              className="absolute inset-0 bg-gradient-to-t from-carbon-950/80 via-carbon-950/25 to-transparent"
             />
 
             <div className="relative flex w-full flex-col justify-end p-6 pb-28 sm:p-10 sm:pb-32 lg:p-14 lg:pr-[26rem]">

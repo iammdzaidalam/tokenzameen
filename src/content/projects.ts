@@ -2,9 +2,64 @@ import type { Money, PlotUnit, Project } from "@/types/catalog";
 
 const inr = (amount: number): Money => ({ amount, currency: "INR" });
 
+/** Representative stock photography until the developer supplies project images. */
+const PHOTOS: Record<string, string[]> = {
+  "omaxe-chowk": [
+    "photo-1549757521-4160565ff3de",
+    "photo-1622533087594-627c3aa0d68a",
+    "photo-1523477593243-78bbf626fd3b",
+    "photo-1532888277436-2286814f0ee1",
+    "photo-1725868214949-bb85733e0a17"
+  ],
+  "luxofy": [
+    "photo-1781795414968-8ece31826420",
+    "photo-1787704113747-c1a65d1a6a62",
+    "photo-1762117360890-5eacdbb07b04",
+    "photo-1758957701419-2c6e266f7988",
+    "photo-1762117360871-f11fbad00ee1"
+  ],
+  "garden-court": [
+    "photo-1741526998115-53463b93cb4a",
+    "photo-1718696070559-f388cb0fb384",
+    "photo-1685337189973-da659723bfbf",
+    "photo-1720800670109-dd0a12a6f7bc",
+    "photo-1662083555510-1187b2aba1e2"
+  ],
+  "we-communities": [
+    "photo-1786545638082-e22c26805098",
+    "photo-1763738173556-1f7f52de0327",
+    "photo-1761342613225-d8a89ab221fb",
+    "photo-1704457030816-6b9b08d1bb08",
+    "photo-1628744876497-eb30460be9f6"
+  ],
+  "eth-infra-haridwar-one": [
+    "photo-1432297984334-707d34c4163a",
+    "photo-1785581389975-44a7781dca19",
+    "photo-1760346517344-7c84b1b3aa61",
+    "photo-1515263487990-61b07816b324",
+    "photo-1704040686413-2c607dbd2f06"
+  ],
+  "verdaant-court": [
+    "photo-1741526998901-f27309ab63fe",
+    "photo-1685337189973-da659723bfbf",
+    "photo-1720800670109-dd0a12a6f7bc",
+    "photo-1662083555510-1187b2aba1e2",
+    "photo-1631645033513-15144f920557"
+  ],
+  "yugen": [
+    "photo-1631645033513-15144f920557",
+    "photo-1704457030496-3463cf1b8650",
+    "photo-1704457030816-6b9b08d1bb08",
+    "photo-1776762893034-c437e452f1be",
+    "photo-1741526998115-53463b93cb4a"
+  ]
+};
+
+const photo = (slug: string, index: number) => `/photos/${PHOTOS[slug][index]}.jpg`;
+
 const gallery = (slug: string, alts: string[]) =>
   alts.map((alt, i) => ({
-    src: `/media/projects/${slug}/gallery-0${i + 1}.svg`,
+    src: photo(slug, i + 1),
     alt,
     placeholder: true,
     caption: null,
@@ -129,16 +184,16 @@ export const projects: Project[] = [
     reraNumber: null,
     possession: null,
     hero: {
-      src: "/media/projects/omaxe-chowk/hero.svg",
-      alt: "Placeholder artwork for Omaxe Chowk",
+      src: photo("omaxe-chowk", 0),
+      alt: "Representative photograph for Omaxe Chowk",
       placeholder: true,
       caption: null,
     },
     gallery: gallery("omaxe-chowk", [
-      "Placeholder artwork for Omaxe Chowk, image 1 of 4",
-      "Placeholder artwork for Omaxe Chowk, image 2 of 4",
-      "Placeholder artwork for Omaxe Chowk, image 3 of 4",
-      "Placeholder artwork for Omaxe Chowk, image 4 of 4",
+      "Representative photograph for Omaxe Chowk, image 1 of 4",
+      "Representative photograph for Omaxe Chowk, image 2 of 4",
+      "Representative photograph for Omaxe Chowk, image 3 of 4",
+      "Representative photograph for Omaxe Chowk, image 4 of 4",
     ]),
     verified: { project: false, developer: false, location: false, documentation: false, pricing: false, inventory: false },
     lastUpdated: "2026-09-20",
@@ -218,16 +273,16 @@ export const projects: Project[] = [
     reraNumber: null,
     possession: null,
     hero: {
-      src: "/media/projects/luxofy/hero.svg",
-      alt: "Placeholder artwork for Luxofy",
+      src: photo("luxofy", 0),
+      alt: "Representative photograph for Luxofy",
       placeholder: true,
       caption: null,
     },
     gallery: gallery("luxofy", [
-      "Placeholder artwork for Luxofy, image 1 of 4",
-      "Placeholder artwork for Luxofy, image 2 of 4",
-      "Placeholder artwork for Luxofy, image 3 of 4",
-      "Placeholder artwork for Luxofy, image 4 of 4",
+      "Representative photograph for Luxofy, image 1 of 4",
+      "Representative photograph for Luxofy, image 2 of 4",
+      "Representative photograph for Luxofy, image 3 of 4",
+      "Representative photograph for Luxofy, image 4 of 4",
     ]),
     verified: { project: false, developer: false, location: false, documentation: false, pricing: false, inventory: false },
     lastUpdated: "2026-09-20",
@@ -338,16 +393,16 @@ export const projects: Project[] = [
     reraNumber: null,
     possession: null,
     hero: {
-      src: "/media/projects/garden-court/hero.svg",
-      alt: "Placeholder artwork for Garden Court",
+      src: photo("garden-court", 0),
+      alt: "Representative photograph for Garden Court",
       placeholder: true,
       caption: null,
     },
     gallery: gallery("garden-court", [
-      "Placeholder artwork for Garden Court, image 1 of 4",
-      "Placeholder artwork for Garden Court, image 2 of 4",
-      "Placeholder artwork for Garden Court, image 3 of 4",
-      "Placeholder artwork for Garden Court, image 4 of 4",
+      "Representative photograph for Garden Court, image 1 of 4",
+      "Representative photograph for Garden Court, image 2 of 4",
+      "Representative photograph for Garden Court, image 3 of 4",
+      "Representative photograph for Garden Court, image 4 of 4",
     ]),
     verified: { project: false, developer: false, location: false, documentation: false, pricing: false, inventory: false },
     lastUpdated: "2026-09-20",
@@ -435,16 +490,16 @@ export const projects: Project[] = [
     reraNumber: null,
     possession: null,
     hero: {
-      src: "/media/projects/we-communities/hero.svg",
-      alt: "Placeholder artwork for WE Communities",
+      src: photo("we-communities", 0),
+      alt: "Representative photograph for WE Communities",
       placeholder: true,
       caption: null,
     },
     gallery: gallery("we-communities", [
-      "Placeholder artwork for WE Communities, image 1 of 4",
-      "Placeholder artwork for WE Communities, image 2 of 4",
-      "Placeholder artwork for WE Communities, image 3 of 4",
-      "Placeholder artwork for WE Communities, image 4 of 4",
+      "Representative photograph for WE Communities, image 1 of 4",
+      "Representative photograph for WE Communities, image 2 of 4",
+      "Representative photograph for WE Communities, image 3 of 4",
+      "Representative photograph for WE Communities, image 4 of 4",
     ]),
     verified: { project: false, developer: false, location: false, documentation: false, pricing: false, inventory: false },
     lastUpdated: "2026-09-20",
@@ -525,16 +580,16 @@ export const projects: Project[] = [
     reraNumber: null,
     possession: null,
     hero: {
-      src: "/media/projects/eth-infra-haridwar-one/hero.svg",
-      alt: "Placeholder artwork for ETH Infra — Haridwar One",
+      src: photo("eth-infra-haridwar-one", 0),
+      alt: "Representative photograph for ETH Infra — Haridwar One",
       placeholder: true,
       caption: null,
     },
     gallery: gallery("eth-infra-haridwar-one", [
-      "Placeholder artwork for ETH Infra — Haridwar One, image 1 of 4",
-      "Placeholder artwork for ETH Infra — Haridwar One, image 2 of 4",
-      "Placeholder artwork for ETH Infra — Haridwar One, image 3 of 4",
-      "Placeholder artwork for ETH Infra — Haridwar One, image 4 of 4",
+      "Representative photograph for ETH Infra — Haridwar One, image 1 of 4",
+      "Representative photograph for ETH Infra — Haridwar One, image 2 of 4",
+      "Representative photograph for ETH Infra — Haridwar One, image 3 of 4",
+      "Representative photograph for ETH Infra — Haridwar One, image 4 of 4",
     ]),
     verified: { project: false, developer: false, location: false, documentation: false, pricing: false, inventory: false },
     lastUpdated: "2026-09-20",
@@ -615,16 +670,16 @@ export const projects: Project[] = [
     reraNumber: null,
     possession: null,
     hero: {
-      src: "/media/projects/verdaant-court/hero.svg",
-      alt: "Placeholder artwork for Verdaant Court",
+      src: photo("verdaant-court", 0),
+      alt: "Representative photograph for Verdaant Court",
       placeholder: true,
       caption: null,
     },
     gallery: gallery("verdaant-court", [
-      "Placeholder artwork for Verdaant Court, image 1 of 4",
-      "Placeholder artwork for Verdaant Court, image 2 of 4",
-      "Placeholder artwork for Verdaant Court, image 3 of 4",
-      "Placeholder artwork for Verdaant Court, image 4 of 4",
+      "Representative photograph for Verdaant Court, image 1 of 4",
+      "Representative photograph for Verdaant Court, image 2 of 4",
+      "Representative photograph for Verdaant Court, image 3 of 4",
+      "Representative photograph for Verdaant Court, image 4 of 4",
     ]),
     verified: { project: false, developer: false, location: false, documentation: false, pricing: false, inventory: false },
     lastUpdated: "2026-09-20",
@@ -704,16 +759,16 @@ export const projects: Project[] = [
     reraNumber: null,
     possession: null,
     hero: {
-      src: "/media/projects/yugen/hero.svg",
-      alt: "Placeholder artwork for Yugen",
+      src: photo("yugen", 0),
+      alt: "Representative photograph for Yugen",
       placeholder: true,
       caption: null,
     },
     gallery: gallery("yugen", [
-      "Placeholder artwork for Yugen, image 1 of 4",
-      "Placeholder artwork for Yugen, image 2 of 4",
-      "Placeholder artwork for Yugen, image 3 of 4",
-      "Placeholder artwork for Yugen, image 4 of 4",
+      "Representative photograph for Yugen, image 1 of 4",
+      "Representative photograph for Yugen, image 2 of 4",
+      "Representative photograph for Yugen, image 3 of 4",
+      "Representative photograph for Yugen, image 4 of 4",
     ]),
     verified: { project: false, developer: false, location: false, documentation: false, pricing: false, inventory: false },
     lastUpdated: "2026-09-20",
