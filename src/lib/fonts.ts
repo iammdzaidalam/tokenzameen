@@ -7,7 +7,8 @@ import { Inter } from "next/font/google";
  * Switzer stand in — self-hosted variable faces under the ITF Free Font License,
  * which permits commercial use and @font-face self-hosting (src/fonts/FONTSHARE-ITF-FREE-FONT-LICENSE.txt).
  * That licence forbids subsetting and format conversion, so the woff2 files ship
- * exactly as distributed. When the Pangram Pangram licences are bought, swap the
+ * exactly as distributed; next/font only reads their metrics to synthesise a
+ * fallback face, which leaves the files untouched. When the Pangram Pangram licences are bought, swap the
  * two `src` paths below and nothing else changes.
  */
 export const displayFont = localFont({
@@ -15,7 +16,6 @@ export const displayFont = localFont({
   variable: "--font-display",
   display: "swap",
   fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
-  adjustFontFallback: false,
 });
 
 export const subheadFont = localFont({
@@ -26,7 +26,6 @@ export const subheadFont = localFont({
   variable: "--font-subhead",
   display: "swap",
   fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
-  adjustFontFallback: false,
 });
 
 export const bodyFont = Inter({

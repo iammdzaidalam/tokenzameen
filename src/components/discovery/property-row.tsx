@@ -58,7 +58,7 @@ export function PropertyRow({
           sizes="(max-width: 640px) 100vw, 240px"
           className="object-cover transition-transform duration-[900ms] ease-[var(--ease-luxe)] group-hover:scale-[1.05]"
         />
-        <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-2">
+        <div className="absolute inset-x-3 top-3 z-10 flex items-start justify-between gap-2">
           {verified ? (
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-2.5 py-1 text-[0.625rem] font-medium text-carbon-900 backdrop-blur-sm">
               <ShieldCheck className="size-3 text-gold-600" />

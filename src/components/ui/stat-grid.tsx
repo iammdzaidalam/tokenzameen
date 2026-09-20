@@ -61,13 +61,22 @@ export function StatGrid({
               <dt
                 className={cn(
                   "text-sm",
-                  inverted ? "text-bone-300/80" : "text-[color:var(--text-secondary)]",
+                  inverted
+                    ? "text-[color:var(--invert-text)] opacity-70"
+                    : "text-[color:var(--text-secondary)]",
                 )}
               >
                 {stat.label}
               </dt>
               {stat.note ? (
-                <p className={cn("mt-1 text-xs", inverted ? "text-steel-400" : "text-[color:var(--text-muted)]")}>
+                <p
+                  className={cn(
+                    "mt-1 text-xs",
+                    inverted
+                      ? "text-[color:var(--invert-text)] opacity-55"
+                      : "text-[color:var(--text-muted)]",
+                  )}
+                >
                   {stat.note}
                 </p>
               ) : null}

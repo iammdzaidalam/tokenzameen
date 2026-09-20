@@ -53,42 +53,43 @@ export function AdvisorFallback({ message, headline }: { message: string; headli
         {headline ?? "Your enquiry was not sent."}
       </p>
       <p className="mt-2 text-sm text-[color:var(--text-secondary)]">
-        Nothing has been recorded at our end. Please reach an advisor directly — it is the fastest
-        way from here.
+        Nothing has been recorded at our end. Reaching an advisor directly is the fastest way
+        from here.
       </p>
 
-      {hasChannel ? (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {phone ? (
-            <Button href={`tel:${phone}`} variant="secondary" size="sm">
-              <Phone className="size-4" aria-hidden />
-              {phone}
-            </Button>
-          ) : null}
-          {whatsapp ? (
-            <Button
-              href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`}
-              variant="secondary"
-              size="sm"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="size-4" aria-hidden />
-              WhatsApp
-            </Button>
-          ) : null}
-          {email ? (
-            <Button
-              href={`mailto:${email}?subject=${encodeURIComponent("TokenZameen enquiry")}&body=${encodeURIComponent(message)}`}
-              variant="secondary"
-              size="sm"
-            >
-              <Mail className="size-4" aria-hidden />
-              {email}
-            </Button>
-          ) : null}
-        </div>
-      ) : null}
+      <div className="mt-4 flex flex-wrap gap-2">
+        {phone ? (
+          <Button href={`tel:${phone.replace(/\s+/g, "")}`} variant="secondary" size="sm">
+            <Phone className="size-4" aria-hidden />
+            {phone}
+          </Button>
+        ) : null}
+        {whatsapp ? (
+          <Button
+            href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`}
+            variant="secondary"
+            size="sm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <MessageCircle className="size-4" aria-hidden />
+            WhatsApp
+          </Button>
+        ) : null}
+        {email ? (
+          <Button
+            href={`mailto:${email}?subject=${encodeURIComponent("TokenZameen enquiry")}&body=${encodeURIComponent(message)}`}
+            variant="secondary"
+            size="sm"
+          >
+            <Mail className="size-4" aria-hidden />
+            {email}
+          </Button>
+        ) : null}
+        <Button href="/contact" variant={hasChannel ? "ghost" : "secondary"} size="sm">
+          Contact an advisor
+        </Button>
+      </div>
 
       <div className="mt-4 rounded-lg border border-[color:var(--hairline)] bg-[color:var(--surface-sunken)] p-3">
         <p className="text-xs uppercase tracking-wide text-[color:var(--text-muted)]">Message to send</p>

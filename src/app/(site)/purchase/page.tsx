@@ -3,6 +3,7 @@ import { AdvisoryJourney } from "@/components/purchase/advisory-journey";
 import { AiTeaser } from "@/components/purchase/ai-teaser";
 import { CategoryCollections } from "@/components/purchase/category-collections";
 import { CompareTeaser } from "@/components/purchase/compare-teaser";
+import { StatementsBand } from "@/components/home/statements-band";
 import { EditorialIntro } from "@/components/purchase/editorial-intro";
 import { FeaturedOpportunities } from "@/components/purchase/featured-opportunities";
 import { IntentIndex } from "@/components/purchase/intent-index";
@@ -42,6 +43,7 @@ export default function PurchasePage() {
       <IntentIndex />
       <AiTeaser />
       <CompareTeaser />
+      <StatementsBand index="09" />
       <AdvisoryJourney />
     </>
   );

@@ -1,6 +1,6 @@
 import { intakeLead } from "../_lib/intake";
 import { failure, identify, json, readJsonBody, throttle } from "../_lib/http";
-import { appendLeadEvent, createSiteVisit, findLeadByPhone } from "@/db/repositories";
+import { createSiteVisit } from "@/db/repositories";
 import { logUnrecordedLead } from "@/lib/leads";
 import {
   fieldErrors,
@@ -51,52 +51,32 @@ export async function POST(request: Request): Promise<Response> {
       visitors: values.visitors,
     };
 
-    const existing = await findLeadByPhone(values.phone);
-    if (!existing.ok) {
-      logUnrecordedLead("POST /api/site-visits (lookup failed)", values);
-      return failure("unavailable", LOST_LEAD_MESSAGE);
-    }
-
-    let leadId: string;
-    let reference: string;
-
-    if (existing.data) {
-      leadId = existing.data.id;
-      reference = existing.data.reference;
-      const event = await appendLeadEvent({
-        leadId,
-        type: "site-visit-request",
-        payload: visitPayload,
-      });
-      if (!event.ok) {
-        logUnrecordedLead("POST /api/site-visits (event failed)", values);
-        return failure("unavailable", LOST_LEAD_MESSAGE);
-      }
-    } else {
-      const result = await intakeLead({
-        context: "POST /api/site-visits",
-        input: {
-          name: values.name,
-          phone: values.phone,
-          email: values.email,
-          projectSlug: values.projectSlug,
-          source: "site-visit",
-          message: values.message,
-          consent: values.consent,
-          utmSource: values.utm.source,
-          utmMedium: values.utm.medium,
-          utmCampaign: values.utm.campaign,
-          utmTerm: values.utm.term,
-          utmContent: values.utm.content,
-          ipHash: identity.ipHash,
-          userAgent: identity.userAgent,
-        },
-        event: { type: "site-visit-request", payload: visitPayload },
-      });
-      if (!result.ok) return failure("unavailable", LOST_LEAD_MESSAGE);
-      leadId = result.lead.id;
-      reference = result.lead.reference;
-    }
+    // A submission always creates its own lead. Matching an existing lead on the
+    // phone number alone would hand the caller a stranger's reference, which
+    // /api/leads/[reference] then resolves to that lead's pipeline status.
+    const result = await intakeLead({
+      context: "POST /api/site-visits",
+      input: {
+        name: values.name,
+        phone: values.phone,
+        email: values.email,
+        projectSlug: values.projectSlug,
+        source: "site-visit",
+        message: values.message,
+        consent: values.consent,
+        utmSource: values.utm.source,
+        utmMedium: values.utm.medium,
+        utmCampaign: values.utm.campaign,
+        utmTerm: values.utm.term,
+        utmContent: values.utm.content,
+        ipHash: identity.ipHash,
+        userAgent: identity.userAgent,
+      },
+      event: { type: "site-visit-request", payload: visitPayload },
+    });
+    if (!result.ok) return failure("unavailable", LOST_LEAD_MESSAGE);
+    const leadId = result.lead.id;
+    const reference = result.lead.reference;
 
     const visit = await createSiteVisit({
       leadId,

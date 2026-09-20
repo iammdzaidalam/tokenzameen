@@ -43,9 +43,14 @@ const COLUMNS = [
 /** Quotes every cell and neutralises formula-leading characters so the file is safe to open in a spreadsheet. */
 function cell(value: string | number | boolean | Date | null | undefined): string {
   if (value === null || value === undefined) return '""';
-  let text = value instanceof Date ? value.toISOString() : String(value);
-  if (/^[=+\-@\t\r]/.test(text)) text = `'${text}`;
-  return `"${text.replace(/"/g, '""')}"`;
+  const text = value instanceof Date ? value.toISOString() : String(value);
+  const escaped = text.replace(/"/g, '""');
+  // A leading +, = , - or @ is read as a formula. Phone numbers are E.164 and
+  // would all be mangled by an apostrophe prefix, so they go out as a quoted
+  // formula string, which spreadsheets render as the literal number.
+  if (/^\+\d[\d\s-]*$/.test(text)) return `"=""${escaped}"""`;
+  if (/^[=+\-@\t\r]/.test(text)) return `"'${escaped}"`;
+  return `"${escaped}"`;
 }
 
 function row(lead: Lead, advisorNames: Map<string, string>): string {

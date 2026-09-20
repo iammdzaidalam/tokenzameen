@@ -54,7 +54,7 @@ export function AdvisoryJourney() {
         <Reveal>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <IndexLabel index="09">TokenZameen Advisory</IndexLabel>
+              <IndexLabel index="10">TokenZameen Advisory</IndexLabel>
               <h2 className="mt-6 max-w-[14ch] text-display-xl text-[color:var(--text-primary)]">
                 From discovery to acquisition.
               </h2>

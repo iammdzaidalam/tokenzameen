@@ -100,7 +100,11 @@ export function Locations() {
 
         <Reveal delay={0.1} className="mt-12 lg:mt-16">
           {globePins.length ? (
-            <InteractiveGlobe pins={globePins} token={mapboxToken} />
+            <InteractiveGlobe
+              pins={globePins}
+              token={mapboxToken}
+              fallback={<LocationsField pins={pins} />}
+            />
           ) : (
             <LocationsField pins={pins} />
           )}

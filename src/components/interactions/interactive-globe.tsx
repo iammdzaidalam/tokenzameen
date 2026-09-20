@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useReducedMotion } from "motion/react";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import type { Map as MapboxMap, Marker as MapboxMarker, StyleSpecification } from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import { cn } from "@/lib/cn";
 import { useMediaQuery } from "@/lib/hooks";
 
@@ -80,10 +79,13 @@ function markerElement(label: string, active: boolean) {
 export function InteractiveGlobe({
   pins,
   token,
+  fallback = null,
   className,
 }: {
   pins: GlobePin[];
   token: string;
+  /** Rendered when the token is rejected or the style cannot load. */
+  fallback?: React.ReactNode;
   className?: string;
 }) {
   const reduced = useReducedMotion();
@@ -132,7 +134,10 @@ export function InteractiveGlobe({
 
     (async () => {
       try {
-        const mapboxgl = (await import("mapbox-gl")).default;
+        const [{ default: mapboxgl }] = await Promise.all([
+          import("mapbox-gl"),
+          import("mapbox-gl/dist/mapbox-gl.css"),
+        ]);
         if (disposed) return;
         mapboxgl.accessToken = token;
         map = new mapboxgl.Map({
@@ -188,7 +193,13 @@ export function InteractiveGlobe({
         for (const event of ["mousedown", "touchstart", "wheel", "dragstart"] as const) {
           map.on(event, stopRotation);
         }
-        map.on("error", () => setFailed(true));
+        // A dropped tile or blocked telemetry request is routine and must not
+        // blank the band; only a rejected token or an unloadable style is fatal.
+        map.on("error", (event) => {
+          const status = (event.error as { status?: number } | undefined)?.status;
+          if (status === 401 || status === 403) setFailed(true);
+        });
+        map.on("style.error", () => setFailed(true));
       } catch {
         setFailed(true);
       }
@@ -228,7 +239,7 @@ export function InteractiveGlobe({
     }
   };
 
-  if (failed) return null;
+  if (failed) return <>{fallback}</>;
 
   return (
     <div className={cn("relative overflow-hidden rounded-panel border border-[color:var(--hairline)] bg-carbon-950", className)}>

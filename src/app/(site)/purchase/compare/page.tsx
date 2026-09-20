@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AdvisoryBand } from "@/components/discovery/advisory-band";
 import { CompareExperience } from "@/components/discovery/compare-experience";
 import { getAllProjects } from "@/lib/catalog";
 import { absoluteUrl } from "@/lib/seo";
@@ -20,5 +21,10 @@ export const metadata: Metadata = {
 };
 
 export default function ComparePage() {
-  return <CompareExperience projects={getAllProjects()} />;
+  return (
+    <>
+      <CompareExperience projects={getAllProjects()} />
+      <AdvisoryBand heading="Down to two? Bring them to an advisor." />
+    </>
+  );
 }

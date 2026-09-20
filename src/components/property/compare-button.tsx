@@ -38,7 +38,7 @@ export function CompareButton({
       className={cn(
         "inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs transition-colors duration-300",
         comparing
-          ? "border-gold-400/60 bg-gold-400/12 text-gold-200"
+          ? "border-[color:var(--accent)] bg-[color:var(--surface-sunken)] text-[color:var(--accent)]"
           : "border-[color:var(--hairline-strong)] text-[color:var(--text-secondary)] hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]",
         rejected && "border-signal-warning/60 text-signal-warning",
         className,

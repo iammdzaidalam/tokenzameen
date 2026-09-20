@@ -33,7 +33,7 @@ export function SaveButton({
         tone === "glass"
           ? "glass text-bone-100 hover:text-gold-200"
           : "border border-[color:var(--hairline-strong)] text-[color:var(--text-secondary)] hover:text-[color:var(--accent)]",
-        saved && "text-gold-300",
+        saved && (tone === "glass" ? "text-gold-300" : "text-[color:var(--accent)]"),
         className,
       )}
     >

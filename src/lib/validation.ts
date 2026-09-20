@@ -163,7 +163,8 @@ export const nameSchema = z
   .trim()
   .min(2, "Please enter your full name")
   .max(80, "That name is too long")
-  .regex(/^[\p{L}\p{M}'.\- ]+$/u, "Please use letters only");
+  .regex(/^[\p{L}\p{M}'‘’.\- ]+$/u, "Please use letters only")
+  .transform((value) => value.replace(/[‘’]/g, "'"));
 
 /**
  * Accepts +91 / 91 / 0 prefixes and a bare 10-digit number, and normalises to
@@ -203,7 +204,7 @@ export const honeypotSchema = z
   .optional()
   .transform((value) => value ?? "");
 
-export const startedAtSchema = z.number().int().nonnegative().optional();
+export const startedAtSchema = z.number().int().positive();
 
 export const utmSchema = z
   .object({
@@ -329,7 +330,15 @@ export const analyticsEventSchema = z.object({
   projectSlug: slugSchema,
   categorySlug: optionalEnum(CATEGORY_SLUG_VALUES),
   sessionId: z.string().trim().max(64).nullable().optional().transform((v) => v ?? null),
-  payload: z.record(z.string(), z.unknown()).nullable().optional().transform((v) => v ?? null),
+  payload: z
+    .record(z.string(), z.unknown())
+    .nullable()
+    .optional()
+    .transform((v) => v ?? null)
+    .refine(
+      (v) => v === null || JSON.stringify(v).length <= 2000,
+      "Payload is too large",
+    ),
 });
 
 export const referenceSchema = z
@@ -405,8 +414,9 @@ export function looksAutomated(input: {
   startedAt?: number;
   now?: number;
 }): boolean {
+  // Every real form stamps startedAt on mount, so its absence is itself a signal.
   if (input.website && input.website.length > 0) return true;
-  if (typeof input.startedAt !== "number" || input.startedAt <= 0) return false;
+  if (typeof input.startedAt !== "number" || input.startedAt <= 0) return true;
   const elapsed = (input.now ?? Date.now()) - input.startedAt;
   if (elapsed < 0) return true;
   return elapsed < MIN_FILL_MS || elapsed > MAX_FILL_MS;

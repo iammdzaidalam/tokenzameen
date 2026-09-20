@@ -125,7 +125,7 @@ export function PropertyCard({
           className="absolute inset-0 bg-gradient-to-t from-carbon-950/70 via-carbon-950/5 to-carbon-950/20"
         />
 
-        <div className="absolute inset-x-4 top-4 flex items-start justify-between gap-3">
+        <div className="absolute inset-x-4 top-4 z-10 flex items-start justify-between gap-3">
           {verified ? (
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-3 py-1.5 text-[0.6875rem] font-medium tracking-wide text-carbon-900 backdrop-blur-sm">
               <ShieldCheck className="size-3 text-gold-600" />
@@ -137,7 +137,7 @@ export function PropertyCard({
           <SaveButton slug={project.slug} name={project.name} />
         </div>
 
-        <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
+        <div className="absolute inset-x-4 bottom-4 z-10 flex items-end justify-between gap-3">
           <span className="rounded-full bg-white/90 px-3.5 py-2 font-display text-sm text-carbon-900 backdrop-blur-sm">
             {formatPriceFrom(project.priceFrom)}
           </span>

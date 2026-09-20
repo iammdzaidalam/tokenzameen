@@ -1,41 +1,59 @@
 import { z } from "zod";
 
-const schema = z.object({
-  DATABASE_URL: z.string().min(1).optional(),
-  DATABASE_URL_UNPOOLED: z.string().min(1).optional(),
-  LEAD_HASH_SALT: z.string().min(8).optional(),
-  RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().optional(),
-  RATE_LIMIT_MAX: z.coerce.number().int().positive().optional(),
-  ADMIN_EMAIL: z.string().email().optional(),
-  ADMIN_PASSWORD_HASH: z.string().min(1).optional(),
-  SESSION_SECRET: z.string().min(32).optional(),
-  AI_GATEWAY_API_KEY: z.string().min(1).optional(),
-  AI_ADVISOR_MODEL: z.string().min(1).optional(),
-});
+/**
+ * Keys are parsed one at a time. A single malformed value must never take the
+ * rest of the environment with it: an invalid SESSION_SECRET silently disabling
+ * DATABASE_URL would turn every lead submission into a 503 while the admin
+ * panel still logged in, which is close to undiagnosable in production.
+ */
+const shape = {
+  DATABASE_URL: z.string().min(1),
+  DATABASE_URL_UNPOOLED: z.string().min(1),
+  LEAD_HASH_SALT: z.string().min(8),
+  RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive(),
+  RATE_LIMIT_MAX: z.coerce.number().int().positive(),
+};
 
-type Parsed = z.infer<typeof schema>;
+type Shape = typeof shape;
+type Parsed = { -readonly [K in keyof Shape]?: z.infer<Shape[K]> };
 
 let cached: Parsed | null = null;
 
-/**
- * Parsing must never throw. This module is reachable from route handlers that
- * are traced during `next build`, where the database is legitimately
- * unconfigured. An invalid value degrades to `undefined` and the caller decides
- * what that means; it does not take the build or a page render down with it.
- */
 function values(): Parsed {
   if (cached) return cached;
-  const result = schema.safeParse(process.env);
-  if (result.success) {
-    cached = result.data;
-  } else {
-    for (const issue of result.error.issues) {
-      const key = issue.path[0];
-      if (typeof key === "string") console.error(`[env] ignoring ${key}: ${issue.message}`);
+  const parsed: Parsed = {};
+  for (const key of Object.keys(shape) as Array<keyof Shape>) {
+    const raw = process.env[key];
+    if (typeof raw !== "string" || raw.trim() === "") continue;
+    const result = shape[key].safeParse(raw.trim());
+    if (result.success) {
+      parsed[key] = result.data as never;
+    } else {
+      console.error(`[env] ignoring ${key}: ${result.error.issues[0]?.message ?? "invalid value"}`);
     }
-    cached = {};
   }
+  cached = parsed;
   return cached;
+}
+
+function isBlank(value: string | undefined): boolean {
+  return typeof value !== "string" || value.trim() === "";
+}
+
+if (typeof window === "undefined" && process.env.VERCEL_ENV === "production") {
+  const missing = (
+    [
+      "NEXT_PUBLIC_ADVISOR_PHONE",
+      "NEXT_PUBLIC_ADVISOR_WHATSAPP",
+      "NEXT_PUBLIC_ADVISOR_EMAIL",
+    ] as const
+  ).filter((key) => isBlank(process.env[key]));
+  if (missing.length > 0) {
+    console.error(
+      `[config] advisor contact details are unset (${missing.join(", ")}). ` +
+        `A buyer whose enquiry fails to record has no way to reach an advisor.`,
+    );
+  }
 }
 
 export const env = {
@@ -53,21 +71,6 @@ export const env = {
   },
   get RATE_LIMIT_MAX(): number {
     return values().RATE_LIMIT_MAX ?? 8;
-  },
-  get ADMIN_EMAIL(): string | undefined {
-    return values().ADMIN_EMAIL;
-  },
-  get ADMIN_PASSWORD_HASH(): string | undefined {
-    return values().ADMIN_PASSWORD_HASH;
-  },
-  get SESSION_SECRET(): string | undefined {
-    return values().SESSION_SECRET;
-  },
-  get AI_GATEWAY_API_KEY(): string | undefined {
-    return values().AI_GATEWAY_API_KEY;
-  },
-  get AI_ADVISOR_MODEL(): string | undefined {
-    return values().AI_ADVISOR_MODEL;
   },
   /** False until the Postgres instance is provisioned. See docs/DATA.md. */
   get hasDatabase(): boolean {

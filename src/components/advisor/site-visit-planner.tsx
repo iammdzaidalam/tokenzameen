@@ -113,6 +113,30 @@ export function SiteVisitPlanner({ projectSlug, projectName, properties, classNa
   const canGoForward = month < monthOf(latest);
   const monthDate = new Date(`${month}-01T00:00:00Z`);
 
+  const weeks = Array.from({ length: Math.ceil(cells.length / 7) }, (_, index) =>
+    cells.slice(index * 7, index * 7 + 7),
+  );
+
+  const bookableDays = cells.filter(
+    (cell): cell is string => cell !== null && cell >= today && cell <= latest,
+  );
+  const tabbableDay = date !== null && bookableDays.includes(date) ? date : bookableDays[0];
+
+  const onDayKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, cell: string) => {
+    const step = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: 7, ArrowUp: -7 }[event.key];
+    if (step === undefined) return;
+    event.preventDefault();
+    const index = bookableDays.indexOf(cell);
+    const next = bookableDays[Math.min(Math.max(index + step, 0), bookableDays.length - 1)];
+    if (!next) return;
+    setDate(next);
+    const container = event.currentTarget.closest('[role="grid"]');
+    const target = container?.querySelector<HTMLButtonElement>(
+      `button[aria-label^="${fullDayLabel.format(new Date(`${next}T00:00:00Z`))}"]`,
+    );
+    target?.focus();
+  };
+
   return (
     <div ref={root} className={cn("grid gap-8 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-12", className)}>
       <div>
@@ -141,39 +165,49 @@ export function SiteVisitPlanner({ projectSlug, projectName, properties, classNa
             </button>
           </div>
 
-          <div className="mt-4 grid grid-cols-7 gap-1 text-center" role="grid" aria-label="Choose a visit date">
-            {WEEKDAYS.map((weekday) => (
-              <span key={weekday} role="columnheader" className="eyebrow py-1 text-[color:var(--text-muted)]">
-                {weekday}
-              </span>
+          <div className="mt-4 text-center" role="grid" aria-label="Choose a visit date">
+            <div role="row" className="grid grid-cols-7 gap-1">
+              {WEEKDAYS.map((weekday) => (
+                <span key={weekday} role="columnheader" className="eyebrow py-1 text-[color:var(--text-muted)]">
+                  {weekday}
+                </span>
+              ))}
+            </div>
+            {weeks.map((week, weekIndex) => (
+              <div role="row" key={`week-${weekIndex}`} className="mt-1 grid grid-cols-7 gap-1">
+                {week.map((cell, index) => {
+                  if (!cell) {
+                    return <span key={`gap-${weekIndex}-${index}`} role="gridcell" aria-hidden />;
+                  }
+                  const bookable = cell >= today && cell <= latest;
+                  const selected = cell === date;
+                  return (
+                    <span role="gridcell" key={cell}>
+                      <button
+                        type="button"
+                        disabled={!bookable}
+                        aria-pressed={selected}
+                        tabIndex={cell === tabbableDay ? 0 : -1}
+                        aria-label={`${fullDayLabel.format(new Date(`${cell}T00:00:00Z`))}${bookable ? "" : ", not bookable"}`}
+                        onClick={() => setDate(cell)}
+                        onKeyDown={(event) => onDayKeyDown(event, cell)}
+                        className={cn(
+                          "tabular aspect-square w-full rounded-full text-sm transition-colors duration-300",
+                          selected
+                            ? "bg-[color:var(--text-primary)] text-[color:var(--surface)]"
+                            : bookable
+                              ? "border border-[color:var(--hairline)] text-[color:var(--text-primary)] hover:border-[color:var(--text-primary)]"
+                              : "text-[color:var(--text-muted)] line-through opacity-50",
+                          cell === today && !selected && "border-[color:var(--accent)]",
+                        )}
+                      >
+                        {Number(cell.slice(8, 10))}
+                      </button>
+                    </span>
+                  );
+                })}
+              </div>
             ))}
-            {cells.map((cell, index) => {
-              if (!cell) return <span key={`gap-${index}`} role="gridcell" aria-hidden />;
-              const bookable = cell >= today && cell <= latest;
-              const selected = cell === date;
-              return (
-                <button
-                  key={cell}
-                  type="button"
-                  role="gridcell"
-                  disabled={!bookable}
-                  aria-selected={selected}
-                  aria-label={`${fullDayLabel.format(new Date(`${cell}T00:00:00Z`))}${bookable ? "" : ", not bookable"}`}
-                  onClick={() => setDate(cell)}
-                  className={cn(
-                    "tabular aspect-square rounded-full text-sm transition-colors duration-300",
-                    selected
-                      ? "bg-[color:var(--text-primary)] text-[color:var(--surface)]"
-                      : bookable
-                        ? "border border-[color:var(--hairline)] text-[color:var(--text-primary)] hover:border-[color:var(--text-primary)]"
-                        : "text-[color:var(--text-muted)] line-through opacity-50",
-                    cell === today && !selected && "border-[color:var(--accent)]",
-                  )}
-                >
-                  {Number(cell.slice(8, 10))}
-                </button>
-              );
-            })}
           </div>
 
           <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[color:var(--text-secondary)]" aria-label="Legend">

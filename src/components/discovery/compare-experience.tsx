@@ -133,7 +133,7 @@ export function CompareExperience({ projects }: { projects: Project[] }) {
                 <caption className="sr-only">
                   Comparison of {selected.length} selected properties
                 </caption>
-                <thead>
+                <thead data-surface="dark">
                   <tr>
                     <th
                       scope="col"
